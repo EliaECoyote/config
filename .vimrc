@@ -1,0 +1,1 @@
+/Users/elia.camposilvan/.config/nvim/init.vim

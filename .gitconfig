@@ -1,0 +1,25 @@
+[user]
+	email = elia.camposilvan@gmail.com
+	name = EliaECoyote
+[pull]
+	ff = only
+[core]
+	editor = nvim
+[alias]
+  s = status
+  d = diff
+  o = push -u origin HEAD
+  p = pull
+  c = commit
+  cm = commit -m
+  l = log --pretty=short --abbrev-commit
+  a = add -p
+  e = commit --allow-empty -m
+  ch = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
+	pretty-log = log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s'
+[merge]
+  tool = vimdiff
+[mergetool]
+  prompt = true
+[mergetool "vimdiff"]
+  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
