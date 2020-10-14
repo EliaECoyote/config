@@ -577,8 +577,13 @@ endfunction
 " }}}
 
 " Folding {{{
+
 " Remap toggle fold
-nnoremap <s-tab> za
+nnoremap <s-tab> zA
+
+" Fold by indentation by default
+set foldmethod=indent
+
 " Change the fold text
 function! MyFoldText()
     let line = getline(v:foldstart)
@@ -588,6 +593,24 @@ function! MyFoldText()
     return '+'. repeat('-', 4) . line_text . repeat('.', fillcharcount) . ' (' . folded_line_num . ' L)'
 endfunction
 set foldtext=MyFoldText()
+
+" Move between folds
+nnoremap <silent> ]z :call NextClosedFold('j')<cr>
+nnoremap <silent> [z :call NextClosedFold('k')<cr>
+
+function! NextClosedFold(dir)
+    let cmd = 'norm!z' . a:dir
+    let view = winsaveview()
+    let [l0, l, open] = [0, view.lnum, 1]
+    while l != l0 && open
+        exe cmd
+        let [l0, l] = [l, line('.')]
+        let open = foldclosed(l) < 0
+    endwhile
+    if open
+        call winrestview(view)
+    endif
+endfunction
 
 " }}}
 
