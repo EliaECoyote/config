@@ -246,6 +246,7 @@ nmap <F2> <Plug>(coc-rename)
 
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+nmap <leader>0 :Prettier<cr>
 
 augroup mygroup
   autocmd!
