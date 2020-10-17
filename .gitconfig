@@ -1,10 +1,10 @@
 [user]
-	email = elia.camposilvan@gmail.com
-	name = EliaECoyote
+  email = elia.camposilvan@gmail.com
+  name = EliaECoyote
 [pull]
-	ff = only
+  ff = only
 [core]
-	editor = nvim
+  editor = nvim
 [alias]
   s = status
   d = diff
@@ -17,6 +17,8 @@
   e = commit --allow-empty -m
   ch = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
 	pretty-log = log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s'
+[rerere]
+  enabled = true
 [merge]
   tool = vimdiff
 [mergetool]

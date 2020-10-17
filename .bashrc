@@ -1,10 +1,15 @@
-# Load env variables
+# vim: set fdm=marker:
+
+# Load env variables {{{
+
 if [ -e ~/.env ]
 then
   export $(cat ~/.env | xargs)
 else
   echo "⚠️  No env found!"
 fi
+
+# }}}
 
 # Force certain more-secure behaviours from homebrew
 export HOMEBREW_NO_INSECURE_REDIRECT=1
@@ -38,18 +43,25 @@ export LANGUAGE=en_US.UTF-8
 
 source ~/.ddbashrc
 
-# ls aliases
+# ls aliases {{{
+
 alias ll='ls -alFG'
 alias ls='ls -G'
 alias la='ls -AG'
 alias l='ls -CFG'
 
-# Folder navigation aliases
+# }}}
+
+# Folder navigation aliases {{{
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-# Git aliases
+# }}}
+
+# Git aliases {{{
+
 alias gits='git status'
 alias gitd='git diff'
 alias gito='git push -u origin HEAD'
@@ -62,11 +74,16 @@ alias up="git branch | awk '/^\\* / { print \$2 }' | xargs -I {} git branch --se
 # Alias to handle config bare repo more easily
 alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
-# App aliases
+# }}}
+
+# App aliases {{{
+
 alias hub-pr='hub pull-request -o'
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 alias vim='nvim'
 alias v='vim'
+
+# }}}
 
 # Prints all the processes currently listening on a port
 processes_listening_in_port() {
