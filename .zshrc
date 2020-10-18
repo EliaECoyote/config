@@ -138,13 +138,6 @@ bindkey -M vicmd '\-' vi-file-manager
 
 # Show current vim mode
 # ----------------------------
-# function zle-line-init zle-keymap-select {
-#     RPS1="${${KEYMAP/vicmd/[NORMAL]}/(main|viins)/[INSERT]}"
-#     RPS2=$RPS1
-#     zle reset-prompt
-# }
-
-# zle -N zle-line-init
 
 
 # Dependencies for the following lines
@@ -161,10 +154,10 @@ function zle-line-init zle-keymap-select {
     # Only supported in these terminals
     if [ $KEYMAP = vicmd ]; then
         # Command mode
-        RPS1="%{$fg[green]%}[NORMAL]%{$reset_color%}"
+        RPS1="%{$fg[green]%}NORMAL%{$reset_color%}"
     else
         # Insert mode
-        RPS1="%{$fg[blue]%}[INSERT]%{$reset_color%}"
+        RPS1="%{$fg[blue]%}INSERT%{$reset_color%}"
     fi
     RPS2=$RPS1
     zle reset-prompt
