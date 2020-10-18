@@ -595,8 +595,16 @@ endfunction
 set foldtext=MyFoldText()
 
 " Move between folds
-nnoremap <silent> ]z :call NextClosedFold('j')<cr>
-nnoremap <silent> [z :call NextClosedFold('k')<cr>
+nnoremap <silent> ]z :call RepeatCmd('call NextClosedFold("j")')<cr>
+nnoremap <silent> [z :call RepeatCmd('call NextClosedFold("k")')<cr>
+
+function! RepeatCmd(cmd) range abort
+    let n = v:count < 1 ? 1 : v:count
+    while n > 0
+        exe a:cmd
+        let n -= 1
+    endwhile
+endfunction
 
 function! NextClosedFold(dir)
     let cmd = 'norm!z' . a:dir
