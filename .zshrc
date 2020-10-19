@@ -1,7 +1,7 @@
 # vim: set fdm=marker:
 
-# Load .bashrc config
-source ~/.bashrc
+# Load shared config
+source ~/.shellrc
 
 # VI mode {{{
 
