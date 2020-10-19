@@ -381,6 +381,7 @@ xmap <Leader>R
       \ gvgr
       \ :cfdo %s/<C-r>s//g \| update
       \<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+
 " }}}
 
 " Search visual selected text {{{

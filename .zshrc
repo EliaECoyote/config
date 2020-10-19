@@ -3,11 +3,15 @@
 # Load .bashrc config
 source ~/.bashrc
 
-# Zsh vi mode
+# VI mode {{{
+
+# Enable vi mode
 bindkey -v
 
 # Avoid ESC delay
 export KEYTIMEOUT=1
+
+# }}}
 
 # Yank to the system clipboard {{{
 
@@ -18,6 +22,15 @@ function vi-yank-xclip {
 
 zle -N vi-yank-xclip
 bindkey -M vicmd 'Y' vi-yank-xclip
+
+# }}}
+
+# Zsh history settings {{{
+
+# Share history across terminals
+setopt sharehistory
+# Immediately append to the history file, not just when a term is killed
+setopt incappendhistory
 
 # }}}
 
@@ -38,8 +51,10 @@ bindkey -M vicmd '\-' vi-file-manager
 PROMPT=""
 
 NEWLINE=$'\n'
-NORMAL_MODE_PROMPT="%F{green}NORMAL%f"
-INSERT_MODE_PROMPT="%F{blue}INSERT%f"
+MODE_NORMAL_PS="%F{green}NORMAL%f"
+MODE_INSERT_PS="%F{blue}INSERT%f"
+CURSOR_BLOCK="\033[2 q"
+CURSOR_LINE="\033[6 q"
 
 parse-git-branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -47,16 +62,24 @@ parse-git-branch() {
 
 function set-prompt() {
   case ${KEYMAP} in
-    (vicmd)      VI_MODE=${NORMAL_MODE_PROMPT} ;;
-    (main|viins) VI_MODE=${INSERT_MODE_PROMPT} ;;
-    (*)          VI_MODE=${INSERT_MODE_PROMPT} ;;
+    (vicmd)      VI_MODE=${MODE_NORMAL_PS} ;;
+    (main|viins) VI_MODE=${MODE_INSERT_PS} ;;
+    (*)          VI_MODE=${MODE_INSERT_PS} ;;
   esac
   CURRENT_BRANCH=$(parse-git-branch)
   PROMPT="%F{red}%~%f ${CURRENT_BRANCH} ${NEWLINE}${VI_MODE} %F{cyan}⇢ %f"
 }
 
+function set-cursor() {
+  case $KEYMAP in
+    (vicmd)      printf ${CURSOR_BLOCK} ;;
+    (main|viins) printf ${CURSOR_LINE} ;;
+  esac
+}
+
 function zle-line-init zle-keymap-select {
   set-prompt
+  set-cursor
   zle reset-prompt
 }
 
@@ -68,9 +91,9 @@ zle -N zle-keymap-select
 
 # Fzf {{{
 
-# bindkey -M viins '/' vi-history-search-backward
-# bindkey -M viins '?' history-incremental-pattern-search-backward
-# bindkey -M viins '^r' history-incremental-pattern-search-backward
+bindkey -M viins '?' fzf-history-widget
+bindkey -M vicmd '?' fzf-history-widget
+bindkey -M viins 'Tab' fzf-completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
