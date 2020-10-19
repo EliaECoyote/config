@@ -305,7 +305,6 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 " coc config
 let g:coc_global_extensions = [
       \ 'coc-snippets',
-      \ 'coc-pairs',
       \ 'coc-tsserver',
       \ 'coc-eslint', 
       \ 'coc-prettier', 
