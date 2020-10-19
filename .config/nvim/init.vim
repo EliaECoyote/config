@@ -52,13 +52,16 @@ Plug 'mhinz/vim-grepper'
 
 " Initialize plugin system
 call plug#end()
+
 " }}}
 
 let mapleader = " "
 
 " Training! {{{
+
 " Set hardtime on by default
 " let g:hardtime_default_on = 1
+
 " }}}
 
 " Vimwiki {{{
@@ -74,6 +77,7 @@ let g:vimwiki_key_mappings =
       \ {
       \ 'headers': 0,
       \ }
+
 " }}}
 
 " Syntax Highlighting {{{
@@ -90,7 +94,7 @@ noremap <silent> - :Vifm<cr>
 
 " }}}
 
-" Netrw config {{{
+" Netrw {{{
 
 let g:netrw_banner = 0     " Hide annoying 'help' banner
 let g:netrw_liststyle = 3  " Use tree view
@@ -105,17 +109,8 @@ map <ScrollWheelDown> <C-E>
 
 " }}}
 
-" Change defaults {{{
-set relativenumber
-set number
-" always show signcolumns
-set signcolumn=yes
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" }}}
-
 " Indentation & font settings {{{
+
 " filetype indent on
 set autoindent
 set smartindent
@@ -126,9 +121,11 @@ set expandtab
 " case options
 set ignorecase
 set smartcase
+
 " }}}
 
 " Theme {{{
+
 " let g:gruvbox_italic=1
 " let g:gruvbox_invert_selection=0
 " colorscheme gruvbox
@@ -161,9 +158,16 @@ hi DiffText     gui=none    guifg=NONE          guibg=#454425
 set diffopt+=algorithm:patience
 set diffopt+=vertical
 " set diffopt+=indent-heuristic
+
+set relativenumber
+set number
+set updatetime=300
+set shortmess+=c
+
 " }}}
 
 " Statusline {{{
+
 " Hides 'mode' label on the last line
 set noshowmode
 " Set lightline theme
@@ -184,9 +188,12 @@ let g:lightline = {
       \   'currentfunction': 'CocCurrentFunction'
       \ },
       \ }
+
 " }}}
 
-" `Coc` plugin {{{
+" Coc {{{1
+
+" Coc Completion {{{2
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -209,6 +216,8 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" }}}
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -237,12 +246,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <F2> <Plug>(coc-rename)
-" }}}
 
-" `coc-prettier` settings {{{
-" Remap for format selected region
-" xmap <leader>fo  <Plug>(coc-format-selected)<CR>
-" nmap <leader>fo  <Plug>(coc-format-selected)<CR>
+" coc-prettier {{{2
 
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -255,6 +260,8 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
+" }}}
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)<CR>
@@ -271,38 +278,12 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-" nmap <silent> <C-d> <Plug>(coc-range-select)
-" xmap <silent> <C-d> <Plug>(coc-range-select)
-
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
-" Using CocList
-" Show all diagnostics
-" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" coc config
 let g:coc_global_extensions = [
       \ 'coc-snippets',
       \ 'coc-tsserver',
@@ -310,24 +291,28 @@ let g:coc_global_extensions = [
       \ 'coc-prettier', 
       \ 'coc-json', 
       \ ]
+
 " }}}
 
-" `emmet-vim` plugin {{{
+" emmet-vim {{{
+
 let g:user_emmet_leader_key = '<C-,>'
+
 " }}}
 
-" `vim-fugitive` plugin {{{
+" vim-fugitive {{{
+
 nmap <leader>2 :Gvdiffsplit<cr>
 
 " Map keys to move between Gstatus files
-
 let g:nremap = {
       \ ')' : '<Tab>',
       \ '(' : '<S-Tab>'
       \ }
+
 " }}}
 
-" `vim-tmux-navigator` plugin {{{
+" vim-tmux-navigator {{{
 
 " Enables custom keymappings
 nmap <C-j> :TmuxNavigateDown<cr>
@@ -340,7 +325,7 @@ imap <C-l> :TmuxNavigateRight<cr>
 
 " }}}
 
-" `surround` plugin {{{
+" vim-sandwich {{{
 
 " Use vim-surround keybindings to avoid replacing `s`:
 " https://github.com/machakann/vim-sandwich/wiki/Introduce-vim-surround-keymappings
@@ -348,8 +333,17 @@ runtime macros/sandwich/keymap/surround.vim
 
 " }}}
 
-" Stamp (del & replace with yanked text) {{{
+" Copy settings {{{
+
+" Stamp (del & replace with yanked text)
 nnoremap <C-s> "_diwP
+
+" Yanked text to-clipboard shortcut\
+noremap Y "+y
+
+" Yank current path to clipboard
+command CopyPath :let @+ = expand("%")
+
 " }}}
 
 " Search & replace {{{
@@ -385,6 +379,7 @@ xmap <Leader>R
 " }}}
 
 " Search visual selected text {{{
+
 vnoremap <silent> * :<C-U>
       \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
       \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
@@ -395,11 +390,13 @@ vnoremap <silent> # :<C-U>
       \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
       \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
       \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+
 " }}}
 
-" `Fzf.Vim` plugin {{{
-nnoremap <silent> <leader>P :Files!<cr>
-nnoremap <silent> <leader>p :GFiles<cr>
+" fzf.vim {{{1
+
+nnoremap <silent> <leader>p :Files<cr>
+nnoremap <silent> <leader>P :GFiles<cr>
 nnoremap <silent> <leader>o :Buffers<cr>
 nnoremap <silent> <leader>hi :BCommits!<cr>
 nnoremap <silent> <leader>? :History<cr>
@@ -407,12 +404,12 @@ nnoremap <silent> <leader>ma :Maps<cr>
 nnoremap <silent> <leader>co :Commands<cr>
 nnoremap <silent> <leader>f :Rg!<CR>
 
-set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow
+" Set default command used by `:Files`
+let FZF_DEFAULT_COMMAND = "rg --files --hidden --smart-case --follow"
 
-" Fixes <Esc> timeout issues
+" Fixes <Esc> timeout issues from fzf.vim dialogs
 set nottimeout
-" Fix issue where closing fzf through Esc was taking
-" too much time on nvim
+" Fix issue where closing fzf through Esc was taking too much time on nvim
 " https://github.com/junegunn/fzf/issues/632#issuecomment-236959826
 if has('nvim')
   aug fzf_setup
@@ -421,28 +418,10 @@ if has('nvim')
   aug END
 end
 
-" FZF ui settings
 let g:fzf_preview_window = 'down:30%'
 
+" fzf buffer delete {{{2
 
-" Autosave on focus lost
-" https://vim.fandom.com/wiki/Auto_save_files_when_focus_is_lost
-au FocusLost * silent! wa
-
-" Align GitHub-flavored Markdown tables
-au FileType markdown map <Bar> vip :EasyAlign*<Bar><Enter>
-
-" Yanked text to-clipboard shortcut\
-noremap Y "+y
-
-" Yank current path to clipboard
-command CopyPath :let @+ = expand("%")
-
-" Refresh file when it changes on disk
-au FocusGained,BufEnter * :checktime
-
-" ----------------------------
-" Delete buffer while on the fzf.vim buffer list
 function! s:list_buffers()
   redir => list
   silent ls
@@ -460,9 +439,11 @@ command! BD call fzf#run(fzf#wrap({
       \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
       \ }))
 
-" ---------------------------
-" FZF checkout (gist: https://gist.github.com/DanilaMihailov/c4c1a5e44305504ecaaf31cbd4da58e6)
-" ---------------------------
+" }}}
+
+" fzf branch checkout {{{2
+
+" (gist: https://gist.github.com/DanilaMihailov/c4c1a5e44305504ecaaf31cbd4da58e6)
 function! GitCheckoutBranch(branch)
   " command! -bang -nargs=0 GBranches call <SID>show_branches_fzf(<bang>0)
   let l:name = split(split(trim(a:branch), "", 1)[0], "/", 1)[-1]
@@ -479,23 +460,36 @@ endfunction
 command! -bang Gbranches call fzf#run(fzf#wrap({'source': 'git branch -avv --color', 'sink': function('GitCheckoutBranch'), 'options': '--ansi --nth=1'}, <bang>0))
 
 nnoremap <silent> <leader>ch :Gbranches <cr>
-" ---------------------------
+
+" }}}
+
+" }}}
+
+" vim-easy-align {{{
+
+" Align GitHub-flavored Markdown tables
+au FileType markdown map <Bar> vip :EasyAlign*<Bar><Enter>
+
 " }}}
 
 " Vim splits {{{
+
 " Open new splits in a semantic way
 nnoremap <C-w>h :lefta vsp new<cr>
 nnoremap <C-w>j :bel sp new<cr>
 nnoremap <C-w>k :abo sp new<cr>
 nnoremap <C-w>l :rightb vsp new<cr>
+
 " }}}
 
 " Vim tabs {{{
+
 nnoremap tn :tabnew<cr>
 nnoremap td :tabclose<cr>
+
 " }}}
 
-" Buffers! {{{
+" Vim buffers {{{1
 
 " Makes so any buffer can be hidden (keeping its changes) without first writing the buffer to a file. This affects all commands and all buffers.
 set hidden 
@@ -503,7 +497,8 @@ set hidden
 " Automatically save any changes made to the buffer before it is hidden
 set autowrite
 
-" *****************************************************
+" Delete Buffers {{{2
+
 " Delete all the buffers except the current/named buffer
 " https://www.vim.org/scripts/script.php?script_id=1071
 " Usage:
@@ -572,11 +567,12 @@ function! BufOnly(buffer, bang)
   endif
 
 endfunction
-" ***************************************************
 
 " }}}
 
-" Folding {{{
+" }}}
+
+" Folding {{{1
 
 " Remap toggle fold
 nnoremap <s-tab> zA
@@ -584,17 +580,21 @@ nnoremap <s-tab> zA
 " Fold by indentation by default
 set foldmethod=indent
 
-" Change the fold text
+" Change fold text {{{2
+
 function! MyFoldText()
     let line = getline(v:foldstart)
     let folded_line_num = v:foldend - v:foldstart
     let line_text = substitute(line, '^"{\+', '', 'g')
     let fillcharcount = &textwidth - len(line_text) - len(folded_line_num)
-    return '+'. repeat('-', 4) . line_text . repeat('.', fillcharcount) . ' (' . folded_line_num . ' L)'
+    return '+'. repeat('-', 4) . line_text . repeat('.', fillcharcount) . ' (' . folded_line_num . ')'
 endfunction
 set foldtext=MyFoldText()
 
-" Move between folds
+" }}}
+
+" Move between folds {{{2
+
 nnoremap <silent> ]z :call RepeatCmd('call NextClosedFold("j")')<cr>
 nnoremap <silent> [z :call RepeatCmd('call NextClosedFold("k")')<cr>
 
@@ -622,20 +622,32 @@ endfunction
 
 " }}}
 
+" }}}
+
 " Vim built-ins {{{
+
 set undofile
 set undodir=$HOME/.vim/undo
 
 set undolevels=1000
 set undoreload=10000
 
+" Autosave on focus lost
+" https://vim.fandom.com/wiki/Auto_save_files_when_focus_is_lost
+au FocusLost * silent! wa
+
+" Refresh file when it changes on disk
+au FocusGained,BufEnter * :checktime
+
 " Enable mouse visual selection
 set mouse=a
 
 " Enables Vim per-project configuration files
 set exrc
-" }}}
 
 " Prevents :autocmd, shell and write commands from being run
 " inside project-specific .vimrc files unless they’re owned by you.
 set secure
+
+" }}}
+
