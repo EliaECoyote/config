@@ -5,7 +5,7 @@ source ~/.shellrc
 
 # Fzf {{{
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.config/fzf/fzf.bash ] && source ~/.config/fzf/fzf.bash
 
 # }}}
 
