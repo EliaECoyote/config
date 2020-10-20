@@ -3,6 +3,18 @@
 # Load shared config
 source ~/.shellrc
 
+# Git {{{
+
+# Enables git completion.
+# Note that `git-completion.zsh` is not designed to be sourced.
+# Here we're loading it through a zsh function, available in `fpath`.
+zstyle ':completion:*:*:git:*' script ~/.config/git-completion.bash
+# `compinit` scans $fpath, so do this before calling it.
+fpath=(~/.zsh/functions $fpath)
+autoload -Uz compinit && compinit
+
+# }}}
+
 # VI mode {{{
 
 # Enable vi mode
