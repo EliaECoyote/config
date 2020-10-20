@@ -91,7 +91,6 @@ zle -N zle-keymap-select
 
 # Fzf {{{
 
-bindkey -M viins '?' fzf-history-widget
 bindkey -M vicmd '?' fzf-history-widget
 bindkey -M viins 'Tab' fzf-completion
 
