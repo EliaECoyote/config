@@ -50,7 +50,7 @@ setopt incappendhistory
 
 function vi-file-manager {
   zle kill-whole-line
-  BUFFER=vifm
+  BUFFER="vifm ."
   zle accept-line
 }
 zle -N vi-file-manager
