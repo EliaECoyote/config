@@ -74,18 +74,20 @@ alias ....='cd ../../..'
 
 # }}}
 
-# Git aliases {{{
+# Git utils {{{
 
-alias gits='git status'
-alias gitd='git diff'
-alias gito='git push -u origin HEAD'
-alias gitp='git pull'
-alias gitcm='git commit -m'
-alias gitl='git log --pretty=short --abbrev-commit'
-alias gita='git add -p'
-alias gite='git commit --allow-empty -m'
-alias up="git branch | awk '/^\\* / { print \$2 }' | xargs -I {} git branch --set-upstream-to=origin/{} {}"
-# Alias to handle config bare repo more easily
+# Open PR {{{2
+
+function open_pr() {
+  github_url=`git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#https://#' -e 's@com:@com/@' -e 's%\.git$%%' | awk '/github/'`;
+  branch_name=`git symbolic-ref HEAD | cut -d"/" -f 3,4`;
+  pr_url=$github_url"/compare/"$branch_name"?expand=1";
+  open $pr_url;
+}
+
+# }}}
+
+# Alias to handle `config` bare repo more easily
 alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # }}}

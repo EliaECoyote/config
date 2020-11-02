@@ -5,7 +5,7 @@
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 " Statusline
 Plug 'itchyny/lightline.vim'
 " Vimify UNIX shell commands
@@ -66,9 +66,8 @@ let mapleader = " "
 
 " Vimwiki {{{
 
-" Avoid using vimwiki for all MD files
-" let g:vimwiki_global_ext = 0
-" MD wiki
+" Don't use vimwiki for all markdown files
+let g:vimwiki_global_ext = 0
 let g:vimwiki_list = [{'path': '~/vimwiki/',
       \ 'syntax': 'markdown', 'ext': '.md'}]
 
@@ -78,12 +77,25 @@ let g:vimwiki_key_mappings =
       \ 'headers': 0,
       \ }
 
+nmap <leader>ww :e ~/vimwiki/index.md<cr>
+
 " }}}
 
 " Syntax Highlighting {{{
 
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+let g:markdown_fenced_languages = [
+      \ 'css',
+      \ 'javascript',
+      \ 'typescript',
+      \ 'js=javascript',
+      \ 'ts=typescript',
+      \ 'json=javascript',
+      \ 'sass',
+      \ 'xml'
+      \ ]
 
 " }}}
 
@@ -111,14 +123,21 @@ map <ScrollWheelDown> <C-E>
 
 " Indentation & font settings {{{
 
-" filetype indent on
+" Filetype indent on
 set autoindent
 set smartindent
 set tabstop=2
 set shiftwidth=2
-" always uses spaces instead of tab characters
+" Move cursor between wrapped lines
+imap <silent> <Down> <C-o>gj
+imap <silent> <Up> <C-o>gk
+vmap <silent> j gj
+vmap <silent> k gk
+nmap <silent> j gj
+nmap <silent> k gk
+" Always uses spaces instead of tab characters
 set expandtab
-" case options
+" Case options
 set ignorecase
 set smartcase
 
@@ -159,6 +178,7 @@ set diffopt+=algorithm:patience
 set diffopt+=vertical
 " set diffopt+=indent-heuristic
 
+set cursorline
 set relativenumber
 set number
 set updatetime=300
@@ -181,11 +201,13 @@ let g:lightline = {
       \             [ 'readonly', 'filename', 'modified', 'cocstatus', 'currentfunction' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'filetype' ],
-      \              [ 'percent' ] ]
+      \              [ 'percent' ],
+      \              [ 'gitbranch' ] ]
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction'
+      \   'currentfunction': 'CocCurrentFunction',
+      \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
 
@@ -443,13 +465,8 @@ command! BD call fzf#run(fzf#wrap({
 
 " fzf branch checkout {{{2
 
-" (gist: https://gist.github.com/DanilaMihailov/c4c1a5e44305504ecaaf31cbd4da58e6)
 function! GitCheckoutBranch(branch)
-  " command! -bang -nargs=0 GBranches call <SID>show_branches_fzf(<bang>0)
-  let l:name = split(split(trim(a:branch), "", 1)[0], "/", 1)[-1]
-  " just show what is happening
-  echo "checking out ".l:name."\n"
-  " you can use !git, instead of Git, if you don't have Fugitive
+  let l:name = trim(a:branch)
   execute "Git checkout ".l:name
 endfunction
 
@@ -457,7 +474,7 @@ endfunction
 " -vv option shows more information about branch
 " --color and --ansi enables colors
 " --nth=1 makes sure you only search by names and not branch info
-command! -bang Gbranches call fzf#run(fzf#wrap({'source': 'git branch -avv --color', 'sink': function('GitCheckoutBranch'), 'options': '--ansi --nth=1'}, <bang>0))
+command! -bang Gbranches call fzf#run(fzf#wrap({"source": "git for-each-ref --format='%(refname:short)' refs/heads", 'sink': function('GitCheckoutBranch'), 'options': '--ansi --nth=1'}, <bang>0))
 
 nnoremap <silent> <leader>ch :Gbranches <cr>
 

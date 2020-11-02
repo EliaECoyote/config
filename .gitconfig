@@ -17,6 +17,8 @@
   e = commit --allow-empty -m
   ch = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
 	pretty-log = log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s'
+[push]
+  default = current
 [rerere]
   enabled = true
 [merge]
