@@ -127,17 +127,10 @@ map <ScrollWheelDown> <C-E>
 
 " Filetype indent on
 set autoindent
-set smartindent
+" set smartindent
 set tabstop=2
 set shiftwidth=2
-" Move cursor between wrapped lines
-imap <silent> <Down> <C-o>gj
-imap <silent> <Up> <C-o>gk
-vmap <silent> j gj
-vmap <silent> k gk
-nmap <silent> j gj
-nmap <silent> k gk
-" Always uses spaces instead of tab characters
+" Always use spaces instead of tab characters
 set expandtab
 " Case options
 set ignorecase
