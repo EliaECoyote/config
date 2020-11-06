@@ -494,7 +494,7 @@ nnoremap <C-w>l :rightb vsp new<cr>
 
 " }}}
 
-" Vim tabs {{{
+" Vim tabs {{{1
 
 nnoremap tn :tabnew<cr>
 nnoremap td :tabclose<cr>
@@ -509,20 +509,20 @@ set hidden
 " Automatically save any changes made to the buffer before it is hidden
 set autowrite
 
-" Delete Buffers {{{2
+nnoremap <silent> <leader>bo :BufOnly!<cr>
+nnoremap <silent> <leader>bd :Kwbd<cr>
+nnoremap <silent> <leader>bn :bnext<cr>
+nnoremap <silent> <leader>bb :bprevious<cr>
+nnoremap <silent> <leader>ba :bufdo bwipeout<cr>
 
-" Delete all the buffers except the current/named buffer
+" Delete all the buffers except the current/named buffer {{{2
+
 " https://www.vim.org/scripts/script.php?script_id=1071
 " Usage:
 " \bo / :Bonly / :BOnly / :Bufonly / :BufOnly [buffer] 
 " Without any arguments the current buffer is kept.  With an argument the
 " buffer name/number supplied is kept.
 
-nnoremap <silent> <leader>bo :BufOnly!<cr>
-nnoremap <silent> <leader>bd :bd!<cr>
-nnoremap <silent> <leader>bn :bnext<cr>
-nnoremap <silent> <leader>bb :bprevious<cr>
-nnoremap <silent> <leader>ba :bufdo bwipeout<cr>
 command! -nargs=? -complete=buffer -bang Bonly
       \ :call BufOnly('<args>', '<bang>')
 command! -nargs=? -complete=buffer -bang BOnly
@@ -579,6 +579,75 @@ function! BufOnly(buffer, bang)
   endif
 
 endfunction
+
+" }}}
+
+" Delete buffer without closing window {{{2
+
+function s:Kwbd(kwbdStage)
+  if(a:kwbdStage == 1)
+    if(&modified)
+      let answer = confirm("This buffer has been modified.  Are you sure you want to delete it?", "&Yes\n&No", 2)
+      if(answer != 1)
+        return
+      endif
+    endif
+    if(!buflisted(winbufnr(0)))
+      bd!
+      return
+    endif
+    let s:kwbdBufNum = bufnr("%")
+    let s:kwbdWinNum = winnr()
+    windo call s:Kwbd(2)
+    execute s:kwbdWinNum . 'wincmd w'
+    let s:buflistedLeft = 0
+    let s:bufFinalJump = 0
+    let l:nBufs = bufnr("$")
+    let l:i = 1
+    while(l:i <= l:nBufs)
+      if(l:i != s:kwbdBufNum)
+        if(buflisted(l:i))
+          let s:buflistedLeft = s:buflistedLeft + 1
+        else
+          if(bufexists(l:i) && !strlen(bufname(l:i)) && !s:bufFinalJump)
+            let s:bufFinalJump = l:i
+          endif
+        endif
+      endif
+      let l:i = l:i + 1
+    endwhile
+    if(!s:buflistedLeft)
+      if(s:bufFinalJump)
+        windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
+      else
+        enew
+        let l:newBuf = bufnr("%")
+        windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
+      endif
+      execute s:kwbdWinNum . 'wincmd w'
+    endif
+    if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
+      execute "bd! " . s:kwbdBufNum
+    endif
+    if(!s:buflistedLeft)
+      set buflisted
+      set bufhidden=delete
+      set buftype=
+      setlocal noswapfile
+    endif
+  else
+    if(bufnr("%") == s:kwbdBufNum)
+      let prevbufvar = bufnr("#")
+      if(prevbufvar > 0 && buflisted(prevbufvar) && prevbufvar != s:kwbdBufNum)
+        b #
+      else
+        bn
+      endif
+    endif
+  endif
+endfunction
+
+command! Kwbd call s:Kwbd(1)
 
 " }}}
 
