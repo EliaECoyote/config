@@ -23,6 +23,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
 " Intellisense engine plugin
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Preview markdown files on the browser
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 " Git management plugin
 Plug 'tpope/vim-fugitive'
 " Adds Tree explorer
