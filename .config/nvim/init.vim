@@ -46,8 +46,11 @@ Plug 'christoomey/vim-tmux-navigator'
 " Themes!
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
+" Golang support
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Language packs for syntax highlight & indentation support
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot', { 'do' : './build' }
+
 " Handle multi-file find and replace
 Plug 'mhinz/vim-grepper'
 " Plug 'takac/vim-hardtime'
@@ -127,7 +130,6 @@ map <ScrollWheelDown> <C-E>
 
 " Filetype indent on
 set autoindent
-" set smartindent
 set tabstop=2
 set shiftwidth=2
 " Always use spaces instead of tab characters
@@ -205,6 +207,13 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
+" }}}
+
+" Golang {{{
+
+" Disable `vim-go` gd mapping
+let g:go_def_mapping_enabled = 0
 
 " }}}
 
