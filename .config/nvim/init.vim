@@ -376,15 +376,13 @@ command CopyPath :let @+ = expand("%")
 
 " Press * to search for the term under the cursor or a visual selection and
 " then press a key below to replace all instances of it in the current file.
-nnoremap <Leader>r :%s///g<Left><Left>
-nnoremap <Leader>rc :%s///gc<Left><Left><Left>
+nnoremap <Leader>r :%s///gc<Left><Left><Left>
 
 " The same as above but instead of acting on the whole file it will be
 " restricted to the previously visually selected range. You can do that by
 " pressing *, visually selecting the range you want it to apply to and then
 " press a key below to replace all instances of it in the current selection.
-xnoremap <Leader>r :s///g<Left><Left>
-xnoremap <Leader>rc :s///gc<Left><Left><Left>
+xnoremap <Leader>r :s///gc<Left><Left><Left>
 
 " After searching for text, press this mapping to do a project wide find and
 " replace. It's similar to <leader>r except this one applies to all matches
