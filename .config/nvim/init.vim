@@ -665,21 +665,18 @@ command! Kwbd call s:Kwbd(1)
 " Remap toggle fold
 nnoremap <s-tab> zA
 
-" Fold by indentation by default
-set foldmethod=indent
+" Fold by syntax by default
+set foldmethod=syntax
+" Display 1 foldcolumn
+set foldcolumn=1
+" // TODO: remove this once you get used to it
+" Activate JS syntax folds
+let javaScript_fold=1
+" No fold closed by default
+set foldlevelstart=99
 
-" Change fold text {{{2
-
-function! MyFoldText()
-    let line = getline(v:foldstart)
-    let folded_line_num = v:foldend - v:foldstart
-    let line_text = substitute(line, '^"{\+', '', 'g')
-    let fillcharcount = &textwidth - len(line_text) - len(folded_line_num)
-    return '+'. repeat('-', 4) . line_text . repeat('.', fillcharcount) . ' (' . folded_line_num . ')'
-endfunction
-set foldtext=MyFoldText()
-
-" }}}
+" Customize foldtext
+source ~/.config/nvim/foldtext.vim
 
 " Move between folds {{{2
 
