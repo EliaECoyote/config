@@ -667,9 +667,9 @@ nnoremap <s-tab> zA
 
 " Fold by syntax by default
 set foldmethod=syntax
+" // TODO: remove this once you get used to it
 " Display 1 foldcolumn
 set foldcolumn=1
-" // TODO: remove this once you get used to it
 " Activate JS syntax folds
 let javaScript_fold=1
 " No fold closed by default
