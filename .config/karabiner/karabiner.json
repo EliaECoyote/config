@@ -164,7 +164,7 @@
               },
               {
                 "from": {
-                  "key_code": "-",
+                  "key_code": "hyphen",
                   "modifiers": { "mandatory": ["fn"] }
                 },
                 "to": [{ "key_code": "f11" }],
@@ -172,7 +172,7 @@
               },
               {
                 "from": {
-                  "key_code": "=",
+                  "key_code": "equal_sign",
                   "modifiers": { "mandatory": ["fn"] }
                 },
                 "to": [{ "key_code": "f12" }],
