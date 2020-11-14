@@ -10,6 +10,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 " Vimify UNIX shell commands
 Plug 'tpope/vim-eunuch'
+" Loads editorconfig files
+Plug 'editorconfig/editorconfig-vim'
 " Adds emmet management
 " - run `<leader>,,` to convert emmet to template
 Plug 'mattn/emmet-vim'
