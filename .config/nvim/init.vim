@@ -226,7 +226,7 @@ let g:lightline = {
       \              [ 'gitbranch' ] ]
       \ },
       \ 'component_function': {
-      \   'lsp': 'StatuslineLsp'
+      \   'lsp': 'StatuslineLsp',
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
