@@ -29,8 +29,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'neovim/nvim-lspconfig'
 " Autocompletion engine
 Plug 'nvim-lua/completion-nvim'
-" Diagnostics, error signs management
-Plug 'nvim-lua/diagnostic-nvim'
 " Display LSP status in statusline
 Plug 'nvim-lua/lsp-status.nvim'
 " Git management plugin
@@ -244,13 +242,9 @@ function! StatuslineLsp() abort
 	return luaeval("require('lsp-status').status()")
 endfunction
 
-" `diagnostic-nvim` plugin {{{
-
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> ]g :NextDiagnosticCycle<cr>
-nmap <silent> [g :PrevDiagnosticCycle<cr>
-
-" }}}
+nmap ]g <cmd>lua vim.lsp.diagnostic.goto_next()<cr>
+nmap [g <cmd>lua vim.lsp.diagnostic.goto_prev()<cr>
 
 " `completion-nvim` plugin {{{
 
