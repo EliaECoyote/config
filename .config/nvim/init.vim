@@ -23,10 +23,16 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-dispatch'
 " Base vim config
 Plug 'tpope/vim-sensible'
-" Intellisense engine plugin
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Preview markdown files on the browser
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+" LSP server configurations for various langs
+Plug 'neovim/nvim-lspconfig'
+" Autocompletion engine
+Plug 'nvim-lua/completion-nvim'
+" Diagnostics, error signs management
+Plug 'nvim-lua/diagnostic-nvim'
+" Display LSP status in statusline
+Plug 'nvim-lua/lsp-status.nvim'
 " Git management plugin
 Plug 'tpope/vim-fugitive'
 " Adds Tree explorer
@@ -185,27 +191,42 @@ set shortmess+=c
 
 " }}}
 
+" LSP setup {{{
+
+lua require('lsp')
+
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> F2    <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> F12   <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
+
+" }}}
+
 " Statusline {{{
 
 " Hides 'mode' label on the last line
 set noshowmode
 " Set lightline theme
-function! CocCurrentFunction()
-  return get(b:, 'coc_current_function', '')
-endfunction
 let g:lightline = {
       \ 'colorscheme': 'onedark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified', 'cocstatus', 'currentfunction' ] ],
+      \             [ 'readonly', 'filename', 'modified', 'lsp' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'filetype' ],
       \              [ 'percent' ],
       \              [ 'gitbranch' ] ]
       \ },
       \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction',
+      \   'lsp': 'StatuslineLsp'
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
@@ -219,106 +240,32 @@ let g:go_def_mapping_enabled = 0
 
 " }}}
 
-" Coc {{{1
-
-" Coc Completion {{{2
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+function! StatuslineLsp() abort
+	return luaeval("require('lsp-status').status()")
 endfunction
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" }}}
+" `diagnostic-nvim` plugin {{{
 
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-
-" Remap for rename current word
-nmap <F2> <Plug>(coc-rename)
-
-" coc-prettier {{{2
-
-" prettier command for coc
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-nmap <leader>0 :Prettier<cr>
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+nmap <silent> ]g :NextDiagnosticCycle<cr>
+nmap <silent> [g :PrevDiagnosticCycle<cr>
 
 " }}}
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)<CR>
-nmap <leader>a  <Plug>(coc-codeaction-selected)<CR>
+" `completion-nvim` plugin {{{
 
-" Remap for do codeAction of current line
-nmap <leader>ca  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Create mappings for function text object, requires document symbols feature of languageserver.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
 
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
+" Avoid showing message extra message when using completion
+set shortmess+=c
 
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
-
-let g:coc_global_extensions = [
-      \ 'coc-snippets',
-      \ 'coc-tsserver',
-      \ 'coc-eslint', 
-      \ 'coc-prettier', 
-      \ 'coc-json', 
-      \ ]
+" Use fuzzy logic for matching strategy
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 " }}}
 
