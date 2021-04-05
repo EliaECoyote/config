@@ -89,6 +89,8 @@ alias ....='cd ../../..'
 
 # Git utils {{{
 
+alias g='git'
+
 # Open PR {{{2
 
 function open_pr() {
