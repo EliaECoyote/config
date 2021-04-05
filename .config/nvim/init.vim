@@ -79,7 +79,7 @@ let mapleader = " "
 
 " Don't use vimwiki for all markdown files
 let g:vimwiki_global_ext = 0
-let g:vimwiki_list = [{'path': '~/vimwiki/',
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
       \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Remove conflicting vimwiki mappings
@@ -88,7 +88,7 @@ let g:vimwiki_key_mappings =
       \ 'headers': 0,
       \ }
 
-nmap <leader>ww :e ~/vimwiki/index.md<cr>
+nmap <leader>ww :e ~/Dropbox/vimwiki/index.md<cr>
 
 " }}}
 
