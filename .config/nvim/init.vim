@@ -709,6 +709,29 @@ endfunction
 
 " }}}
 
+" Fix CoC open zip files {{{
+
+" Taken from https://github.com/neoclide/coc-tsserver/issues/244#issuecomment-755271565
+function! OpenZippedFile(f)
+  " get number of new (empty) buffer
+  let l:b = bufnr('%')
+  " construct full path
+  let l:f = substitute(a:f, '.zip/', '.zip::', '')
+  let l:f = substitute(l:f, '/zip:', 'zipfile:', '')
+
+  " swap back to original buffer
+  b #
+  " delete new one
+  exe 'bd! ' . l:b
+  " open buffer with correct path
+  sil exe 'e ' . l:f
+  " read in zip data
+  call zip#Read(l:f, 1)
+endfunction
+
+au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
+" }}}
+
 " Vim built-ins {{{
 
 set undofile
