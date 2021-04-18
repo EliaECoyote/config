@@ -224,10 +224,18 @@ let g:lightline = {
       \              [ 'gitbranch' ] ]
       \ },
       \ 'component_function': {
-      \   'lsp': 'StatuslineLsp',
+      \   'lsp': 'LspStatus',
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
+endfunction
 
 " }}}
 
@@ -238,15 +246,7 @@ let g:go_def_mapping_enabled = 0
 
 " }}}
 
-" Statusline {{{
-
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-
-  return ''
-endfunction
+" Diagnostics {{{
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap ]g <cmd>lua vim.lsp.diagnostic.goto_next()<cr>
