@@ -109,3 +109,5 @@ bindkey -M viins 'Tab' fzf-completion
 [ -f ~/.config/fzf/fzf.zsh ] && source ~/.config/fzf/fzf.zsh
 
 # }}}
+
+alias luamake=/Volumes/Projects/lua-language-server/3rd/luamake/luamake
