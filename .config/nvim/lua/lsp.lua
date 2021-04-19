@@ -1,8 +1,9 @@
 local lspconfig = require'lspconfig'
+local util = require'lspconfig/util'
 local lsp_status = require'lsp-status'
 lsp_status.register_progress()
 
-lsp_status.config({
+lsp_status.config {
   current_function = false,
   indicator_errors = '❌',
   indicator_warnings = '⚠️ ',
@@ -10,7 +11,7 @@ lsp_status.config({
   indicator_hint = '❗',
   indicator_ok = 'All good!',
   status_symbol = '',
-})
+}
 
 local system_name
 if vim.fn.has("mac") == 1 then
@@ -23,11 +24,61 @@ else
   print("Unsupported system for sumneko")
 end
 
-local sumneko_root_path = '/Volumes/Projects/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+local eslint = {
+  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintStdin = true,
+  lintFormats = {"%f:%l:%c: %m"},
+  lintIgnoreExitCode = true,
+  formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+  formatStdin = true,
+}
+
+lspconfig.efm.setup {
+  root_dir = util.root_pattern(".git", vim.fn.getcwd()),
+  on_attach = function(client)
+    client.resolved_capabilities.document_formatting = true
+    lsp_status.on_attach(client)
+  end,
+  capabilities = lsp_status.capabilities,
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact",
+  },
+  settings = {
+    rootMarkers = { ".git", "package.json" },
+    languages = {
+      javascript = { eslint },
+      javascriptreact = { eslint },
+      typescript = { eslint },
+      typescriptreact = { eslint },
+      ["javascript.jsx"] = { eslint },
+      ["typescript.tsx"] = { eslint },
+    },
+  },
+}
+
+-- local prettier = {
+--   formatCommand = (
+--     function()
+--       if not vim.fn.empty(vim.fn.glob(vim.loop.cwd() .. '/.prettierrc')) then
+--         return "prettier --config ./.prettierrc"
+--       else
+--         return "prettier --config ~/.config/nvim/.prettierrc"
+--       end
+--     end
+--   )()
+-- }
 
 lspconfig.tsserver.setup {
-  on_attach = lsp_status.on_attach,
+  on_attach = function (client)
+    -- Disable ts builtin formatting
+    client.resolved_capabilities.document_formatting = false
+    lsp_status.on_attach(client)
+  end,
   capabilities = lsp_status.capabilities,
 }
 
@@ -35,6 +86,9 @@ lspconfig.vimls.setup {
   on_attach = lsp_status.on_attach,
   capabilities = lsp_status.capabilities,
 }
+
+local sumneko_root_path = '/Volumes/Projects/lua-language-server'
+local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
 
 lspconfig.sumneko_lua.setup {
   cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" };

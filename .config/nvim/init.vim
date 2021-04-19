@@ -25,6 +25,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
 " Preview markdown files on the browser
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+" LS for linters
+Plug 'mattn/efm-langserver'
 " LSP server configurations for various langs
 Plug 'neovim/nvim-lspconfig'
 " Autocompletion engine
