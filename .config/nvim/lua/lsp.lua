@@ -91,7 +91,7 @@ local sumneko_root_path = '/Volumes/Projects/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
 
 lspconfig.sumneko_lua.setup {
-  cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" };
+  cmd = { sumneko_binary, "-E", sumneko_root_path.."/main.lua" };
   settings = {
     Lua = {
       runtime = {
