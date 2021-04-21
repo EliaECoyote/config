@@ -48,8 +48,6 @@ Plug 'christoomey/vim-tmux-navigator'
 " Themes!
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
-" Golang support
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Language packs for syntax highlight & indentation support
 Plug 'sheerun/vim-polyglot', { 'do' : './build' }
 
@@ -209,13 +207,6 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
-
-" }}}
-
-" Golang {{{
-
-" Disable `vim-go` gd mapping
-let g:go_def_mapping_enabled = 0
 
 " }}}
 
