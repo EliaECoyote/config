@@ -1,6 +1,7 @@
 local lspconfig = require'lspconfig'
 local util = require'lspconfig/util'
 local lsp_status = require'lsp-status'
+
 lsp_status.register_progress()
 
 lsp_status.config {
@@ -30,7 +31,19 @@ local eslint = {
   lintFormats = {"%f:%l:%c: %m"},
   lintIgnoreExitCode = true,
   formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+  rootMarkers = {
+    "package.json",
+    ".eslintrc.js",
+    ".eslintrc.yaml",
+    ".eslintrc.yml",
+    ".eslintrc.json"
+  },
   formatStdin = true,
+}
+
+local prettier = {
+    formatCommand = "yarn prettier --stdin --stdin-filepath ${INPUT}",
+    formatStdin = true
 }
 
 lspconfig.efm.setup {
@@ -51,27 +64,15 @@ lspconfig.efm.setup {
   settings = {
     rootMarkers = { ".git", "package.json" },
     languages = {
-      javascript = { eslint },
-      javascriptreact = { eslint },
-      typescript = { eslint },
-      typescriptreact = { eslint },
-      ["javascript.jsx"] = { eslint },
-      ["typescript.tsx"] = { eslint },
+      javascript = { eslint, prettier },
+      javascriptreact = { eslint, prettier },
+      typescript = { eslint, prettier },
+      typescriptreact = { eslint, prettier },
+      ["javascript.jsx"] = { eslint, prettier },
+      ["typescript.tsx"] = { eslint, prettier },
     },
   },
 }
-
--- local prettier = {
---   formatCommand = (
---     function()
---       if not vim.fn.empty(vim.fn.glob(vim.loop.cwd() .. '/.prettierrc')) then
---         return "prettier --config ./.prettierrc"
---       else
---         return "prettier --config ~/.config/nvim/.prettierrc"
---       end
---     end
---   )()
--- }
 
 lspconfig.tsserver.setup {
   on_attach = function (client)
