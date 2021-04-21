@@ -342,14 +342,12 @@ let g:nremap = {
 
 " vim-tmux-navigator {{{
 
-" Enables custom keymappings
-nmap <C-j> :TmuxNavigateDown<cr>
-nmap <C-k> :TmuxNavigateUp<cr>
-nmap <C-l> :TmuxNavigateRight<cr>
-imap <C-h> :TmuxNavigateLeft<cr>
-imap <C-j> :TmuxNavigateDown<cr>
-imap <C-k> :TmuxNavigateUp<cr>
-imap <C-l> :TmuxNavigateRight<cr>
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-w>h :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-w>j :TmuxNavigateDown<cr>
+nnoremap <silent> <C-w>k :TmuxNavigateUp<cr>
+nnoremap <silent> <C-w>l :TmuxNavigateRight<cr>
+nnoremap <silent> <C-w>\ :TmuxNavigatePrevious<cr>
 
 " }}}
 
@@ -490,16 +488,6 @@ nnoremap <silent> <leader>ch :Gbranches <cr>
 
 " Align GitHub-flavored Markdown tables
 au FileType markdown map <Bar> vip :EasyAlign*<Bar><Enter>
-
-" }}}
-
-" Vim splits {{{
-
-" Open new splits in a semantic way
-nnoremap <C-w>h :lefta vsp new<cr>
-nnoremap <C-w>j :bel sp new<cr>
-nnoremap <C-w>k :abo sp new<cr>
-nnoremap <C-w>l :rightb vsp new<cr>
 
 " }}}
 
