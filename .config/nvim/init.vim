@@ -55,8 +55,6 @@ Plug 'christoomey/vim-tmux-navigator'
 " Themes!
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
-" Golang support
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Language packs for syntax highlight & indentation support
 Plug 'sheerun/vim-polyglot', { 'do' : './build' }
 
@@ -69,7 +67,7 @@ call plug#end()
 
 " }}}
 
-let mapleader = " "
+lua require"setup"
 
 " Training! {{{
 
@@ -242,13 +240,6 @@ endfunction
 
 " }}}
 
-" Golang {{{
-
-" Disable `vim-go` gd mapping
-let g:go_def_mapping_enabled = 0
-
-" }}}
-
 " Diagnostics {{{
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -378,34 +369,6 @@ vnoremap <silent> # :<C-U>
       \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
       \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
       \gVzv:call setreg('"', old_reg, old_regtype)<CR>
-
-" }}}
-
-" telescope.nvim {{{1
-
-nnoremap <leader>p <cmd>Telescope find_files<cr>
-nnoremap <leader>ff <cmd>Telescope live_grep<cr>
-nnoremap <leader>o <cmd>Telescope buffers<cr>
-nnoremap <leader>ft <cmd>Telescope help_tags<cr>
-
-" }}}
-
-" fzf branch checkout {{{2
-
-function! GitCheckoutBranch(branch)
-  let l:name = trim(a:branch)
-  execute "Git checkout ".l:name
-endfunction
-
-" -a option lists all branches (remotes aswell)
-" -vv option shows more information about branch
-" --color and --ansi enables colors
-" --nth=1 makes sure you only search by names and not branch info
-command! -bang Gbranches call fzf#run(fzf#wrap({"source": "git for-each-ref --format='%(refname:short)' refs/heads", 'sink': function('GitCheckoutBranch'), 'options': '--ansi --nth=1'}, <bang>0))
-
-nnoremap <silent> <leader>ch :Gbranches <cr>
-
-" }}}
 
 " }}}
 
@@ -620,29 +583,6 @@ endfunction
 
 " }}}
 
-" }}}
-
-" Fix CoC open zip files {{{
-
-" Taken from https://github.com/neoclide/coc-tsserver/issues/244#issuecomment-755271565
-function! OpenZippedFile(f)
-  " get number of new (empty) buffer
-  let l:b = bufnr('%')
-  " construct full path
-  let l:f = substitute(a:f, '.zip/', '.zip::', '')
-  let l:f = substitute(l:f, '/zip:', 'zipfile:', '')
-
-  " swap back to original buffer
-  b #
-  " delete new one
-  exe 'bd! ' . l:b
-  " open buffer with correct path
-  sil exe 'e ' . l:f
-  " read in zip data
-  call zip#Read(l:f, 1)
-endfunction
-
-au BufReadCmd /zip:*.yarn/cache/*.zip/* call OpenZippedFile(expand('<afile>'))
 " }}}
 
 " Vim built-ins {{{
