@@ -33,9 +33,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'vifm/vifm.vim'
 " Adds git diff markers on the left + hunks management
 Plug 'mhinz/vim-signify'
-" Yikes!
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Fuzzy finder
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 " Adds comments with `gc`
 Plug 'tpope/vim-commentary'
 " Alignment plugin:
@@ -60,7 +61,7 @@ call plug#end()
 
 " }}}
 
-let mapleader = " "
+lua require"setup"
 
 " Training! {{{
 
@@ -405,73 +406,6 @@ vnoremap <silent> # :<C-U>
       \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
       \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
       \gVzv:call setreg('"', old_reg, old_regtype)<CR>
-
-" }}}
-
-" fzf.vim {{{1
-
-nnoremap <silent> <leader>p :Files<cr>
-nnoremap <silent> <leader>P :GFiles<cr>
-nnoremap <silent> <leader>o :Buffers<cr>
-nnoremap <silent> <leader>hi :BCommits!<cr>
-nnoremap <silent> <leader>? :History<cr>
-nnoremap <silent> <leader>ma :Maps<cr>
-nnoremap <silent> <leader>co :Commands<cr>
-nnoremap <silent> <leader>f :Rg!<CR>
-
-" Set default command used by `:Files`
-let FZF_DEFAULT_COMMAND = "rg --files --hidden --smart-case --follow"
-
-" Fixes <Esc> timeout issues from fzf.vim dialogs
-set nottimeout
-" Fix issue where closing fzf through Esc was taking too much time on nvim
-" https://github.com/junegunn/fzf/issues/632#issuecomment-236959826
-if has('nvim')
-  aug fzf_setup
-    au!
-    au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
-  aug END
-end
-
-let g:fzf_preview_window = 'down:30%'
-
-" fzf buffer delete {{{2
-
-function! s:list_buffers()
-  redir => list
-  silent ls
-  redir END
-  return split(list, "\n")
-endfunction
-
-function! s:delete_buffers(lines)
-  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
-endfunction
-
-command! BD call fzf#run(fzf#wrap({
-      \ 'source': s:list_buffers(),
-      \ 'sink*': { lines -> s:delete_buffers(lines) },
-      \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
-      \ }))
-
-" }}}
-
-" fzf branch checkout {{{2
-
-function! GitCheckoutBranch(branch)
-  let l:name = trim(a:branch)
-  execute "Git checkout ".l:name
-endfunction
-
-" -a option lists all branches (remotes aswell)
-" -vv option shows more information about branch
-" --color and --ansi enables colors
-" --nth=1 makes sure you only search by names and not branch info
-command! -bang Gbranches call fzf#run(fzf#wrap({"source": "git for-each-ref --format='%(refname:short)' refs/heads", 'sink': function('GitCheckoutBranch'), 'options': '--ansi --nth=1'}, <bang>0))
-
-nnoremap <silent> <leader>ch :Gbranches <cr>
-
-" }}}
 
 " }}}
 
