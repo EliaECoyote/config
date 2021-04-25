@@ -18,6 +18,8 @@ vim.api.nvim_command("hi Normal guibg=none")
 vim.api.nvim_command("hi LineNr guifg=#5eacd3")
 -- Use default terminal bg for sign-column bg color
 vim.api.nvim_command("hi SignColumn guibg=none")
+vim.api.nvim_command("hi NonText guibg=none")
+vim.api.nvim_command("hi EndOfBuffer guibg=none")
 
 
 -- Soft line wrap
@@ -36,5 +38,5 @@ vim.api.nvim_command("set diffopt+=vertical")
 vim.api.nvim_command("set cursorline")
 vim.api.nvim_command("set relativenumber")
 vim.api.nvim_command("set number")
--- vim.api.nvim_command("set updatetime=300")
+vim.api.nvim_command("set updatetime=300")
 vim.api.nvim_command("set shortmess+=c")

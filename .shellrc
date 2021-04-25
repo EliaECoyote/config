@@ -49,8 +49,6 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 
-export TERM=xterm-256color
-
 # }}}
 
 # FZF settings {{{
