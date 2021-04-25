@@ -48,12 +48,9 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
 " Navigate seamlessly between tmux and vim splits
 Plug 'christoomey/vim-tmux-navigator'
-" Themes!
+" Themes
 Plug 'joshdick/onedark.vim'
-Plug 'morhetz/gruvbox'
-" Language packs for syntax highlight & indentation support
-Plug 'sheerun/vim-polyglot', { 'do' : './build' }
-
+Plug 'sainnhe/gruvbox-material'
 " Handle multi-file find and replace
 Plug 'mhinz/vim-grepper'
 " Plug 'takac/vim-hardtime'
@@ -141,49 +138,6 @@ set smartcase
 
 " }}}
 
-" Theme {{{
-
-" let g:gruvbox_italic=1
-" let g:gruvbox_invert_selection=0
-" colorscheme gruvbox
-colorscheme onedark
-
-" Use truecolor
-if (has("termguicolors"))
-  set termguicolors
-endif
-
-if !has('nvim')
-  " Fix vim colors
-  if !has('gui_running')
-    set t_Co=256
-  endif
-  " Use cursorline when in insert mode"
-  autocmd InsertEnter,InsertLeave * set cul!
-endif
-
-" Soft line wrap
-set linebreak wrap tw=0
-
-" Cusomize vimdiff colors
-hi DiffAdd      gui=none    guifg=NONE          guibg=#23414f
-hi DiffChange   gui=none    guifg=NONE          guibg=#383725
-hi DiffDelete   gui=none    guifg=#3d2b28       guibg=#3d2b28
-hi DiffText     gui=none    guifg=NONE          guibg=#454425
-
-" Makes vimdiff easier to read
-set diffopt+=algorithm:patience
-set diffopt+=vertical
-" set diffopt+=indent-heuristic
-
-set cursorline
-set relativenumber
-set number
-set updatetime=300
-set shortmess+=c
-
-" }}}
-
 " Statusline {{{
 
 " Hides 'mode' label on the last line
@@ -193,7 +147,7 @@ function! CocCurrentFunction()
   return get(b:, 'coc_current_function', '')
 endfunction
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'gruvbox_material',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'filename', 'modified', 'cocstatus', 'currentfunction' ] ],
