@@ -14,9 +14,10 @@ vim.api.nvim_command("colorscheme gruvbox-material")
 
 -- Use default terminal bg color
 vim.api.nvim_command("hi Normal guibg=none")
--- Set line-number fg color
+-- Set line-number fg colors
 vim.api.nvim_command("hi LineNr guifg=#5eacd3")
--- Use default terminal bg for sign-column bg color
+vim.api.nvim_command("hi CursorLineNr guifg=#ff8533")
+-- Use default terminal bg colors
 vim.api.nvim_command("hi SignColumn guibg=none")
 vim.api.nvim_command("hi NonText guibg=none")
 vim.api.nvim_command("hi EndOfBuffer guibg=none")

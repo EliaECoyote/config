@@ -49,8 +49,9 @@ Plug 'junegunn/vim-easy-align'
 " Navigate seamlessly between tmux and vim splits
 Plug 'christoomey/vim-tmux-navigator'
 " Themes
-Plug 'joshdick/onedark.vim'
 Plug 'sainnhe/gruvbox-material'
+Plug 'joshdick/onedark.vim'
+Plug 'doums/darcula'
 " Handle multi-file find and replace
 Plug 'mhinz/vim-grepper'
 " Plug 'takac/vim-hardtime'
