@@ -37,6 +37,8 @@ Plug 'mhinz/vim-signify'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+" Treesitter!
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " Adds comments with `gc`
 Plug 'tpope/vim-commentary'
 " Alignment plugin:
@@ -89,8 +91,6 @@ nmap <leader>ww :e ~/Dropbox/vimwiki/index.md<cr>
 
 " Syntax Highlighting {{{
 
-autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 let g:markdown_fenced_languages = [
       \ 'css',
@@ -579,14 +579,6 @@ command! Kwbd call s:Kwbd(1)
 
 " Remap toggle fold
 nnoremap <s-tab> zA
-
-" Fold by syntax by default
-set foldmethod=syntax
-" // TODO: remove this once you get used to it
-" Activate JS syntax folds
-let javaScript_fold=1
-" No fold closed by default
-set foldlevelstart=99
 
 " Customize foldtext
 source ~/.config/nvim/foldtext.vim
