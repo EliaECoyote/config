@@ -43,6 +43,8 @@ Plug 'mhinz/vim-signify'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+" Treesitter!
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " Adds comments with `gc`
 Plug 'tpope/vim-commentary'
 " Alignment plugin:
@@ -52,12 +54,9 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
 " Navigate seamlessly between tmux and vim splits
 Plug 'christoomey/vim-tmux-navigator'
-" Themes!
+" Themes
 Plug 'joshdick/onedark.vim'
-Plug 'morhetz/gruvbox'
-" Language packs for syntax highlight & indentation support
-Plug 'sheerun/vim-polyglot', { 'do' : './build' }
-
+Plug 'sainnhe/gruvbox-material'
 " Handle multi-file find and replace
 Plug 'mhinz/vim-grepper'
 " Plug 'takac/vim-hardtime'
@@ -95,8 +94,6 @@ nmap <leader>ww :e ~/Dropbox/vimwiki/index.md<cr>
 
 " Syntax Highlighting {{{
 
-autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 let g:markdown_fenced_languages = [
       \ 'css',
@@ -147,49 +144,6 @@ set smartcase
 
 " }}}
 
-" Theme {{{
-
-" let g:gruvbox_italic=1
-" let g:gruvbox_invert_selection=0
-" colorscheme gruvbox
-colorscheme onedark
-
-" Use truecolor
-if (has("termguicolors"))
-  set termguicolors
-endif
-
-if !has('nvim')
-  " Fix vim colors
-  if !has('gui_running')
-    set t_Co=256
-  endif
-  " Use cursorline when in insert mode"
-  autocmd InsertEnter,InsertLeave * set cul!
-endif
-
-" Soft line wrap
-set linebreak wrap tw=0
-
-" Cusomize vimdiff colors
-hi DiffAdd      gui=none    guifg=NONE          guibg=#23414f
-hi DiffChange   gui=none    guifg=NONE          guibg=#383725
-hi DiffDelete   gui=none    guifg=#3d2b28       guibg=#3d2b28
-hi DiffText     gui=none    guifg=NONE          guibg=#454425
-
-" Makes vimdiff easier to read
-set diffopt+=algorithm:patience
-set diffopt+=vertical
-" set diffopt+=indent-heuristic
-
-set cursorline
-set relativenumber
-set number
-set updatetime=300
-set shortmess+=c
-
-" }}}
-
 " LSP setup {{{
 
 lua require('lsp')
@@ -215,7 +169,7 @@ nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 set noshowmode
 " Set lightline theme
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'gruvbox_material',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'filename', 'modified', 'lsp' ] ],
@@ -542,14 +496,6 @@ command! Kwbd call s:Kwbd(1)
 
 " Remap toggle fold
 nnoremap <s-tab> zA
-
-" Fold by syntax by default
-set foldmethod=syntax
-" // TODO: remove this once you get used to it
-" Activate JS syntax folds
-let javaScript_fold=1
-" No fold closed by default
-set foldlevelstart=99
 
 " Customize foldtext
 source ~/.config/nvim/foldtext.vim
