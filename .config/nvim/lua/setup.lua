@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
 
-require"fuzzy-finder"
+require"fuzzy_finder"
 require"treesitter"
 require"theme"

@@ -37,6 +37,7 @@ Plug 'mhinz/vim-signify'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " Treesitter!
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " Adds comments with `gc`
