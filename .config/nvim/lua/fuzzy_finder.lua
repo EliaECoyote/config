@@ -1,11 +1,8 @@
 local file_utils = require"file_utils"
-local scan = require"plenary.scandir"
 local telescope = require"telescope"
 local pickers = require"telescope.pickers"
 local finders = require"telescope.finders"
-local previewers = require"telescope.previewers"
 local builtin = require"telescope.builtin"
-local sorters = require"telescope.sorters"
 local config = require"telescope.config"
 
 local set_keymap = vim.api.nvim_set_keymap
@@ -62,10 +59,10 @@ function _G.common_files(opts)
       "~/Dropbox/vimwiki/",
   }
   local folder_files = file_utils.scan_deep_files(folders)
-  for _, path in ipairs(folder_files) do 
+  for _, path in ipairs(folder_files) do
     table.insert(files, path)
   end
-  local opts = opts or {}
+  opts = opts or {}
   pickers.new(opts, {
     prompt_title = "Bookmarks",
     finder = finders.new_table(files),
