@@ -43,6 +43,7 @@ Plug 'mhinz/vim-signify'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " Treesitter!
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " Adds comments with `gc`
@@ -55,8 +56,13 @@ Plug 'junegunn/vim-easy-align'
 " Navigate seamlessly between tmux and vim splits
 Plug 'christoomey/vim-tmux-navigator'
 " Themes
-Plug 'joshdick/onedark.vim'
 Plug 'sainnhe/gruvbox-material'
+Plug 'joshdick/onedark.vim'
+Plug 'doums/darcula'
+Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'sainnhe/sonokai'
+Plug 'mhartington/oceanic-next'
+Plug 'embark-theme/vim', { 'as': 'embark' }
 " Handle multi-file find and replace
 Plug 'mhinz/vim-grepper'
 " Plug 'takac/vim-hardtime'
@@ -169,7 +175,7 @@ nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
 set noshowmode
 " Set lightline theme
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox_material',
+      \ 'colorscheme': 'onedark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'filename', 'modified', 'lsp' ] ],
@@ -183,6 +189,11 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
+let s:palette.normal.middle = [ [ 'none', 'none', 'none', 'none' ] ]
+let s:palette.inactive.middle = s:palette.normal.middle
+let s:palette.tabline.middle = s:palette.normal.middle
+call insert(s:palette.normal.right, s:palette.normal.left[1], 0)
 
 function! LspStatus() abort
   if luaeval('#vim.lsp.buf_get_clients() > 0')
