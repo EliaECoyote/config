@@ -77,18 +77,18 @@ lspconfig.vimls.setup {
   capabilities = lsp_status.capabilities,
 }
 
-local jlsp_root_path = "/Volumes/Projects/java-language-server"
-local jlsp_binary = jlsp_root_path.."/dist/lang_server_mac.sh" 
+local jls_root_path = "/Volumes/Projects/java-language-server"
+local jls_binary = jls_root_path.."/dist/lang_server_mac.sh"
 lspconfig.java_language_server.setup {
-  cmd = { jlsp_binary },
+  cmd = { jls_binary },
   on_attach = lsp_status.on_attach,
   capabilities = lsp_status.capabilities,
 }
 
-local lualsp_root_path = "/Volumes/Projects/lua-language-server"
-local lualsp_binary = lualsp_root_path.."/bin/macOS/lua-language-server"
+local luals_root_path = "/Volumes/Projects/lua-language-server"
+local luals_binary = luals_root_path.."/bin/macOS/lua-language-server"
 lspconfig.sumneko_lua.setup {
-  cmd = { lualsp_binary , "-E", lualsp_root_path.."/main.lua" };
+  cmd = { luals_binary , "-E", luals_root_path.."/main.lua" };
   settings = {
     Lua = {
       runtime = {
