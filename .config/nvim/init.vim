@@ -53,6 +53,10 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'sainnhe/gruvbox-material'
 Plug 'joshdick/onedark.vim'
 Plug 'doums/darcula'
+Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'sainnhe/sonokai'
+Plug 'mhartington/oceanic-next'
+Plug 'embark-theme/vim', { 'as': 'embark' }
 " Handle multi-file find and replace
 Plug 'mhinz/vim-grepper'
 " Plug 'takac/vim-hardtime'
@@ -149,7 +153,7 @@ function! CocCurrentFunction()
   return get(b:, 'coc_current_function', '')
 endfunction
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox_material',
+      \ 'colorscheme': 'onedark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'filename', 'modified', 'cocstatus', 'currentfunction' ] ],
@@ -164,6 +168,11 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
+let s:palette.normal.middle = [ [ 'none', 'none', 'none', 'none' ] ]
+let s:palette.inactive.middle = s:palette.normal.middle
+let s:palette.tabline.middle = s:palette.normal.middle
+call insert(s:palette.normal.right, s:palette.normal.left[1], 0)
 
 " }}}
 
