@@ -14,17 +14,6 @@ lsp_status.config {
   status_symbol = "",
 }
 
-local system_name
-if vim.fn.has("mac") == 1 then
-  system_name = "macOS"
-elseif vim.fn.has("unix") == 1 then
-  system_name = "Linux"
-elseif vim.fn.has("win32") == 1 then
-  system_name = "Windows"
-else
-  print("Unsupported system for sumneko")
-end
-
 local eslint = {
   lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
   lintStdin = true,
@@ -88,11 +77,18 @@ lspconfig.vimls.setup {
   capabilities = lsp_status.capabilities,
 }
 
-local sumneko_root_path = "/Volumes/Projects/lua-language-server"
-local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+local jlsp_root_path = "/Volumes/Projects/java-language-server"
+local jlsp_binary = jlsp_root_path.."/dist/lang_server_mac.sh" 
+lspconfig.java_language_server.setup {
+  cmd = { jlsp_binary },
+  on_attach = lsp_status.on_attach,
+  capabilities = lsp_status.capabilities,
+}
 
+local lualsp_root_path = "/Volumes/Projects/lua-language-server"
+local lualsp_binary = lualsp_root_path.."/bin/macOS/lua-language-server"
 lspconfig.sumneko_lua.setup {
-  cmd = { sumneko_binary, "-E", sumneko_root_path.."/main.lua" };
+  cmd = { lualsp_binary , "-E", lualsp_root_path.."/main.lua" };
   settings = {
     Lua = {
       runtime = {

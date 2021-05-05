@@ -111,3 +111,4 @@ bindkey -M viins 'Tab' fzf-completion
 # }}}
 
 alias luamake=/Volumes/Projects/lua-language-server/3rd/luamake/luamake
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
