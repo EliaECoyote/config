@@ -110,5 +110,12 @@ bindkey -M viins 'Tab' fzf-completion
 
 # }}}
 
+# LSP config {{{
+
 alias luamake=/Volumes/Projects/lua-language-server/3rd/luamake/luamake
+
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/"
+export PATH="$JAVA_HOME/bin:$PATH"
+
+# }}}
