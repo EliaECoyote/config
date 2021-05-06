@@ -31,6 +31,8 @@ Plug 'mattn/efm-langserver'
 Plug 'neovim/nvim-lspconfig'
 " Autocompletion engine
 Plug 'hrsh7th/nvim-compe'
+" Snippets
+Plug 'SirVer/ultisnips'
 " Display LSP status in statusline
 Plug 'nvim-lua/lsp-status.nvim'
 " Git management plugin

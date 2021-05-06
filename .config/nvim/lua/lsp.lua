@@ -14,6 +14,17 @@ lsp_status.config {
   status_symbol = "",
 }
 
+-- Snippets support
+local capabilities = lsp_status.capabilities
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
+
 local function custom_attach(client)
   print("LSP 🙏")
   lsp_status.on_attach(client)
@@ -65,7 +76,7 @@ lspconfig.efm.setup {
     client.resolved_capabilities.document_formatting = true
     custom_attach(client)
   end,
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities,
   filetypes = {
     "javascript",
     "javascriptreact",
@@ -93,12 +104,12 @@ lspconfig.tsserver.setup {
     client.resolved_capabilities.document_formatting = false
     custom_attach(client)
   end,
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities,
 }
 
 lspconfig.vimls.setup {
   on_attach = custom_attach,
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities,
 }
 
 local javals_root_path = "/Volumes/Projects/java-language-server"
@@ -106,7 +117,7 @@ local javals_binary = javals_root_path.."/dist/lang_server_mac.sh"
 lspconfig.java_language_server.setup {
   cmd = { javals_binary },
   on_attach = custom_attach,
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities,
 }
 
 local luals_root_path = "/Volumes/Projects/lua-language-server"
@@ -140,5 +151,5 @@ lspconfig.sumneko_lua.setup {
     },
   },
   on_attach = custom_attach,
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities,
 }
