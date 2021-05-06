@@ -25,7 +25,7 @@ require"compe".setup {
 }
 
 local set_keymap = vim.api.nvim_set_keymap
-local options = { expr = true, silent = true }
+local options = { expr = true, silent = true, noremap = true }
 
 set_keymap("n", "<C-Space>", "compe#complete()", options)
 set_keymap("n", "<cr>", "compe#confirm('<cr>')", options)
