@@ -5,7 +5,7 @@ require"compe".setup {
   autocomplete = true,
   debug = false,
   min_length = 1,
-  preselect = "enable",
+  preselect = "always",
   throttle_time = 80,
   source_timeout = 200,
   incomplete_delay = 400,
@@ -24,3 +24,11 @@ require"compe".setup {
   },
 }
 
+local set_keymap = vim.api.nvim_set_keymap
+local options = { expr = true, silent = true }
+
+set_keymap("n", "<C-Space>", "compe#complete()", options)
+set_keymap("n", "<cr>", "compe#confirm('<cr>')", options)
+set_keymap("n", "<C-e>", "compe#close('<C-e>')", options)
+set_keymap("n", "<C-f>", "compe#scroll({ 'delta': +4 })", options)
+set_keymap("n", "<C-d>", "compe#scroll({ 'delta': -4 })", options)
