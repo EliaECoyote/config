@@ -140,11 +140,9 @@ map <ScrollWheelDown> <C-E>
 
 " Indentation & font settings {{{
 
-" Filetype indent on
-set autoindent
-set tabstop=2
-set shiftwidth=2
-" Always use spaces instead of tab characters
+set smartindent
+filetype plugin indent on
+" Use spaces instead of tabs
 set expandtab
 " Case options
 set ignorecase
