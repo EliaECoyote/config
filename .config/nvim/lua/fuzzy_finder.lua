@@ -4,6 +4,7 @@ local pickers = require"telescope.pickers"
 local finders = require"telescope.finders"
 local builtin = require"telescope.builtin"
 local config = require"telescope.config"
+local themes = require"telescope.themes"
 
 local set_keymap = vim.api.nvim_set_keymap
 
@@ -41,6 +42,10 @@ function _G.buffers()
     shorten_path = true,
     sort_lastused = true,
   }
+end
+
+function _G.lsp_code_actions()
+  return builtin.lsp_code_actions(themes.get_dropdown())
 end
 
 function _G.common_files(opts)
@@ -92,3 +97,9 @@ set_keymap("n", "<leader>fk", "<cmd>lua require('telescope.builtin').keymaps()<c
 set_keymap("n", "<leader>fc", "<cmd>lua require('telescope.builtin').commands()<cr>", options)
 set_keymap("n", "<leader>fq", "<cmd>lua require('telescope.builtin').quickfix()<cr>", options)
 set_keymap("n", "<leader>f?", "<cmd>lua require('telescope.builtin').builtin()<cr>", options)
+
+-- LSP
+set_keymap("n", "<leader>a", "v:lua lsp_code_actions()<cr>", options)
+set_keymap("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<cr>", options)
+set_keymap("n", "g0", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", options)
+set_keymap("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", options)
