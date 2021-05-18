@@ -1,5 +1,4 @@
 local lspconfig = require"lspconfig"
-local util = require"lspconfig/util"
 local lsp_status = require"lsp-status"
 
 lsp_status.register_progress()
@@ -26,7 +25,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 local function custom_attach(client)
-  print("LSP 🙏")
   lsp_status.on_attach(client)
   print("LSP 🚀")
 
@@ -43,14 +41,26 @@ local function custom_attach(client)
   set_keymap("n", "F12", "<cmd>lua vim.lsp.buf.formatting()<cr>", options)
   set_keymap("n", "]g", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", options)
   set_keymap("n", "[g", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", options)
+
+  vim.cmd [[augroup lsp_formatting]]
+  vim.cmd [[autocmd!]]
+  vim.cmd [[autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync({}, 3000)]]
+  vim.cmd [[augroup END]]
 end
 
+-- function is_pnp_repo()
+
+-- end
+
 local eslint = {
-  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
-  lintStdin = true,
-  lintFormats = {"%f:%l:%c: %m"},
+  -- lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  -- formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+
+  lintCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/eslint/bin/eslint -f unix --stdin --stdin-filename ${INPUT}",
+  formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/eslint/bin/eslint --fix-to-stdout --stdin --stdin-filename=${INPUT}",
   lintIgnoreExitCode = true,
-  formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+  lintStdin = true,
+  formatStdin = true,
   rootMarkers = {
     "package.json",
     ".eslintrc.js",
@@ -58,31 +68,34 @@ local eslint = {
     ".eslintrc.yml",
     ".eslintrc.json"
   },
-  formatStdin = true,
 }
 
 local prettier = {
-    formatCommand = "yarn prettier --stdin --stdin-filepath ${INPUT}",
-    formatStdin = true
+    -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/prettier ${INPUT}",
+    formatCommand = "prettier ${INPUT}",
+    -- formatCommand = "yarn prettier ${INPUT}",
+    formatStdin = true,
+    rootMarkers = { ".git/" },
 }
 
 lspconfig.efm.setup {
-  root_dir = util.root_pattern(".git", vim.fn.getcwd()),
-  on_attach = function(client)
-    client.resolved_capabilities.document_formatting = true
-    custom_attach(client)
-  end,
+  init_options = { documentFormatting = true, codeAction = true },
+  on_attach = custom_attach,
   capabilities = capabilities,
   filetypes = {
     "javascript",
     "javascriptreact",
-    "javascript.jsx",
     "typescript",
-    "typescript.tsx",
     "typescriptreact",
+    "javascript.jsx",
+    "typescript.jsx",
+    "html",
+    "css",
+    "json",
+    "yaml",
   },
   settings = {
-    rootMarkers = { ".git", "package.json" },
+    rootMarkers = { ".git/" },
     languages = {
       javascript = { eslint, prettier },
       javascriptreact = { eslint, prettier },
@@ -90,6 +103,10 @@ lspconfig.efm.setup {
       typescriptreact = { eslint, prettier },
       ["javascript.jsx"] = { eslint, prettier },
       ["typescript.tsx"] = { eslint, prettier },
+      html = { prettier },
+      css = { prettier },
+      json = { prettier },
+      yaml = { prettier },
     },
   },
 }
@@ -100,6 +117,7 @@ lspconfig.tsserver.setup {
     client.resolved_capabilities.document_formatting = false
     custom_attach(client)
   end,
+  cmd = {"node", "/Volumes/Projects/typescript-language-server/server/lib/cli.js", "--stdio", "--log-level=4"},
   capabilities = capabilities,
 }
 
@@ -108,13 +126,69 @@ lspconfig.vimls.setup {
   capabilities = capabilities,
 }
 
-local javals_root_path = "/Volumes/Projects/java-language-server"
-local javals_binary = javals_root_path.."/dist/lang_server_mac.sh"
-lspconfig.java_language_server.setup {
-  cmd = { javals_binary },
-  on_attach = custom_attach,
-  capabilities = capabilities,
+lspconfig.jdtls.setup {
+  cmd = {
+    "java",
+    "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044",
+    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    "-Dosgi.bundles.defaultStartLevel=4",
+    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+    "-Dlog.level=ALL",
+    "-Xmx1G",
+    "-jar",
+    "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.6.100.v20201223-0822.jar",
+    "-configuration",
+    "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_mac",
+    "-data",
+    "${1:-$HOME/workspace}",
+    "--add-modules=ALL-SYSTEM",
+    "--add-opens",
+    "java.base/java.util=ALL-UNNAMED",
+    "--add-opens",
+    "java.base/java.lang=ALL-UNNAMED"
+  },
+
+  -- cmd = {
+  --   "/usr/local/Cellar/openjdk/15.0.2/libexec/openjdk.jdk/Contents/Home/bin/java",
+  --   "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+  --   "-Dosgi.bundles.defaultStartLevel=4",
+  --   "-Declipse.product=org.eclipse.jdt.ls.core.product",
+  --   "-Dlog.protocol=true",
+  --   "-Dlog.level=ALL",
+  --   "-Xms1g",
+  --   "-Xmx2G",
+  --   "-jar",
+  --   "vim.NIL",
+  --   "-configuration",
+  --   "vim.NIL",
+  --   "-data",
+  --   "vim.NIL",
+  --   "--add-modules=ALL-SYSTEM",
+  --   "--add-opens java.base/java.util=ALL-UNNAMED",
+  --   "--add-opens java.base/java.lang=ALL-UNNAMED"
+  -- },
+  -- cmd = {
+  --   "/usr/local/Cellar/openjdk/15.0.2/libexec/openjdk.jdk/Contents/Home/bin/java",
+  --   "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+  --   "-Dosgi.bundles.defaultStartLevel=4",
+  --   "-Declipse.product=org.eclipse.jdt.ls.core.product",
+  --   "-Dlog.protocol=true",
+  --   "-Dlog.level=ALL",
+  --   "-Xms1g",
+  --   "-Xmx2G",
+  -- },
+  cmd_env = {
+    -- JAR = "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_*.jar",
+  },
 }
+
+-- local javals_root_path = "/Volumes/Projects/java-language-server"
+-- local javals_binary = javals_root_path.."/dist/lang_server_mac.sh"
+-- lspconfig.java_language_server.setup {
+--   cmd = { javals_binary },
+--   on_attach = custom_attach,
+--   capabilities = capabilities,
+-- }
 
 local luals_root_path = "/Volumes/Projects/lua-language-server"
 local luals_binary = luals_root_path.."/bin/macOS/lua-language-server"

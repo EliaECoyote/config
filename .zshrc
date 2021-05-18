@@ -117,5 +117,9 @@ alias luamake=/Volumes/Projects/lua-language-server/3rd/luamake/luamake
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/"
 export PATH="$JAVA_HOME/bin:$PATH"
+export JAR="/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.6.100.v20201223-0822.jar"
+export GRADLE_HOME="$HOME/gradle"
+export JDTLS_CONFIG="/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_mac"
+export WORKSPACE="$HOME/workspace"
 
 # }}}
