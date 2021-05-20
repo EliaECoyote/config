@@ -408,8 +408,6 @@ set dotfiles
 
 " Open file in new MacVim tab
 nnoremap o :!nvim %f<cr>
-" Open file in new MacVim window
-nnoremap O :!open %f<cr>
 
 " Command used to edit files in various contexts.  The default is vim.
 " If you would like to use another vi clone such as Elvis or Vile
