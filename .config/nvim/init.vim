@@ -161,7 +161,7 @@ map <ScrollWheelDown> <C-E>
 set smartindent
 filetype plugin indent on
 " Use spaces instead of tabs
-set expandtab
+set tabstop=2 shiftwidth=2 expandtab
 " Case options
 set ignorecase
 set smartcase
