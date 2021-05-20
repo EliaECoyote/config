@@ -44,6 +44,8 @@ export HOMEBREW_CASK_OPTS=--require-sha
 
 # App settings {{{
 
+export PATH="${HOME?}/nvim-osx64/bin:${PATH}"
+
 # Set nvim as default editor
 export VISUAL=nvim
 export EDITOR="$VISUAL"
