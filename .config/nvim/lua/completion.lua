@@ -1,4 +1,4 @@
-vim.o.completeopt = "menuone,noselect"
+vim.api.nvim_set_option("completeopt", "menuone,noselect")
 
 require"compe".setup {
   enabled = true,
@@ -18,17 +18,12 @@ require"compe".setup {
     path = true,
     buffer = true,
     calc = true,
-    nvim_lsp = true,
     nvim_lua = true,
-    ultisnips = true,
+    vsnip = true,
   },
 }
 
 local set_keymap = vim.api.nvim_set_keymap
 local options = { expr = true, silent = true, noremap = true }
 
-set_keymap("n", "<C-Space>", "compe#complete()", options)
 set_keymap("n", "<cr>", "compe#confirm('<cr>')", options)
-set_keymap("n", "<C-e>", "compe#close('<C-e>')", options)
-set_keymap("n", "<C-f>", "compe#scroll({ 'delta': +4 })", options)
-set_keymap("n", "<C-d>", "compe#scroll({ 'delta': -4 })", options)

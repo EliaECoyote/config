@@ -1,5 +1,6 @@
 local lspconfig = require"lspconfig"
 local lsp_status = require"lsp-status"
+local lspinstall = require"lspinstall"
 
 lsp_status.register_progress()
 
@@ -29,7 +30,7 @@ local function custom_attach(client)
   print("LSP 🚀")
 
   local set_keymap = vim.api.nvim_set_keymap
-  local options = { silent = true, noremap = true }
+  local options = { noremap = true }
 
   set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", options)
   set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", options)
@@ -41,16 +42,13 @@ local function custom_attach(client)
   set_keymap("n", "F12", "<cmd>lua vim.lsp.buf.formatting()<cr>", options)
   set_keymap("n", "]g", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", options)
   set_keymap("n", "[g", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", options)
+  set_keymap("n", "<leader>A", "<cmd>lua vim.lsp.buf.code_action()<cr>", options)
 
   vim.cmd [[augroup lsp_formatting]]
   vim.cmd [[autocmd!]]
   vim.cmd [[autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync({}, 3000)]]
   vim.cmd [[augroup END]]
 end
-
--- function is_pnp_repo()
-
--- end
 
 local eslint = {
   -- lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
@@ -111,115 +109,96 @@ lspconfig.efm.setup {
   },
 }
 
-lspconfig.tsserver.setup {
-  on_attach = function (client)
-    -- Disable ts builtin formatting
-    client.resolved_capabilities.document_formatting = false
-    custom_attach(client)
-  end,
-  cmd = {"node", "/Volumes/Projects/typescript-language-server/server/lib/cli.js", "--stdio", "--log-level=4"},
-  capabilities = capabilities,
-}
+-- lspconfig.jdtls.setup {
+--   cmd = {
+--     "java",
+--     "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044",
+--     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+--     "-Dosgi.bundles.defaultStartLevel=4",
+--     "-Declipse.product=org.eclipse.jdt.ls.core.product",
+--     "-Dlog.level=ALL",
+--     "-Xmx1G",
+--     "-jar",
+--     "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.6.100.v20201223-0822.jar",
+--     "-configuration",
+--     "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_mac",
+--     "-data",
+--     "${1:-$HOME/workspace}",
+--     "--add-modules=ALL-SYSTEM",
+--     "--add-opens",
+--     "java.base/java.util=ALL-UNNAMED",
+--     "--add-opens",
+--     "java.base/java.lang=ALL-UNNAMED"
+--   },
 
-lspconfig.vimls.setup {
-  on_attach = custom_attach,
-  capabilities = capabilities,
-}
-
-lspconfig.jdtls.setup {
-  cmd = {
-    "java",
-    "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044",
-    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-    "-Dosgi.bundles.defaultStartLevel=4",
-    "-Declipse.product=org.eclipse.jdt.ls.core.product",
-    "-Dlog.level=ALL",
-    "-Xmx1G",
-    "-jar",
-    "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.6.100.v20201223-0822.jar",
-    "-configuration",
-    "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_mac",
-    "-data",
-    "${1:-$HOME/workspace}",
-    "--add-modules=ALL-SYSTEM",
-    "--add-opens",
-    "java.base/java.util=ALL-UNNAMED",
-    "--add-opens",
-    "java.base/java.lang=ALL-UNNAMED"
-  },
-
-  -- cmd = {
-  --   "/usr/local/Cellar/openjdk/15.0.2/libexec/openjdk.jdk/Contents/Home/bin/java",
-  --   "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-  --   "-Dosgi.bundles.defaultStartLevel=4",
-  --   "-Declipse.product=org.eclipse.jdt.ls.core.product",
-  --   "-Dlog.protocol=true",
-  --   "-Dlog.level=ALL",
-  --   "-Xms1g",
-  --   "-Xmx2G",
-  --   "-jar",
-  --   "vim.NIL",
-  --   "-configuration",
-  --   "vim.NIL",
-  --   "-data",
-  --   "vim.NIL",
-  --   "--add-modules=ALL-SYSTEM",
-  --   "--add-opens java.base/java.util=ALL-UNNAMED",
-  --   "--add-opens java.base/java.lang=ALL-UNNAMED"
-  -- },
-  -- cmd = {
-  --   "/usr/local/Cellar/openjdk/15.0.2/libexec/openjdk.jdk/Contents/Home/bin/java",
-  --   "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-  --   "-Dosgi.bundles.defaultStartLevel=4",
-  --   "-Declipse.product=org.eclipse.jdt.ls.core.product",
-  --   "-Dlog.protocol=true",
-  --   "-Dlog.level=ALL",
-  --   "-Xms1g",
-  --   "-Xmx2G",
-  -- },
-  cmd_env = {
+  -- cmd_env = {
     -- JAR = "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_*.jar",
-  },
-}
-
--- local javals_root_path = "/Volumes/Projects/java-language-server"
--- local javals_binary = javals_root_path.."/dist/lang_server_mac.sh"
--- lspconfig.java_language_server.setup {
---   cmd = { javals_binary },
---   on_attach = custom_attach,
---   capabilities = capabilities,
+  -- },
 -- }
+--
 
-local luals_root_path = "/Volumes/Projects/lua-language-server"
-local luals_binary = luals_root_path.."/bin/macOS/lua-language-server"
-lspconfig.sumneko_lua.setup {
-  cmd = { luals_binary , "-E", luals_root_path.."/main.lua" };
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you"re using
-        -- (most likely LuaJIT in the case of Neovim)
-        version = "LuaJIT",
-        -- Setup your lua path
-        path = vim.split(package.path, ";"),
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {"vim"},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-        },
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
+local lua_settings = {
+  Lua = {
+    runtime = {
+      -- Tell the language server which version of Lua you"re using
+      -- (most likely LuaJIT in the case of Neovim)
+      version = "LuaJIT",
+      -- Setup your lua path
+      path = vim.split(package.path, ";"),
+    },
+    diagnostics = {
+      -- Get the language server to recognize the `vim` global
+      globals = {"vim"},
+    },
+    workspace = {
+      -- Make the server aware of Neovim runtime files
+      library = {
+        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+        [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
       },
     },
+    -- Do not send telemetry data containing a randomized but unique identifier
+    telemetry = {
+      enable = false,
+    },
   },
-  on_attach = custom_attach,
-  capabilities = capabilities,
 }
+
+
+local function setup_servers()
+  lspinstall.setup()
+  local servers = lspinstall.installed_servers()
+
+  print(vim.inspect(servers))
+
+  for _, server in ipairs(servers) do
+    local config = {
+      on_attach = custom_attach,
+      capabilities = capabilities,
+    }
+
+    if server == "typescript" then
+      function config.on_attach(client)
+        -- Disable ts builtin formatting
+        client.resolved_capabilities.document_formatting = false
+        custom_attach(client)
+      end
+      config.cmd = {"node", "/Volumes/Projects/typescript-language-server/server/lib/cli.js", "--stdio", "--log-level=4"}
+    end
+
+    if server == "lua" then
+      config.settings = lua_settings
+    end
+
+    lspconfig[server].setup(config)
+  end
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+lspinstall.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
+

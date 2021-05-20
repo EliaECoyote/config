@@ -29,10 +29,14 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'mattn/efm-langserver'
 " LSP server configurations for various langs
 Plug 'neovim/nvim-lspconfig'
+" Install LSP servers automatically
+Plug 'kabouzeid/nvim-lspinstall'
+" Snippets
+Plug 'rafamadriz/friendly-snippets'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 " Autocompletion engine
 Plug 'hrsh7th/nvim-compe'
-" Snippets
-Plug 'SirVer/ultisnips'
 " Display LSP status in statusline
 Plug 'nvim-lua/lsp-status.nvim'
 " Git management plugin
@@ -75,6 +79,20 @@ call plug#end()
 " }}}
 
 lua require"setup"
+
+" Expand
+imap <expr> <c-q> vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<c-q>'
+smap <expr> <c-q> vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<c-q>'
+
+" Expand or jump
+" imap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+" smap <expr> <c-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <tab> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)' : '<tab>'
+smap <expr> <tab> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)' : '<tab>'
+imap <expr> <s-tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<s-tab>'
+smap <expr> <s-tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<s-tab>'
 
 " Training! {{{
 

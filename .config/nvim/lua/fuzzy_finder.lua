@@ -97,6 +97,8 @@ set_keymap("n", "<leader>fk", "<cmd>lua require('telescope.builtin').keymaps()<c
 set_keymap("n", "<leader>fc", "<cmd>lua require('telescope.builtin').commands()<cr>", options)
 set_keymap("n", "<leader>fq", "<cmd>lua require('telescope.builtin').quickfix()<cr>", options)
 set_keymap("n", "<leader>f?", "<cmd>lua require('telescope.builtin').builtin()<cr>", options)
+set_keymap("n", "<leader>fl", "<cmd>lua require('telescope.builtin').loclist()<cr>", options)
+
 
 -- LSP
 set_keymap("n", "<leader>a", "v:lua lsp_code_actions()<cr>", options)
