@@ -80,20 +80,6 @@ call plug#end()
 
 lua require"setup"
 
-" Expand
-imap <expr> <c-q> vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<c-q>'
-smap <expr> <c-q> vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<c-q>'
-
-" Expand or jump
-" imap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-" smap <expr> <c-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-" Jump forward or backward
-imap <expr> <tab> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)' : '<tab>'
-smap <expr> <tab> vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)' : '<tab>'
-imap <expr> <s-tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<s-tab>'
-smap <expr> <s-tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<s-tab>'
-
 " Training! {{{
 
 " Set hardtime on by default
