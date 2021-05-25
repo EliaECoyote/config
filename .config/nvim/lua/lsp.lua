@@ -44,10 +44,12 @@ local function custom_attach(client)
   set_keymap("n", "[g", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", options)
   set_keymap("n", "<leader>A", "<cmd>lua vim.lsp.buf.code_action()<cr>", options)
 
-  vim.cmd [[augroup lsp_formatting]]
-  vim.cmd [[autocmd!]]
-  vim.cmd [[autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync({}, 3000)]]
-  vim.cmd [[augroup END]]
+  vim.cmd [[
+    augroup lsp_formatting
+    autocmd!
+    autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync(nil, 3000)
+    augroup END
+  ]]
 end
 
 local eslint = {
