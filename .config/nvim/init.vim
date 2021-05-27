@@ -110,16 +110,7 @@ let g:markdown_fenced_languages = [
 
 " Vifm {{{
 
-let loaded_netrwPlugin = 1
 noremap <silent> - :Vifm<cr>
-
-" }}}
-
-" Netrw {{{
-
-let g:netrw_banner = 0     " Hide annoying 'help' banner
-let g:netrw_liststyle = 3  " Use tree view
-let g:netrw_winsize = '30' " Smaller default window size
 
 " }}}
 
