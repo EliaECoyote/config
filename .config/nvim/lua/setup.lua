@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 
+require"netrw"
 require"theme"
 require"lsp"
 require"completion"
