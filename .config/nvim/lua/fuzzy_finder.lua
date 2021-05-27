@@ -1,4 +1,4 @@
-local file_utils = require"file_utils"
+local file_utils = require"utils.file_utils"
 local telescope = require"telescope"
 local pickers = require"telescope.pickers"
 local finders = require"telescope.finders"
