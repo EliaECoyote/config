@@ -27,6 +27,7 @@ vim.api.nvim_command("hi LineNr guifg=#5eacd3")
 vim.api.nvim_command("hi CursorLine guibg=#4f4f4f")
 vim.api.nvim_command("hi CursorLineNr guibg=none guifg=#ff8533")
 vim.api.nvim_command("hi Visual guibg=#434f4e")
+vim.api.nvim_command("hi MatchParen guibg=#c90000")
 -- Use default terminal bg colors
 vim.api.nvim_command("hi SignColumn guibg=none")
 vim.api.nvim_command("hi NonText guibg=none")
