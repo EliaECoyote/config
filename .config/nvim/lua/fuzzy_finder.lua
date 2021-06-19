@@ -22,13 +22,15 @@ telescope.setup{
   },
   extensions = {
     fzf = {
+      fuzzy = true,
       override_generic_sorter = false,
-      override_file_sorter = true,
+      override_file_sorter = false,
       case_mode = "smart_case",
     },
   }
 }
-telescope.load_extension("fzf")
+
+require('telescope').load_extension('fzf')
 
 function _G.git_files()
   return builtin.git_files {
