@@ -102,6 +102,11 @@ function open_pr() {
 
 # }}}
 
+# Show file authors stats
+function author_stats() {
+  git blame --line-porcelain $1 | grep  "^author " | sort | uniq -c | sort -nr
+}
+
 # Alias to handle `config` bare repo more easily
 alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
