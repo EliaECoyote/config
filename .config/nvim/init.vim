@@ -17,6 +17,8 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'mattn/emmet-vim'
 " Handle text surround with quotes, tags, brackets
 Plug 'machakann/vim-sandwich'
+" Makes gx cmd work for urls and files 
+Plug 'stsewd/gx-extended.vim'
 " Automatic tab size management plugin
 Plug 'tpope/vim-sleuth'
 " Async toolbox for plugins
