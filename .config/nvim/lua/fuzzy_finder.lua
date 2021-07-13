@@ -18,7 +18,7 @@ telescope.setup{
       "--column",
       "--smart-case"
     },
-    shorten_path = true,
+    path_display = { "shorten", "absolute" },
   },
   extensions = {
     fzf = {
@@ -34,13 +34,13 @@ require('telescope').load_extension('fzf')
 
 function _G.git_files()
   return builtin.git_files {
-    shorten_path = true,
+    path_display = { "shorten", "absolute" },
   }
 end
 
 function _G.buffers()
   return builtin.buffers {
-    shorten_path = true,
+    path_display = { "shorten", "absolute" },
     sort_lastused = true,
   }
 end
