@@ -51,6 +51,8 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
 " Navigate seamlessly between tmux and vim splits
 Plug 'christoomey/vim-tmux-navigator'
+" Open current line on github
+Plug 'ruanyl/vim-gh-line'
 " Themes
 Plug 'sainnhe/gruvbox-material'
 Plug 'joshdick/onedark.vim'
