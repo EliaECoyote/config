@@ -38,7 +38,7 @@ local function custom_attach(client)
   set_keymap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", options)
   set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", options)
   set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", options)
-  set_keymap("n", "<F12>", "<cmd>lua vim.lsp.buf.formatting()<cr>", options)
+  set_keymap("n", "<leader>0", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>", options)
   set_keymap("n", "]g", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", options)
   set_keymap("n", "[g", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", options)
   set_keymap("n", "<leader>A", "<cmd>lua vim.lsp.buf.code_action()<cr>", options)
@@ -46,17 +46,16 @@ local function custom_attach(client)
   vim.cmd [[
     augroup lsp_formatting
     autocmd!
-    autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync(nil, 3000)
+    autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_seq_sync(nil, 3000)
     augroup END
   ]]
 end
 
 local eslint = {
-  -- lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
-  -- formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
-
-  lintCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/eslint/bin/eslint -f unix --stdin --stdin-filename ${INPUT}",
-  formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/eslint/bin/eslint --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+  -- lintCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/eslint/bin/eslint -f unix --stdin --stdin-filename ${INPUT}",
+  -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/eslint/bin/eslint --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
   lintIgnoreExitCode = true,
   lintStdin = true,
   formatStdin = true,
@@ -70,11 +69,16 @@ local eslint = {
 }
 
 local prettier = {
-    -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/prettier ${INPUT}",
-    formatCommand = "prettier ${INPUT}",
-    -- formatCommand = "yarn prettier ${INPUT}",
-    formatStdin = true,
-    rootMarkers = { ".git/" },
+  formatCommand = 'prettierd "${INPUT}"',
+  formatStdin = true,
+  env = {
+    string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/linter-config/.prettierrc.json')),
+  },
+  rootMarkers = { ".git/" },
+  -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/prettier ${INPUT}",
+  -- formatCommand = "prettier ${INPUT}",
+  -- formatCommand = "yarn prettier ${INPUT}",
+  -- formatStdin = true,
 }
 
 lspconfig.efm.setup {
@@ -102,7 +106,7 @@ lspconfig.efm.setup {
       typescriptreact = { eslint, prettier },
       ["javascript.jsx"] = { eslint, prettier },
       ["typescript.tsx"] = { eslint, prettier },
-      html = { prettier },
+      html = { eslint, prettier },
       css = { prettier },
       json = { prettier },
       yaml = { prettier },
