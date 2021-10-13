@@ -29,3 +29,5 @@
   cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [rebase]
   autoStash = true
+[commit]
+  gpgsign = true
