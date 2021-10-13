@@ -81,6 +81,12 @@ local prettier = {
   -- formatStdin = true,
 }
 
+local black = {
+  formatCommand = "black --quiet -",
+  formatStdin = true,
+}
+
+
 lspconfig.efm.setup {
   init_options = { documentFormatting = true, codeAction = true },
   on_attach = custom_attach,
@@ -96,6 +102,7 @@ lspconfig.efm.setup {
     "css",
     "json",
     "yaml",
+    "python",
   },
   settings = {
     rootMarkers = { ".git/" },
@@ -110,6 +117,7 @@ lspconfig.efm.setup {
       css = { prettier },
       json = { prettier },
       yaml = { prettier },
+      python = { black },
     },
   },
 }
