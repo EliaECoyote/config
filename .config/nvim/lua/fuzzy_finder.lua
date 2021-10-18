@@ -4,10 +4,12 @@ local pickers = require"telescope.pickers"
 local finders = require"telescope.finders"
 local builtin = require"telescope.builtin"
 local config = require"telescope.config"
+local previewers = require"telescope.previewers"
+local themes = require"telescope.themes"
 
 local set_keymap = vim.api.nvim_set_keymap
 
-telescope.setup{
+telescope.setup {
   defaults = {
     vimgrep_arguments = {
       "rg",
@@ -18,13 +20,12 @@ telescope.setup{
       "--column",
       "--smart-case"
     },
-    path_display = { "shorten", "absolute" },
   },
   extensions = {
     fzf = {
       fuzzy = true,
-      override_generic_sorter = false,
-      override_file_sorter = false,
+      override_generic_sorter = true,
+      override_file_sorter = true,
       case_mode = "smart_case",
     },
   }
@@ -34,15 +35,37 @@ require('telescope').load_extension('fzf')
 
 function _G.git_files()
   return builtin.git_files {
-    path_display = { "shorten", "absolute" },
+    layout_strategy = "vertical",
+    layout_config = {
+      height = 0.9,
+      width = 0.9,
+      preview_cutoff = 10,
+    },
   }
 end
 
 function _G.buffers()
   return builtin.buffers {
-    path_display = { "shorten", "absolute" },
     sort_lastused = true,
+    layout_strategy = "vertical",
+    layout_config = {
+      height = 0.9,
+      width = 0.9,
+      preview_cutoff = 10,
+    },
   }
+end
+
+function _G.live_grep()
+  return builtin.live_grep({
+      path_display = { "smart", "absolute" },
+      layout_strategy = "vertical",
+      layout_config = {
+        height = 0.9,
+        width = 0.9,
+        preview_cutoff = 10,
+      },
+  })
 end
 
 function _G.common_files(opts)
@@ -78,8 +101,8 @@ local options = { noremap = true }
 set_keymap("n", "<leader>p", "v:lua git_files()<cr>", options)
 set_keymap("n", "<leader>o", "v:lua buffers()<cr>", options)
 set_keymap("n", "<leader>fw", "v:lua common_files()<cr>", options)
+set_keymap("n", "<leader>ff", "v:lua live_grep()<cr>", options)
 set_keymap("n", "<leader>P", "<cmd>lua require('telescope.builtin').git_files()<cr>", options)
-set_keymap("n", "<leader>ff", "<cmd>lua require('telescope.builtin').live_grep()<cr>", options)
 set_keymap("n", "<leader>?", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", options)
 set_keymap("n", "<leader>fp", "<cmd>lua require('telescope.builtin').file_browser()<cr>", options)
 set_keymap("n", "<leader>ft", "<cmd>lua require('telescope.builtin').help_tags()<cr>", options)
@@ -87,10 +110,11 @@ set_keymap("n", "<leader>fb", "<cmd>lua require('telescope.builtin').git_branche
 set_keymap("n", "<leader>fh", "<cmd>lua require('telescope.builtin').search_history()<cr>", options)
 set_keymap("n", "<leader>fT", "<cmd>lua require('telescope.builtin').colorscheme()<cr>", options)
 set_keymap("n", "<leader>fm", "<cmd>lua require('telescope.builtin').marks()<cr>", options)
-set_keymap("n", "<leader>fr", "<cmd>lua require('telescope.builtin').registers()<cr>", options)
+set_keymap("n", "<leader>f\"", "<cmd>lua require('telescope.builtin').registers()<cr>", options)
 set_keymap("n", "<leader>f/", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", options)
 set_keymap("n", "<leader>fh", "<cmd>lua require('telescope.builtin').highlights()<cr>", options)
 set_keymap("n", "<leader>fk", "<cmd>lua require('telescope.builtin').keymaps()<cr>", options)
 set_keymap("n", "<leader>fc", "<cmd>lua require('telescope.builtin').commands()<cr>", options)
 set_keymap("n", "<leader>fq", "<cmd>lua require('telescope.builtin').quickfix()<cr>", options)
 set_keymap("n", "<leader>f?", "<cmd>lua require('telescope.builtin').builtin()<cr>", options)
+set_keymap("n", "<leader>fr", "<cmd>lua require('telescope.builtin').resume()<cr>", options)
