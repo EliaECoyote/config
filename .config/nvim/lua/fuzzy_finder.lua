@@ -20,6 +20,15 @@ telescope.setup {
       "--column",
       "--smart-case"
     },
+    layout_strategy = "vertical",
+    layout_config = {
+      vertical = {
+        height = 0.9,
+        width = 0.9,
+        preview_cutoff = 10,
+      },
+    },
+    path_display = { "truncate", "absolute" },
   },
   extensions = {
     fzf = {
@@ -33,16 +42,16 @@ telescope.setup {
 
 require('telescope').load_extension('fzf')
 
-function _G.git_files()
-  return builtin.git_files {
-    layout_strategy = "vertical",
-    layout_config = {
-      height = 0.9,
-      width = 0.9,
-      preview_cutoff = 10,
-    },
-  }
-end
+-- function _G.git_files()
+--   return builtin.git_files {
+--     layout_strategy = "vertical",
+--     layout_config = {
+--       height = 0.9,
+--       width = 0.9,
+--       preview_cutoff = 10,
+--     },
+--   }
+-- end
 
 function _G.buffers()
   return builtin.buffers {
@@ -59,12 +68,6 @@ end
 function _G.live_grep()
   return builtin.live_grep({
       path_display = { "smart", "absolute" },
-      layout_strategy = "vertical",
-      layout_config = {
-        height = 0.9,
-        width = 0.9,
-        preview_cutoff = 10,
-      },
   })
 end
 
@@ -98,11 +101,10 @@ end
 
 local options = { noremap = true }
 
-set_keymap("n", "<leader>p", "v:lua git_files()<cr>", options)
 set_keymap("n", "<leader>o", "v:lua buffers()<cr>", options)
 set_keymap("n", "<leader>fw", "v:lua common_files()<cr>", options)
 set_keymap("n", "<leader>ff", "v:lua live_grep()<cr>", options)
-set_keymap("n", "<leader>P", "<cmd>lua require('telescope.builtin').git_files()<cr>", options)
+set_keymap("n", "<leader>p", "<cmd>lua require('telescope.builtin').git_files()<cr>", options)
 set_keymap("n", "<leader>?", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", options)
 set_keymap("n", "<leader>fp", "<cmd>lua require('telescope.builtin').file_browser()<cr>", options)
 set_keymap("n", "<leader>ft", "<cmd>lua require('telescope.builtin').help_tags()<cr>", options)
