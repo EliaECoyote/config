@@ -19,9 +19,9 @@ local capabilities = lsp_status.capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
+    "documentation",
+    "detail",
+    "additionalTextEdits",
   }
 }
 
@@ -72,7 +72,7 @@ local prettier = {
   formatCommand = 'prettierd "${INPUT}"',
   formatStdin = true,
   env = {
-    string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/linter-config/.prettierrc.json')),
+    string.format("PRETTIERD_DEFAULT_CONFIG=%s", vim.fn.expand("~/.config/nvim/utils/linter-config/.prettierrc.json")),
   },
   rootMarkers = { ".git/" },
   -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/prettier ${INPUT}",
@@ -113,7 +113,7 @@ lspconfig.efm.setup {
       typescriptreact = { eslint, prettier },
       ["javascript.jsx"] = { eslint, prettier },
       ["typescript.tsx"] = { eslint, prettier },
-      html = { eslint, prettier },
+      html = { prettier },
       css = { prettier },
       json = { prettier },
       yaml = { prettier },
@@ -182,7 +182,7 @@ local function setup_servers()
   lspinstall.setup()
   local servers = lspinstall.installed_servers()
 
-  print(vim.inspect(servers))
+  -- print(vim.inspect(servers))
 
   for _, server in ipairs(servers) do
     local config = {
@@ -196,7 +196,38 @@ local function setup_servers()
         client.resolved_capabilities.document_formatting = false
         custom_attach(client)
       end
-      config.cmd = {"node", "/Volumes/Projects/typescript-language-server/server/lib/cli.js", "--stdio", "--log-level=4"}
+      config.cmd = { "node", "/Volumes/Projects/typescript-language-server/server/lib/cli.js", "--stdio", "--log-level=4" }
+    end
+
+    if server == "html" then
+      config.filetypes = {
+        "html",
+        "aspnetcorerazor",
+        "blade",
+        "django-html",
+        "edge",
+        "ejs",
+        "eruby",
+        "gohtml",
+        "haml",
+        "handlebars",
+        "hbs",
+        "html",
+        "html-eex",
+        "jade",
+        "leaf",
+        "liquid",
+        "mustache",
+        "njk",
+        "nunjucks",
+        "php",
+        "razor",
+        "slim",
+        "twig",
+        -- mixed
+        "vue",
+        "svelte"
+      }
     end
 
     if server == "lua" then
@@ -214,4 +245,3 @@ lspinstall.post_install_hook = function ()
   setup_servers() -- reload installed servers
   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
-
