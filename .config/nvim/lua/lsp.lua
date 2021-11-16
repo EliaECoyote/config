@@ -40,15 +40,14 @@ local function custom_attach(client)
   set_keymap("n", "[g", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", options)
   set_keymap("n", "<leader>A", "<cmd>lua vim.lsp.buf.code_action()<cr>", options)
 
-  vim.cmd  [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
+  -- Uncomment to enable formatting on save
+  -- vim.cmd  [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
 end
 
 local eslint = {
   -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/eslint/bin/eslint --fix-to-stdout --stdin --stdin-filename=${INPUT}",
-  lintCommand = 'eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
-  lintIgnoreExitCode = true,
-  lintStdin = true,
-  lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"},
+  formatCommand = "eslint_d --stdin --fix-to-stdout --stdin-filename=${INPUT}",
+  formatStdin = true,
   rootMarkers = {
     "package.json", ".eslintrc.js", ".eslintrc.yaml", ".eslintrc.yml",
     ".eslintrc.json",
@@ -56,15 +55,14 @@ local eslint = {
 }
 
 local prettier = {
+  -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/prettier ${INPUT}",
   formatCommand = 'prettierd "${INPUT}"',
   formatStdin = true,
   env = {
+    -- Note: kill `prettierd` process to apply `env` changes
     string.format("PRETTIERD_DEFAULT_CONFIG=%s",
-                  vim.fn.expand("$HOME/.config/nvim/defaults/.prettierrc.yaml")),
+                  vim.fn.expand("~/.config/nvim/defaults/.prettierrc.yaml")),
   },
-  -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/prettier ${INPUT}",
-  -- formatCommand = "yarn prettier ${INPUT}",
-  -- formatCommand = "prettier ${INPUT}",
 }
 
 local lua_format = {
@@ -181,7 +179,7 @@ local function setup_servers()
 
     if server == "efm" then
       config.cmd = {
-        'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5',
+        'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '10',
       }
       config.root_dir = require("lspconfig").util.root_pattern  {".git/", "."}
       config.filetypes = {
