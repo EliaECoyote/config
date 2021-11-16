@@ -35,18 +35,18 @@ vim.api.nvim_command("hi EndOfBuffer guibg=none")
 -- Use default terminal bg color
 vim.api.nvim_command("hi Normal guibg=none")
 -- Cusomize vimdiff colors
-vim.api.nvim_command("hi DiffAdd      gui=none    guifg=NONE          guibg=#23414f")
-vim.api.nvim_command("hi DiffChange   gui=none    guifg=NONE          guibg=#383725")
-vim.api.nvim_command("hi DiffDelete   gui=none    guifg=#3d2b28       guibg=#3d2b28")
-vim.api.nvim_command("hi DiffText     gui=none    guifg=NONE          guibg=#454425")
+vim.api.nvim_command(
+  "hi DiffAdd      gui=none    guifg=NONE          guibg=#23414f")
+vim.api.nvim_command(
+  "hi DiffChange   gui=none    guifg=NONE          guibg=#383725")
+vim.api.nvim_command(
+  "hi DiffDelete   gui=none    guifg=#3d2b28       guibg=#3d2b28")
+vim.api.nvim_command(
+  "hi DiffText     gui=none    guifg=NONE          guibg=#454425")
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  { border = "single" }
-)
+vim.lsp.handlers["textDocument/hover"] =
+  vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  { border = "single" }
-)
+vim.lsp.handlers["textDocument/signatureHelp"] =
+  vim.lsp.with(vim.lsp.handlers.signature_help, {border = "single"})
 

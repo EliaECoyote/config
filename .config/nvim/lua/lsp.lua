@@ -1,10 +1,10 @@
-local lspconfig = require"lspconfig"
-local lsp_status = require"lsp-status"
-local lspinstall = require"lspinstall"
+local lspconfig = require  "lspconfig"
+local lsp_status = require  "lsp-status"
+local lspinstall = require  "lspinstall"
 
 lsp_status.register_progress()
 
-lsp_status.config {
+lsp_status.config  {
   current_function = false,
   indicator_errors = "❌",
   indicator_warnings = "⚠️ ",
@@ -18,11 +18,7 @@ lsp_status.config {
 local capabilities = lsp_status.capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    "documentation",
-    "detail",
-    "additionalTextEdits",
-  }
+  properties = {"documentation", "detail", "additionalTextEdits"},
 }
 
 local function custom_attach(client)
@@ -30,7 +26,7 @@ local function custom_attach(client)
   print("LSP 🚀")
 
   local set_keymap = vim.api.nvim_set_keymap
-  local options = { noremap = true }
+  local options = {noremap = true}
 
   set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", options)
   set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", options)
@@ -38,33 +34,24 @@ local function custom_attach(client)
   set_keymap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", options)
   set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", options)
   set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", options)
-  set_keymap("n", "<leader>0", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>", options)
+  set_keymap("n", "<leader>0", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>",
+             options)
   set_keymap("n", "]g", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", options)
   set_keymap("n", "[g", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", options)
   set_keymap("n", "<leader>A", "<cmd>lua vim.lsp.buf.code_action()<cr>", options)
 
-  vim.cmd [[
-    augroup lsp_formatting
-    autocmd!
-    autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_seq_sync(nil, 3000)
-    augroup END
-  ]]
+  vim.cmd  [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
 end
 
 local eslint = {
-  -- lintCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/eslint/bin/eslint -f unix --stdin --stdin-filename ${INPUT}",
   -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/eslint/bin/eslint --fix-to-stdout --stdin --stdin-filename=${INPUT}",
-  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
-  formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+  lintCommand = 'eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
   lintIgnoreExitCode = true,
   lintStdin = true,
-  formatStdin = true,
+  lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"},
   rootMarkers = {
-    "package.json",
-    ".eslintrc.js",
-    ".eslintrc.yaml",
-    ".eslintrc.yml",
-    ".eslintrc.json"
+    "package.json", ".eslintrc.js", ".eslintrc.yaml", ".eslintrc.yml",
+    ".eslintrc.json",
   },
 }
 
@@ -72,55 +59,20 @@ local prettier = {
   formatCommand = 'prettierd "${INPUT}"',
   formatStdin = true,
   env = {
-    string.format("PRETTIERD_DEFAULT_CONFIG=%s", vim.fn.expand("~/.config/nvim/utils/linter-config/.prettierrc.json")),
+    string.format("PRETTIERD_DEFAULT_CONFIG=%s",
+                  vim.fn.expand("$HOME/.config/nvim/defaults/.prettierrc.yaml")),
   },
-  rootMarkers = { ".git/" },
   -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/prettier ${INPUT}",
-  -- formatCommand = "prettier ${INPUT}",
   -- formatCommand = "yarn prettier ${INPUT}",
-  -- formatStdin = true,
+  -- formatCommand = "prettier ${INPUT}",
 }
 
-local black = {
-  formatCommand = "black --quiet -",
+local lua_format = {
+  formatCommand = "lua-format -i --config=$HOME/.config/nvim/defaults/.lua-format",
   formatStdin = true,
 }
 
-
-lspconfig.efm.setup {
-  init_options = { documentFormatting = true, codeAction = true },
-  on_attach = custom_attach,
-  capabilities = capabilities,
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "javascript.jsx",
-    "typescript.jsx",
-    "html",
-    "css",
-    "json",
-    "yaml",
-    "python",
-  },
-  settings = {
-    rootMarkers = { ".git/" },
-    languages = {
-      javascript = { eslint, prettier },
-      javascriptreact = { eslint, prettier },
-      typescript = { eslint, prettier },
-      typescriptreact = { eslint, prettier },
-      ["javascript.jsx"] = { eslint, prettier },
-      ["typescript.tsx"] = { eslint, prettier },
-      html = { prettier },
-      css = { prettier },
-      json = { prettier },
-      yaml = { prettier },
-      python = { black },
-    },
-  },
-}
+local black = {formatCommand = "black --quiet -", formatStdin = true}
 
 -- lspconfig.jdtls.setup {
 --   cmd = {
@@ -144,9 +96,9 @@ lspconfig.efm.setup {
 --     "java.base/java.lang=ALL-UNNAMED"
 --   },
 
-  -- cmd_env = {
-    -- JAR = "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_*.jar",
-  -- },
+-- cmd_env = {
+-- JAR = "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_*.jar",
+-- },
 -- }
 --
 
@@ -171,12 +123,27 @@ local lua_settings = {
       },
     },
     -- Do not send telemetry data containing a randomized but unique identifier
-    telemetry = {
-      enable = false,
-    },
+    telemetry = {enable = false},
   },
 }
 
+local efm_settings = {
+  rootMarkers = {".git/", "ROOT"},
+  languages = {
+    lua = {lua_format},
+    javascript = {eslint, prettier},
+    javascriptreact = {eslint, prettier},
+    typescript = {eslint, prettier},
+    typescriptreact = {eslint, prettier},
+    ["javascript.jsx"] = {eslint, prettier},
+    ["typescript.tsx"] = {eslint, prettier},
+    html = {prettier},
+    css = {prettier},
+    json = {prettier},
+    yaml = {prettier},
+    python = {black},
+  },
+}
 
 local function setup_servers()
   lspinstall.setup()
@@ -185,10 +152,7 @@ local function setup_servers()
   -- print(vim.inspect(servers))
 
   for _, server in ipairs(servers) do
-    local config = {
-      on_attach = custom_attach,
-      capabilities = capabilities,
-    }
+    local config = {on_attach = custom_attach, capabilities = capabilities}
 
     if server == "typescript" then
       function config.on_attach(client)
@@ -196,42 +160,37 @@ local function setup_servers()
         client.resolved_capabilities.document_formatting = false
         custom_attach(client)
       end
-      config.cmd = { "node", "/Volumes/Projects/typescript-language-server/server/lib/cli.js", "--stdio", "--log-level=4" }
+      config.cmd = {
+        "node",
+        "/Volumes/Projects/typescript-language-server/server/lib/cli.js",
+        "--stdio", "--log-level=4",
+      }
     end
 
     if server == "html" then
       config.filetypes = {
-        "html",
-        "aspnetcorerazor",
-        "blade",
-        "django-html",
-        "edge",
-        "ejs",
-        "eruby",
-        "gohtml",
-        "haml",
-        "handlebars",
-        "hbs",
-        "html",
-        "html-eex",
-        "jade",
-        "leaf",
-        "liquid",
-        "mustache",
-        "njk",
-        "nunjucks",
-        "php",
-        "razor",
-        "slim",
-        "twig",
-        -- mixed
-        "vue",
-        "svelte"
+        "html", "aspnetcorerazor", "blade", "django-html", "edge", "ejs",
+        "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex",
+        "jade", "leaf", "liquid", "mustache", "njk", "nunjucks", "php", "razor",
+        "slim", "twig", -- mixed
+        "vue", "svelte",
       }
     end
 
-    if server == "lua" then
-      config.settings = lua_settings
+    if server == "lua" then config.settings = lua_settings end
+
+    if server == "efm" then
+      config.cmd = {
+        'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5',
+      }
+      config.root_dir = require("lspconfig").util.root_pattern  {".git/", "."}
+      config.filetypes = {
+        "lua", "javascript", "javascriptreact", "typescript", "typescriptreact",
+        "javascript.jsx", "typescript.jsx", "html", "css", "json", "yaml",
+        "python",
+      }
+      config.init_options = {documentFormatting = true, codeAction = true}
+      config.settings = efm_settings
     end
 
     lspconfig[server].setup(config)
@@ -241,7 +200,7 @@ end
 setup_servers()
 
 -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspinstall.post_install_hook = function ()
+lspinstall.post_install_hook = function()
   setup_servers() -- reload installed servers
   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
