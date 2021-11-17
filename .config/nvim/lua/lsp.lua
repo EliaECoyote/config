@@ -1,6 +1,7 @@
 local lspconfig = require  "lspconfig"
 local lsp_status = require  "lsp-status"
 local lspinstall = require  "lspinstall"
+local efm_settings = require  "efm_settings"
 
 lsp_status.register_progress()
 
@@ -43,34 +44,6 @@ local function custom_attach(client)
   -- Uncomment to enable formatting on save
   -- vim.cmd  [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
 end
-
-local eslint = {
-  -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/eslint/bin/eslint --fix-to-stdout --stdin --stdin-filename=${INPUT}",
-  formatCommand = "eslint_d --stdin --fix-to-stdout --stdin-filename=${INPUT}",
-  formatStdin = true,
-  rootMarkers = {
-    "package.json", ".eslintrc.js", ".eslintrc.yaml", ".eslintrc.yml",
-    ".eslintrc.json",
-  },
-}
-
-local prettier = {
-  -- formatCommand = "node /Users/elia.camposilvan/dd/web-ui/.yarn/sdks/prettier ${INPUT}",
-  formatCommand = 'prettierd "${INPUT}"',
-  formatStdin = true,
-  env = {
-    -- Note: kill `prettierd` process to apply `env` changes
-    string.format("PRETTIERD_DEFAULT_CONFIG=%s",
-                  vim.fn.expand("~/.config/nvim/defaults/.prettierrc.yaml")),
-  },
-}
-
-local lua_format = {
-  formatCommand = "lua-format -i --config=$HOME/.config/nvim/defaults/.lua-format",
-  formatStdin = true,
-}
-
-local black = {formatCommand = "black --quiet -", formatStdin = true}
 
 -- lspconfig.jdtls.setup {
 --   cmd = {
@@ -125,24 +98,6 @@ local lua_settings = {
   },
 }
 
-local efm_settings = {
-  rootMarkers = {".git/", "ROOT"},
-  languages = {
-    lua = {lua_format},
-    javascript = {eslint, prettier},
-    javascriptreact = {eslint, prettier},
-    typescript = {eslint, prettier},
-    typescriptreact = {eslint, prettier},
-    ["javascript.jsx"] = {eslint, prettier},
-    ["typescript.tsx"] = {eslint, prettier},
-    html = {prettier},
-    css = {prettier},
-    json = {prettier},
-    yaml = {prettier},
-    python = {black},
-  },
-}
-
 local function setup_servers()
   lspinstall.setup()
   local servers = lspinstall.installed_servers()
@@ -179,9 +134,9 @@ local function setup_servers()
 
     if server == "efm" then
       config.cmd = {
-        'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '10',
+        'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5',
       }
-      config.root_dir = require("lspconfig").util.root_pattern  {".git/", "."}
+      config.root_dir = lspconfig.util.root_pattern  {".git/", "."}
       config.filetypes = {
         "lua", "javascript", "javascriptreact", "typescript", "typescriptreact",
         "javascript.jsx", "typescript.jsx", "html", "css", "json", "yaml",
