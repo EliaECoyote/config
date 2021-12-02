@@ -32,7 +32,7 @@ Plug 'mattn/efm-langserver'
 " LSP server configurations for various langs
 Plug 'neovim/nvim-lspconfig'
 " Install LSP servers automatically
-Plug 'kabouzeid/nvim-lspinstall'
+Plug 'williamboman/nvim-lsp-installer'
 " Snippets
 Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/vim-vsnip'

@@ -1,6 +1,6 @@
 local lspconfig = require  "lspconfig"
 local lsp_status = require  "lsp-status"
-local lspinstall = require  "lspinstall"
+local lsp_installer = require  "nvim-lsp-installer"
 local efm_settings = require  "efm_settings"
 
 lsp_status.register_progress()
@@ -45,34 +45,6 @@ local function custom_attach(client)
   -- vim.cmd  [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
 end
 
--- lspconfig.jdtls.setup {
---   cmd = {
---     "java",
---     "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044",
---     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
---     "-Dosgi.bundles.defaultStartLevel=4",
---     "-Declipse.product=org.eclipse.jdt.ls.core.product",
---     "-Dlog.level=ALL",
---     "-Xmx1G",
---     "-jar",
---     "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.6.100.v20201223-0822.jar",
---     "-configuration",
---     "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_mac",
---     "-data",
---     "${1:-$HOME/workspace}",
---     "--add-modules=ALL-SYSTEM",
---     "--add-opens",
---     "java.base/java.util=ALL-UNNAMED",
---     "--add-opens",
---     "java.base/java.lang=ALL-UNNAMED"
---   },
-
--- cmd_env = {
--- JAR = "/Volumes/Projects/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_*.jar",
--- },
--- }
---
-
 local lua_settings = {
   Lua = {
     runtime = {
@@ -98,62 +70,59 @@ local lua_settings = {
   },
 }
 
-local function setup_servers()
-  lspinstall.setup()
-  local servers = lspinstall.installed_servers()
+lsp_installer.settings({
+  ui = {
+    icons = {
+      server_installed = "✓",
+      server_pending = "➜",
+      server_uninstalled = "✗",
+    },
+  },
+  log_level = vim.log.levels.DEBUG,
+})
 
-  -- print(vim.inspect(servers))
+local function setup_server(server)
+  print("Setting up server" .. server.name)
+  local config = {on_attach = custom_attach, capabilities = capabilities}
 
-  for _, server in ipairs(servers) do
-    local config = {on_attach = custom_attach, capabilities = capabilities}
-
-    if server == "typescript" then
-      function config.on_attach(client)
-        -- Disable ts builtin formatting
-        client.resolved_capabilities.document_formatting = false
-        custom_attach(client)
-      end
-      config.cmd = {
-        "node",
-        "/Volumes/Projects/typescript-language-server/server/lib/cli.js",
-        "--stdio", "--log-level=4",
-      }
+  if server.name == "typescript" then
+    function config.on_attach(client)
+      -- Disable ts builtin formatting
+      client.resolved_capabilities.document_formatting = false
+      custom_attach(client)
     end
-
-    if server == "html" then
-      config.filetypes = {
-        "html", "aspnetcorerazor", "blade", "django-html", "edge", "ejs",
-        "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex",
-        "jade", "leaf", "liquid", "mustache", "njk", "nunjucks", "php", "razor",
-        "slim", "twig", -- mixed
-        "vue", "svelte",
-      }
-    end
-
-    if server == "lua" then config.settings = lua_settings end
-
-    if server == "efm" then
-      config.cmd = {
-        'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5',
-      }
-      config.root_dir = lspconfig.util.root_pattern  {".git/", "."}
-      config.filetypes = {
-        "lua", "javascript", "javascriptreact", "typescript", "typescriptreact",
-        "javascript.jsx", "typescript.jsx", "html", "css", "json", "yaml",
-        "python",
-      }
-      config.init_options = {documentFormatting = true, codeAction = true}
-      config.settings = efm_settings
-    end
-
-    lspconfig[server].setup(config)
+    config.cmd = {
+      "node", "/Volumes/Projects/typescript-language-server/server/lib/cli.js",
+      "--stdio", "--log-level=4",
+    }
   end
+
+  if server.name == "html" then
+    config.filetypes = {
+      "html", "aspnetcorerazor", "blade", "django-html", "edge", "ejs", "eruby",
+      "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "jade", "leaf",
+      "liquid", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", -- mixed
+      "vue", "svelte",
+    }
+  end
+
+  if server.name == "lua" then config.settings = lua_settings end
+
+  if server.name == "efm" then
+    config.cmd = {
+      'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5',
+    }
+    config.root_dir = lspconfig.util.root_pattern  {".git/", "."}
+    config.filetypes = {
+      "lua", "javascript", "javascriptreact", "typescript", "typescriptreact",
+      "javascript.jsx", "typescript.jsx", "html", "css", "json", "yaml",
+      "python",
+    }
+    config.init_options = {documentFormatting = true, codeAction = true}
+    config.settings = efm_settings
+  end
+
+  server:setup(config)
 end
 
-setup_servers()
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspinstall.post_install_hook = function()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+lsp_installer.on_server_ready(setup_server)
