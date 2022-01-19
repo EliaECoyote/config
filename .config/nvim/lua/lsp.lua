@@ -82,7 +82,7 @@ lsp_installer.settings({
 })
 
 local function setup_server(server)
-  print("Setting up server" .. server.name)
+  print("Setting up server " .. server.name)
   local config = {on_attach = custom_attach, capabilities = capabilities}
 
   if server.name == "typescript" then
@@ -106,7 +106,7 @@ local function setup_server(server)
     }
   end
 
-  if server.name == "lua" then config.settings = lua_settings end
+  if server.name == "sumneko_lua" then config.settings = lua_settings end
 
   if server.name == "efm" then
     config.cmd = {

@@ -2,7 +2,7 @@ local configs = require  "nvim-treesitter.configs"
 
 configs.setup  {
   ensure_installed = "maintained",
-  highlight = {enable = true},
+  -- highlight = {enable = true},
   -- TODO: enable treesitter indentation once it's more stable
   -- indent = {
   --   enable = true,

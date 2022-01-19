@@ -31,6 +31,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'mattn/efm-langserver'
 " LSP server configurations for various langs
 Plug 'neovim/nvim-lspconfig'
+" Pretty LSP feedback
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
 " Install LSP servers automatically
 Plug 'williamboman/nvim-lsp-installer'
 " Snippets

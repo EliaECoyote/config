@@ -24,7 +24,7 @@ local lua_format = {
   formatStdin = true,
 }
 
-local black = {formatCommand = "black --quiet -", formatStdin = true}
+-- local black = {formatCommand = "black --quiet -", formatStdin = true}
 
 local efm_settings = {
   rootMarkers = {".git/", "ROOT"},
@@ -36,11 +36,10 @@ local efm_settings = {
     typescriptreact = {eslint, prettier},
     ["javascript.jsx"] = {eslint, prettier},
     ["typescript.tsx"] = {eslint, prettier},
-    html = {prettier},
+    html = {eslint, prettier},
     css = {prettier},
     json = {prettier},
     yaml = {prettier},
-    python = {black},
   },
 }
 
