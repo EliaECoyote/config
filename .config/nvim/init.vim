@@ -44,6 +44,8 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'hrsh7th/nvim-compe'
 " Display LSP status in statusline
 Plug 'nvim-lua/lsp-status.nvim'
+" Debugger client
+Plug 'mfussenegger/nvim-dap'
 " Git management plugin
 Plug 'tpope/vim-fugitive'
 " Adds Tree explorer
