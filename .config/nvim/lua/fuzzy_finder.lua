@@ -4,7 +4,6 @@ local pickers = require  "telescope.pickers"
 local finders = require  "telescope.finders"
 local builtin = require  "telescope.builtin"
 local config = require  "telescope.config"
-local previewers = require  "telescope.previewers"
 local themes = require  "telescope.themes"
 
 local set_keymap = vim.api.nvim_set_keymap
@@ -32,17 +31,6 @@ telescope.setup  {
 }
 
 require('telescope').load_extension('fzf')
-
--- function _G.git_files()
---   return builtin.git_files {
---     layout_strategy = "vertical",
---     layout_config = {
---       height = 0.9,
---       width = 0.9,
---       preview_cutoff = 10,
---     },
---   }
--- end
 
 function _G.buffers()
   return builtin.buffers  {

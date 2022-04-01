@@ -10,25 +10,20 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 " Vimify UNIX shell commands
 Plug 'tpope/vim-eunuch'
-" Loads editorconfig files
-Plug 'editorconfig/editorconfig-vim'
-" Adds emmet management
-" - run `<leader>,,` to convert emmet to template
-Plug 'mattn/emmet-vim'
-" Handle text surround with quotes, tags, brackets
-Plug 'machakann/vim-sandwich'
-" Makes gx cmd work for urls and files 
-Plug 'stsewd/gx-extended.vim'
+" Adds comments with `gc`
+Plug 'tpope/vim-commentary'
 " Automatic tab size management plugin
 Plug 'tpope/vim-sleuth'
 " Async toolbox for plugins
 Plug 'tpope/vim-dispatch'
-" Base vim config
-Plug 'tpope/vim-sensible'
-" Preview markdown files on the browser
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-" LS for linters
-Plug 'mattn/efm-langserver'
+" Loads editorconfig files
+Plug 'editorconfig/editorconfig-vim'
+" Handle text surround with quotes, tags, brackets
+Plug 'machakann/vim-sandwich'
+" Makes gx cmd work for urls and files 
+Plug 'stsewd/gx-extended.vim'
+" Integrate non LSP stuff with neovim LSP diagnostic, actions...
+Plug 'jose-elias-alvarez/null-ls.nvim'
 " LSP server configurations for various langs
 Plug 'neovim/nvim-lspconfig'
 " Pretty LSP feedback
@@ -44,8 +39,6 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'hrsh7th/nvim-compe'
 " Display LSP status in statusline
 Plug 'nvim-lua/lsp-status.nvim'
-" Debugger client
-Plug 'mfussenegger/nvim-dap'
 " Git management plugin
 Plug 'tpope/vim-fugitive'
 " Adds Tree explorer
@@ -59,13 +52,6 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " Treesitter!
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-" Adds comments with `gc`
-Plug 'tpope/vim-commentary'
-" Alignment plugin:
-" - select in visual mode
-" - run easy-align cmd with `ga`
-" - align with `=`
-Plug 'junegunn/vim-easy-align'
 " Navigate seamlessly between tmux and vim splits
 Plug 'christoomey/vim-tmux-navigator'
 " Open current line on github
@@ -80,7 +66,6 @@ Plug 'mhartington/oceanic-next'
 Plug 'embark-theme/vim', { 'as': 'embark' }
 " Handle multi-file find and replace
 Plug 'mhinz/vim-grepper'
-" Plug 'takac/vim-hardtime'
 
 " Initialize plugin system
 call plug#end()
@@ -190,20 +175,6 @@ endfunction
 
 " }}}
 
-" Diagnostics {{{
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap ]g <cmd>lua vim.lsp.diagnostic.goto_next()<cr>
-nmap [g <cmd>lua vim.lsp.diagnostic.goto_prev()<cr>
-
-" }}}
-
-" emmet-vim {{{
-
-let g:user_emmet_leader_key = '<C-,>'
-
-" }}}
-
 " vim-fugitive {{{
 
 nmap <leader>2 :Gvdiffsplit<cr>
@@ -290,13 +261,6 @@ vnoremap <silent> # :<C-U>
       \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
       \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
       \gVzv:call setreg('"', old_reg, old_regtype)<CR>
-
-" }}}
-
-" vim-easy-align {{{
-
-" Align GitHub-flavored Markdown tables
-au FileType markdown map <Bar> vip :EasyAlign*<Bar><Enter>
 
 " }}}
 
