@@ -1,7 +1,8 @@
-local lspconfig = require  "lspconfig"
 local lsp_status = require  "lsp-status"
 local lsp_installer = require  "nvim-lsp-installer"
-local efm_settings = require  "efm_settings"
+local null_ls = require "null-ls"
+local eslint_config = require("lspconfig.server_configurations.eslint")
+local typescript_config = require("lspconfig.server_configurations.tsserver")
 
 lsp_status.register_progress()
 
@@ -81,8 +82,15 @@ lsp_installer.settings({
   log_level = vim.log.levels.DEBUG,
 })
 
+null_ls.setup({
+  on_attach = custom_attach,
+  sources = {
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.completion.spell,
+  },
+})
+
 local function setup_server(server)
-  print("Setting up server " .. server.name)
   local config = {on_attach = custom_attach, capabilities = capabilities}
 
   if server.name == "typescript" then
@@ -91,10 +99,7 @@ local function setup_server(server)
       client.resolved_capabilities.document_formatting = false
       custom_attach(client)
     end
-    config.cmd = {
-      "node", "/Volumes/Projects/typescript-language-server/server/lib/cli.js",
-      "--stdio", "--log-level=4",
-    }
+    config.cmd = { "yarn", "exec", unpack(typescript_config.default_config.cmd) }
   end
 
   if server.name == "html" then
@@ -108,18 +113,20 @@ local function setup_server(server)
 
   if server.name == "sumneko_lua" then config.settings = lua_settings end
 
-  if server.name == "efm" then
-    config.cmd = {
-      'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5',
+  if server.name == "eslint" then
+    -- Ensures that eslint works with pnp
+    config.cmd = { "yarn", "exec", unpack(eslint_config.default_config.cmd) }
+    function config.on_attach(client)
+      -- neovim's LSP client does not currently support dynamic
+      -- capabilities registration, so we need to set the resolved
+      -- capabilities of the eslint server ourselves!
+      client.resolved_capabilities.document_formatting = true
+      custom_attach(client)
+    end
+    config.settings = {
+      -- this will enable formatting
+      format = { enable = true }
     }
-    config.root_dir = lspconfig.util.root_pattern  {".git/", "."}
-    config.filetypes = {
-      "lua", "javascript", "javascriptreact", "typescript", "typescriptreact",
-      "javascript.jsx", "typescript.jsx", "html", "css", "json", "yaml",
-      "python",
-    }
-    config.init_options = {documentFormatting = true, codeAction = true}
-    config.settings = efm_settings
   end
 
   server:setup(config)
