@@ -5,6 +5,7 @@
   ff = only
 [core]
   editor = nvim
+  hooksPath = /usr/local/dd/global_hooks
 [alias]
   s = status
   d = diff
