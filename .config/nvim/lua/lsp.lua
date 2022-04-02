@@ -1,8 +1,10 @@
 local lsp_status = require  "lsp-status"
+local command_resolver = require  "null-ls.helpers.command_resolver"
 local lsp_installer = require  "nvim-lsp-installer"
 local null_ls = require "null-ls"
-local eslint_config = require("lspconfig.server_configurations.eslint")
-local typescript_config = require("lspconfig.server_configurations.tsserver")
+local cmp_nvim_lsp = require  "cmp_nvim_lsp"
+local eslint_config = require  "lspconfig.server_configurations.eslint"
+local typescript_config = require  "lspconfig.server_configurations.tsserver"
 
 lsp_status.register_progress()
 
@@ -16,10 +18,10 @@ lsp_status.config  {
   status_symbol = "",
 }
 
--- Snippets support
-local capabilities = lsp_status.capabilities
+-- Combine capabilities from both nvim-cmp and lsp_status.
+local capabilities = cmp_nvim_lsp.update_capabilities(lsp_status.capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
+capabilities.textDocument.completion.completionItem.resolveSupport.properties = {
   properties = {"documentation", "detail", "additionalTextEdits"},
 }
 
@@ -36,8 +38,7 @@ local function custom_attach(client)
   set_keymap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", options)
   set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", options)
   set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", options)
-  set_keymap("n", "<leader>0", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>",
-             options)
+  set_keymap("n", "<leader>0", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>", options)
   set_keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next()<cr>", options)
   set_keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev()<cr>", options)
   set_keymap("n", "<leader>A", "<cmd>lua vim.lsp.buf.code_action()<cr>", options)
@@ -45,31 +46,6 @@ local function custom_attach(client)
   -- Uncomment to enable formatting on save
   -- vim.cmd  [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
 end
-
-local lua_settings = {
-  Lua = {
-    runtime = {
-      -- Tell the language server which version of Lua you"re using
-      -- (most likely LuaJIT in the case of Neovim)
-      version = "LuaJIT",
-      -- Setup your lua path
-      path = vim.split(package.path, ";"),
-    },
-    diagnostics = {
-      -- Get the language server to recognize the `vim` global
-      globals = {"vim"},
-    },
-    workspace = {
-      -- Make the server aware of Neovim runtime files
-      library = {
-        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-        [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-      },
-    },
-    -- Do not send telemetry data containing a randomized but unique identifier
-    telemetry = {enable = false},
-  },
-}
 
 lsp_installer.settings({
   ui = {
@@ -85,7 +61,14 @@ lsp_installer.settings({
 null_ls.setup({
   on_attach = custom_attach,
   sources = {
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettier.with({
+      timeout = 2000,
+      dynamic_command = function(params)
+        return command_resolver.from_node_modules(params)
+          or command_resolver.from_yarn_pnp(params)
+          or vim.fn.executable(params.command) == 1 and params.command
+      end,
+    }),
     null_ls.builtins.completion.spell,
   },
 })
@@ -95,7 +78,6 @@ local function setup_server(server)
 
   if server.name == "typescript" then
     function config.on_attach(client)
-      -- Disable ts builtin formatting
       client.resolved_capabilities.document_formatting = false
       custom_attach(client)
     end
@@ -111,21 +93,47 @@ local function setup_server(server)
     }
   end
 
-  if server.name == "sumneko_lua" then config.settings = lua_settings end
+  if server.name == "sumneko_lua" then
+    config.settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you"re using
+        -- (most likely LuaJIT in the case of Neovim)
+        version = "LuaJIT",
+        -- Setup your lua path
+        path = vim.split(package.path, ";"),
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {"vim"},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = {
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+        },
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {enable = false},
+    },
+  }
+  end
 
   if server.name == "eslint" then
-    -- Ensures that eslint works with pnp
-    config.cmd = { "yarn", "exec", unpack(eslint_config.default_config.cmd) }
     function config.on_attach(client)
+      --- cf. https://github.com/williamboman/nvim-lsp-installer/blob/main/lua/nvim-lsp-installer/servers/eslint/README.md
       -- neovim's LSP client does not currently support dynamic
       -- capabilities registration, so we need to set the resolved
       -- capabilities of the eslint server ourselves!
       client.resolved_capabilities.document_formatting = true
       custom_attach(client)
     end
+    -- Ensures that eslint works with pnp
+    config.cmd = { "yarn", "exec", unpack(eslint_config.default_config.cmd) }
     config.settings = {
       -- this will enable formatting
-      format = { enable = true }
+      format = {enable = true}
     }
   end
 

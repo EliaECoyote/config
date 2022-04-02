@@ -1,78 +1,41 @@
-vim.api.nvim_set_option("completeopt", "menuone,noselect")
+local cmp = require "cmp"
 
-require"compe".setup  {
-  enabled = true,
-  autocomplete = true,
-  debug = false,
-  min_length = 1,
-  preselect = "always",
-  throttle_time = 80,
-  source_timeout = 200,
-  incomplete_delay = 400,
-  max_abbr_width = 100,
-  max_kind_width = 100,
-  max_menu_width = 100,
-  documentation = true,
+vim.api.nvim_set_option("completeopt", "menu,menuone,noselect")
 
-  source = {
-    path = true,
-    buffer = true,
-    calc = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-    vsnip = true,
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
   },
-}
+  mapping = {
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    -- Accept currently selected item.
+    -- Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' },
+  },
+  {
+    { name = 'buffer' },
+  })
+})
 
-local set_keymap = vim.api.nvim_set_keymap
-local options = {expr = true, silent = true}
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-  local col = vim.fn.col(".") - 1
-  if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
-    return true
-  else
-    return false
-  end
-end
-_G.tab_complete = function()
-  if vim.fn.call("vsnip#available", {1}) == 1 then
-    return t  "<plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t  "<tab>"
-  else
-    return vim.fn["compe#complete"]()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t  "<Plug>(vsnip-jump-prev)"
-  else
-    return t  "<s-tab>"
-  end
-end
-_G.completion_confirm = function()
-  print("test" .. vim.fn.pumvisible())
-  if vim.fn.pumvisible() ~= 0 then
-    if vim.fn.complete_info()["selected"] ~= -1 then
-      vim.fn["compe#confirm"]()
-      print(vim.fn.complete_info()["selected"])
-      return vim.fn["compe#complete"]()
-    else
-      vim.api.nvim_select_popupmenu_item(0, false, false, {})
-      return vim.fn["compe#confirm"]()
-    end
-  else
-    return t  "<cr>"
-  end
-end
-
-set_keymap("i", "<cr>", "v:lua.completion_confirm()", options)
-set_keymap("i", "<Tab>", "v:lua.tab_complete()", options)
-set_keymap("s", "<Tab>", "v:lua.tab_complete()", options)
-set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", options)
-set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", options)
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    -- You can specify the `cmp_git` source if you were installed it.
+    { name = 'cmp_git' },
+  },
+  {
+    { name = 'buffer' },
+  })
+})

@@ -31,12 +31,16 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 " Install LSP servers automatically
 Plug 'williamboman/nvim-lsp-installer'
+" Autocompletion engine
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/nvim-cmp'
 " Snippets
 Plug 'rafamadriz/friendly-snippets'
+Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-" Autocompletion engine
-Plug 'hrsh7th/nvim-compe'
 " Display LSP status in statusline
 Plug 'nvim-lua/lsp-status.nvim'
 " Git management plugin
