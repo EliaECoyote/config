@@ -94,44 +94,37 @@ local function setup_server(server)
     config.settings = {
     Lua = {
       runtime = {
-        -- Tell the language server which version of Lua you"re using
-        -- (most likely LuaJIT in the case of Neovim)
         version = "LuaJIT",
-        -- Setup your lua path
         path = vim.split(package.path, ";"),
       },
       diagnostics = {
-        -- Get the language server to recognize the `vim` global
         globals = {"vim"},
       },
       workspace = {
-        -- Make the server aware of Neovim runtime files
         library = {
           [vim.fn.expand("$VIMRUNTIME/lua")] = true,
           [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
         },
       },
-      -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {enable = false},
     },
   }
   end
 
   if server.name == "eslint" then
-    function config.on_attach(client)
-      --- cf. https://github.com/williamboman/nvim-lsp-installer/blob/main/lua/nvim-lsp-installer/servers/eslint/README.md
-      -- neovim's LSP client does not currently support dynamic
-      -- capabilities registration, so we need to set the resolved
-      -- capabilities of the eslint server ourselves!
-      client.resolved_capabilities.document_formatting = true
-      custom_attach(client)
-    end
-    -- Ensures that eslint works with pnp
     config.settings = {
-      -- this will enable formatting
-      format = { enable = true },
+      -- packageManager and nodePath are set to ensure that the eslint LS
+      -- will work with pnp
       packageManager = "yarn",
       nodePath = ".yarn/sdks",
+      filetypes = {
+        "javascript",
+        "javascript.jsx",
+        "javascriptreact",
+        "typescript",
+        "typescript.tsx",
+        "typescriptreact",
+      },
     }
   end
 
