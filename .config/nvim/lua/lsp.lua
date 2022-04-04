@@ -108,7 +108,6 @@ null_ls.setup({
         "handlebars",
       },
     }),
-    null_ls.builtins.completion.spell,
   },
 })
 
