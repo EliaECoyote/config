@@ -30,7 +30,7 @@ telescope.setup  {
   },
 }
 
-require('telescope').load_extension('fzf')
+require("telescope").load_extension("fzf")
 
 function _G.buffers()
   return builtin.buffers  {
@@ -40,9 +40,9 @@ function _G.buffers()
   }
 end
 
--- function _G.lsp_code_actions()
---   return builtin.lsp_code_actions(themes.get_dropdown())
--- end
+function _G.lsp_code_actions()
+  return builtin.lsp_code_actions(themes.get_cursor())
+end
 
 function _G.live_grep()
   return builtin.live_grep({path_display = {"smart", "absolute"}})
@@ -69,6 +69,7 @@ end
 local options = {noremap = true}
 
 set_keymap("n", "<leader>o", "v:lua buffers()<cr>", options)
+
 set_keymap("n", "<leader>fw", "v:lua common_files()<cr>", options)
 set_keymap("n", "<leader>ff", "v:lua live_grep()<cr>", options)
 set_keymap("n", "<leader>p",
@@ -106,9 +107,7 @@ set_keymap("n", "<leader>fl",
            "<cmd>lua require('telescope.builtin').loclist()<cr>", options)
 
 -- LSP
-set_keymap("n", "<leader>a",
-           "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>",
-           options)
+set_keymap("n", "<leader>a", "v:lua lsp_code_actions()<cr>", options)
 
 set_keymap("n", "gr",
            "<cmd>lua require('telescope.builtin').lsp_references()<cr>", options)

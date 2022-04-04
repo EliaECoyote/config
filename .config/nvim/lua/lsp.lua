@@ -41,7 +41,6 @@ local function custom_attach(client)
   set_keymap("n", "<leader>0", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>", options)
   set_keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next()<cr>", options)
   set_keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev()<cr>", options)
-  set_keymap("n", "<leader>A", "<cmd>lua vim.lsp.buf.code_action()<cr>", options)
 
   -- Uncomment to enable formatting on save
   -- vim.cmd  [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
