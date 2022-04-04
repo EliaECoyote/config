@@ -115,7 +115,7 @@ null_ls.setup({
 local function setup_server(server)
   local config = {on_attach = custom_attach, capabilities = capabilities}
 
-  if server.name == "typescript" then
+  if server.name == "tsserver" then
     function config.on_attach(client)
       client.resolved_capabilities.document_formatting = false
       custom_attach(client)
