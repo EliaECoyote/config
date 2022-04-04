@@ -55,10 +55,7 @@ lsp_installer.settings({
   },
 })
 
-vim.lsp.set_log_level("debug")
-
 null_ls.setup({
-  debug = true,
   on_attach = custom_attach,
   sources = {
     null_ls.builtins.formatting.prettier.with({
