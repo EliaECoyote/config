@@ -84,6 +84,29 @@ null_ls.setup({
           or command_resolver.from_yarn_pnp(params)
           or vim.fn.executable(params.command) == 1 and params.command
       end,
+      filetypes = {
+        -- Here we disable JS filetypes; this is because, more often than not,
+        -- prettier is run through eslint with plugins such as
+        -- [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier).
+        -- This allows us to improve formatting performances for JS files, while
+        -- keeping prettier formatting available for other filetypes.
+        --
+        -- "javascript",
+        -- "javascriptreact",
+        -- "typescript",
+        -- "typescriptreact",
+        -- "vue",
+        "css",
+        "scss",
+        "less",
+        "html",
+        "json",
+        "jsonc",
+        "yaml",
+        "markdown",
+        "graphql",
+        "handlebars",
+      },
     }),
     null_ls.builtins.completion.spell,
   },
