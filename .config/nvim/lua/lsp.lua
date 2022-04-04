@@ -1,4 +1,5 @@
 local lsp_status = require  "lsp-status"
+local table_utils = require "utils.table_utils"
 local command_resolver = require  "null-ls.helpers.command_resolver"
 local lsp_installer = require  "nvim-lsp-installer"
 local null_ls = require "null-ls"
@@ -24,6 +25,24 @@ capabilities.textDocument.completion.completionItem.resolveSupport.properties = 
   properties = {"documentation", "detail", "additionalTextEdits"},
 }
 
+local ESLINT_FILETYPES = {
+  "javascript",
+  "javascript.jsx",
+  "javascriptreact",
+  "typescript",
+  "typescript.tsx",
+  "typescriptreact",
+}
+
+function _G.format_buffer()
+  vim.lsp.buf.formatting_seq_sync()
+  -- Run eslint on buffers with JS filetype
+  if table_utils.includes(ESLINT_FILETYPES, vim.bo.filetype) then
+    vim.cmd("EslintFixAll")
+  end
+end
+
+
 local function custom_attach(client)
   lsp_status.on_attach(client)
   print("LSP 🚀")
@@ -37,12 +56,12 @@ local function custom_attach(client)
   set_keymap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", options)
   set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", options)
   set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", options)
-  set_keymap("n", "<leader>0", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>", options)
+  set_keymap("n", "<leader>0", "v:lua format_buffer()<cr>", options)
   set_keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next()<cr>", options)
   set_keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev()<cr>", options)
 
   -- Uncomment to enable formatting on save
-  -- vim.cmd  [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
+  -- vim.cmd  [[autocmd BufWritePre <buffer> lua format_buffer()]]
 end
 
 lsp_installer.settings({
