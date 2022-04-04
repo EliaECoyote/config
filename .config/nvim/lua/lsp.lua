@@ -155,18 +155,11 @@ local function setup_server(server)
 
   if server.name == "eslint" then
     config.settings = {
-      -- packageManager and nodePath are set to ensure that the eslint LS
-      -- will work with pnp
+      -- `packageManager` and `nodePath` are set to ensure that the eslint LS
+      -- will work with pnp.
       packageManager = "yarn",
       nodePath = ".yarn/sdks",
-      filetypes = {
-        "javascript",
-        "javascript.jsx",
-        "javascriptreact",
-        "typescript",
-        "typescript.tsx",
-        "typescriptreact",
-      },
+      filetypes = ESLINT_FILETYPES,
     }
   end
 
