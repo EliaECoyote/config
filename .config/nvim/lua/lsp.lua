@@ -3,7 +3,6 @@ local command_resolver = require  "null-ls.helpers.command_resolver"
 local lsp_installer = require  "nvim-lsp-installer"
 local null_ls = require "null-ls"
 local cmp_nvim_lsp = require  "cmp_nvim_lsp"
-local eslint_config = require  "lspconfig.server_configurations.eslint"
 local typescript_config = require  "lspconfig.server_configurations.tsserver"
 
 lsp_status.register_progress()
@@ -54,10 +53,12 @@ lsp_installer.settings({
       server_uninstalled = "✗",
     },
   },
-  log_level = vim.log.levels.DEBUG,
 })
 
+vim.lsp.set_log_level("debug")
+
 null_ls.setup({
+  debug = true,
   on_attach = custom_attach,
   sources = {
     null_ls.builtins.formatting.prettier.with({
@@ -129,10 +130,11 @@ local function setup_server(server)
       custom_attach(client)
     end
     -- Ensures that eslint works with pnp
-    config.cmd = { "yarn", "exec", unpack(eslint_config.default_config.cmd) }
     config.settings = {
       -- this will enable formatting
-      format = {enable = true}
+      format = { enable = true },
+      packageManager = "yarn",
+      nodePath = ".yarn/sdks",
     }
   end
 
