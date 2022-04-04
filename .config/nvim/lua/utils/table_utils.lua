@@ -7,4 +7,13 @@ function table_utils.merge(t1, t2)
   return t3
 end
 
+function table_utils.includes(t, value)
+  for _, v in ipairs(t) do
+    if v == value then
+      return true
+    end
+  end
+  return false
+end
+
 return table_utils;
