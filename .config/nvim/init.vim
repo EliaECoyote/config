@@ -5,7 +5,6 @@
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
-" Plug 'vimwiki/vimwiki'
 " Statusline
 Plug 'itchyny/lightline.vim'
 " Vimify UNIX shell commands
@@ -78,30 +77,6 @@ call plug#end()
 
 lua require"setup"
 
-" Training! {{{
-
-" Set hardtime on by default
-" let g:hardtime_default_on = 1
-
-" }}}
-
-" Vimwiki {{{
-
-" Don't use vimwiki for all markdown files
-let g:vimwiki_global_ext = 0
-let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
-      \ 'syntax': 'markdown', 'ext': '.md'}]
-
-" Remove conflicting vimwiki mappings
-let g:vimwiki_key_mappings =
-      \ {
-      \ 'headers': 0,
-      \ }
-
-nmap <leader>ww :e ~/Dropbox/vimwiki/index.md<cr>
-
-" }}}
-
 " Syntax Highlighting {{{
 
 autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
@@ -131,7 +106,7 @@ map <ScrollWheelDown> <C-E>
 
 " }}}
 
-" Indentation & font settings {{{
+" Default indentation & font settings {{{
 
 set smartindent
 filetype plugin indent on
@@ -276,9 +251,6 @@ nnoremap td :tabclose<cr>
 " }}}
 
 " Vim buffers {{{1
-
-" Makes so any buffer can be hidden (keeping its changes) without first writing the buffer to a file. This affects all commands and all buffers.
-set hidden 
 
 " Automatically save any changes made to the buffer before it is hidden
 set autowrite
