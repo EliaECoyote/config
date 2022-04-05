@@ -16,9 +16,7 @@ cmp.setup({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    -- Accept currently selected item.
-    -- Set `select` to `false` to only confirm explicitly selected items.
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm(),
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
