@@ -9,31 +9,23 @@ cmp.setup({
     end,
   },
   mapping = {
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-e>'] = cmp.mapping({
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
-    }),
+    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
     ['<CR>'] = cmp.mapping.confirm(),
   },
+  -- Note: The order matches the cmp menu's sort order.
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
-  },
-  {
     { name = 'buffer' },
   })
 })
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
+  -- Note: The order matches the cmp menu's sort order.
   sources = cmp.config.sources({
-    -- You can specify the `cmp_git` source if you were installed it.
     { name = 'cmp_git' },
-  },
-  {
     { name = 'buffer' },
   })
 })
