@@ -5,6 +5,8 @@ local finders = require  "telescope.finders"
 local builtin = require  "telescope.builtin"
 local config = require  "telescope.config"
 local themes = require  "telescope.themes"
+local actions = require  "telescope.actions"
+local action_state = require "telescope.actions.state"
 
 local set_keymap = vim.api.nvim_set_keymap
 
@@ -66,12 +68,46 @@ function _G.common_files(opts)
   }):find()
 end
 
+local function load_iterm_background(file_name)
+  local apple_script = string.format([[
+      tell application "iTerm2"
+        tell current session of current window
+          set background image to "%s" 
+        end tell
+      end tell
+  ]], file_name)
+  vim.fn.system(string.format("osascript -e '%s'", apple_script))
+end
+
+function _G.select_background(opts)
+  local folders = {"~/.config/wallpapers/"}
+  local folder_files = file_utils.scan_deep_files(folders)
+  local entries = {}
+  for _, path in ipairs(folder_files) do table.insert(entries, path) end
+  opts = opts or {}
+  pickers.new(opts, {
+    prompt_title = "Select Background",
+    finder = finders.new_table(entries),
+    previewer = config.values.file_previewer(opts),
+    sorter = config.values.file_sorter(opts),
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()[1]
+        load_iterm_background(selection)
+      end)
+      return true
+    end
+  }):find()
+end
+
 local options = {noremap = true}
 
 set_keymap("n", "<leader>o", "v:lua buffers()<cr>", options)
 
 set_keymap("n", "<leader>fw", "v:lua common_files()<cr>", options)
 set_keymap("n", "<leader>ff", "v:lua live_grep()<cr>", options)
+set_keymap("n", "<leader>fB", "v:lua select_background()<cr>", options)
 set_keymap("n", "<leader>p",
            "<cmd>lua require('telescope.builtin').git_files()<cr>", options)
 set_keymap("n", "<leader>?",
