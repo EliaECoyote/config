@@ -1,5 +1,4 @@
 local file_utils = require  "utils.file_utils"
-local telescope = require  "telescope"
 local pickers = require  "telescope.pickers"
 local finders = require  "telescope.finders"
 local builtin = require  "telescope.builtin"
@@ -10,7 +9,7 @@ local action_state = require "telescope.actions.state"
 
 local set_keymap = vim.api.nvim_set_keymap
 
-telescope.setup  {
+require("telescope").setup  {
   defaults = {
     vimgrep_arguments = {
       "rg", "--color=never", "--no-heading", "--with-filename", "--line-number",
