@@ -89,7 +89,7 @@ function _G.select_background(opts)
     finder = finders.new_table(entries),
     previewer = false,
     sorter = config.values.file_sorter(opts),
-    attach_mappings = function(prompt_bufnr, map)
+    attach_mappings = function(prompt_bufnr)
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()[1]
