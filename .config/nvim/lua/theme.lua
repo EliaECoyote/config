@@ -42,31 +42,25 @@ vim.api.nvim_command("hi DiffChange   gui=none    guifg=none          guibg=#383
 vim.api.nvim_command("hi DiffDelete   gui=none    guifg=#3d2b28       guibg=#3d2b28")
 vim.api.nvim_command("hi DiffText     gui=none    guifg=none          guibg=#454425")
 
--- cf. https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
+-- For LSP-related UI customzations, see
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization
+
 -- Sets transparent bg for LSP floating windows.
 vim.api.nvim_command("hi NormalFloat guibg=none")
 -- Links LSP floating windows border color with telescope border color.
 vim.api.nvim_command("hi link FloatBorder TelescopeBorder")
 
-local win = require('lspconfig.ui.windows')
-local _default_opts = win.default_opts
-
-win.default_opts = function(options)
-  local opts = _default_opts(options)
-  opts.border = 'single'
-  return opts
+-- Enable floating window borders by default
+local original_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or "rounded"
+  return original_open_floating_preview(contents, syntax, opts, ...)
 end
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  { border = "rounded" }
-)
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  { border = "rounded" }
-)
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  { border = "rounded" }
-)
-
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      -- Disable diagnostic icons in sign column
+      signs = false,
+    }
+  )
