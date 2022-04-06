@@ -25,6 +25,12 @@ capabilities.textDocument.completion.completionItem.resolveSupport.properties = 
   properties = {"documentation", "detail", "additionalTextEdits"},
 }
 
+vim.diagnostic.config({
+  float = {
+    source = "always",
+  },
+})
+
 local ESLINT_FILETYPES = {
   "javascript",
   "javascript.jsx",
