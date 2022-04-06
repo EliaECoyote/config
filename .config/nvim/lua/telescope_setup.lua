@@ -67,6 +67,10 @@ function _G.common_files(opts)
   }):find()
 end
 
+function _G.live_grep_raw(opts)
+  require("telescope").extensions.live_grep_raw.live_grep_raw(opts)
+end
+
 local function load_iterm_background(file_name)
   local apple_script = string.format([[
       tell application "iTerm2"
@@ -106,6 +110,8 @@ set_keymap("n", "<leader>o", "v:lua buffers()<cr>", options)
 
 set_keymap("n", "<leader>fw", "v:lua common_files()<cr>", options)
 set_keymap("n", "<leader>ff", "v:lua live_grep()<cr>", options)
+set_keymap("n", "<leader>fF", "v:lua live_grep_raw()<cr>", options)
+
 set_keymap("n", "<leader>fB", "v:lua select_background()<cr>", options)
 set_keymap("n", "<leader>p",
            "<cmd>lua require('telescope.builtin').git_files()<cr>", options)

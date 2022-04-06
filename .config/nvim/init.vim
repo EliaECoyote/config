@@ -53,6 +53,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-rg.nvim'
 " Treesitter!
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " Navigate seamlessly between tmux and vim splits
