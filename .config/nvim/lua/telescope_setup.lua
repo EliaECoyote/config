@@ -87,7 +87,7 @@ function _G.select_background(opts)
   pickers.new(opts, {
     prompt_title = "Select Background",
     finder = finders.new_table(entries),
-    previewer = config.values.file_previewer(opts),
+    previewer = false,
     sorter = config.values.file_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
       actions.select_default:replace(function()
