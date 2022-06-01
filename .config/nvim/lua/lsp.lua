@@ -4,6 +4,7 @@ local command_resolver = require  "null-ls.helpers.command_resolver"
 local lsp_installer = require  "nvim-lsp-installer"
 local null_ls = require "null-ls"
 local cmp_nvim_lsp = require  "cmp_nvim_lsp"
+local lspconfig = require  "lspconfig"
 local typescript_config = require  "lspconfig.server_configurations.tsserver"
 
 lsp_status.register_progress()
@@ -70,7 +71,8 @@ local function custom_attach(client)
   -- vim.cmd  [[autocmd BufWritePre <buffer> lua format_buffer()]]
 end
 
-lsp_installer.settings({
+lsp_installer.setup({
+  automatic_installation = true,
   ui = {
     icons = {
       server_installed = "✓",
@@ -117,10 +119,19 @@ null_ls.setup({
   },
 })
 
-local function setup_server(server)
+local servers = {
+  "tsserver",
+  "html",
+  "cssls",
+  "pyright",
+  "eslint",
+  "sumneko_lua",
+}
+
+for _, lsp in pairs(servers) do
   local config = {on_attach = custom_attach, capabilities = capabilities}
 
-  if server.name == "tsserver" then
+  if lsp == 'tsserver' then
     function config.on_attach(client)
       client.resolved_capabilities.document_formatting = false
       custom_attach(client)
@@ -128,7 +139,7 @@ local function setup_server(server)
     config.cmd = { "yarn", "exec", unpack(typescript_config.default_config.cmd) }
   end
 
-  if server.name == "html" then
+  if lsp == "html" then
     config.filetypes = {
       "html", "aspnetcorerazor", "blade", "django-html", "edge", "ejs", "eruby",
       "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "jade", "leaf",
@@ -137,7 +148,7 @@ local function setup_server(server)
     }
   end
 
-  if server.name == "sumneko_lua" then
+  if lsp == "sumneko_lua" then
     config.settings = {
       Lua = {
         runtime = {
@@ -158,7 +169,7 @@ local function setup_server(server)
     }
   end
 
-  if server.name == "eslint" then
+  if lsp == "eslint" then
     config.settings = {
       -- `packageManager` and `nodePath` are set to ensure that the eslint LS
       -- will work with pnp.
@@ -168,7 +179,5 @@ local function setup_server(server)
     }
   end
 
-  server:setup(config)
+  lspconfig[lsp].setup(config)
 end
-
-lsp_installer.on_server_ready(setup_server)
