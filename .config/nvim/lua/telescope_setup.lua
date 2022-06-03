@@ -41,10 +41,6 @@ function _G.buffers()
   }
 end
 
-function _G.lsp_code_actions()
-  return builtin.lsp_code_actions(themes.get_cursor())
-end
-
 function _G.live_grep()
   return builtin.live_grep({path_display = {"smart", "absolute"}})
 end
@@ -148,7 +144,7 @@ set_keymap("n", "<leader>fl",
            "<cmd>lua require('telescope.builtin').loclist()<cr>", options)
 
 -- LSP
-set_keymap("n", "<leader>a", "v:lua lsp_code_actions()<cr>", options)
+vim.keymap.set("n", "<leader>a", '<cmd>lua vim.lsp.buf.code_action()<CR>', options)
 
 set_keymap("n", "gr",
            "<cmd>lua require('telescope.builtin').lsp_references()<cr>", options)
