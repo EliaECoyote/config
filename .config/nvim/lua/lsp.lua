@@ -116,6 +116,9 @@ null_ls.setup({
         "handlebars",
       },
     }),
+    -- null_ls.builtins.diagnostics.pydocstyle,
+    -- null_ls.builtins.formatting.isort,
+    -- null_ls.builtins.formatting.black,
   },
 })
 
@@ -123,7 +126,7 @@ local servers = {
   "tsserver",
   "html",
   "cssls",
-  "pyright",
+  -- "pyright",
   "eslint",
   "sumneko_lua",
 }
