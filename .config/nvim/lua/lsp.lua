@@ -179,5 +179,10 @@ for _, lsp in pairs(servers) do
     }
   end
 
+  if lsp == "pyright" then
+    config = {on_attach = custom_attach}
+  end
+
   lspconfig[lsp].setup(config)
 end
+
