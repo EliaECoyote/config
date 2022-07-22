@@ -54,12 +54,17 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-rg.nvim'
+Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 " Treesitter!
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " Navigate seamlessly between tmux and vim splits
 Plug 'christoomey/vim-tmux-navigator'
 " Open current line on github
 Plug 'ruanyl/vim-gh-line'
+" Test runner
+Plug 'vim-test/vim-test'
+" Debug client
+Plug 'mfussenegger/nvim-dap'
 " Themes
 Plug 'sainnhe/gruvbox-material'
 Plug 'joshdick/onedark.vim'
