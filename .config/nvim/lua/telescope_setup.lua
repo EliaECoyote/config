@@ -32,6 +32,7 @@ require("telescope").setup  {
 }
 
 require("telescope").load_extension("fzf")
+require("telescope").load_extension("live_grep_args")
 
 function _G.buffers()
   return builtin.buffers  {
@@ -63,8 +64,8 @@ function _G.common_files(opts)
   }):find()
 end
 
-function _G.live_grep_raw(opts)
-  require("telescope").extensions.live_grep_raw.live_grep_raw(opts)
+function _G.live_grep_args(opts)
+  require("telescope").extensions.live_grep_args.live_grep_args(opts)
 end
 
 local function load_iterm_background(file_name)
@@ -106,7 +107,7 @@ set_keymap("n", "<leader>o", "v:lua buffers()<cr>", options)
 
 set_keymap("n", "<leader>fw", "v:lua common_files()<cr>", options)
 set_keymap("n", "<leader>ff", "v:lua live_grep()<cr>", options)
-set_keymap("n", "<leader>fF", "v:lua live_grep_raw()<cr>", options)
+set_keymap("n", "<leader>fF", "v:lua live_grep_args()<cr>", options)
 
 set_keymap("n", "<leader>fB", "v:lua select_background()<cr>", options)
 set_keymap("n", "<leader>p",
