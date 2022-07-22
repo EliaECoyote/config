@@ -1,7 +1,17 @@
 local configs = require  "nvim-treesitter.configs"
 
 configs.setup  {
-  ensure_installed = "maintained",
+  ensure_installed = {
+    "lua",
+    "javascript",
+    "json",
+    "css",
+    "dockerfile",
+    "java",
+    "python",
+    "typescript",
+    "yaml",
+  },
   highlight = {enable = true},
   -- TODO: enable treesitter indentation once it's more stable
   -- indent = {
