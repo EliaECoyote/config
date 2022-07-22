@@ -16,6 +16,7 @@ lsp_status.config {
   indicator_info = "ℹ️ ",
   indicator_hint = "❗",
   indicator_ok = "All good!",
+  diagnostics = false,
   status_symbol = "",
 }
 
@@ -27,9 +28,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport.properties = 
 }
 
 vim.diagnostic.config({
-  float = {
-    source = "always",
-  },
+  float = { source = "always" },
 })
 
 local ESLINT_FILETYPES = {
@@ -73,6 +72,7 @@ end
 lsp_installer.setup({
   automatic_installation = true,
   ui = {
+    border = "rounded",
     icons = {
       server_installed = "✓",
       server_pending = "➜",
