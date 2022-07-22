@@ -3,6 +3,9 @@ local cmp = require "cmp"
 vim.api.nvim_set_option("completeopt", "menu,menuone,noselect")
 
 cmp.setup({
+  window = {
+    documentation = cmp.config.window.bordered(),
+  },
   snippet = {
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body)
