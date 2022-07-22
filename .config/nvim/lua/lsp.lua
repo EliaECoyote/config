@@ -1,15 +1,15 @@
-local lsp_status = require  "lsp-status"
+local lsp_status = require "lsp-status"
 local table_utils = require "utils.table_utils"
-local command_resolver = require  "null-ls.helpers.command_resolver"
-local lsp_installer = require  "nvim-lsp-installer"
+local command_resolver = require "null-ls.helpers.command_resolver"
+local lsp_installer = require "nvim-lsp-installer"
 local null_ls = require "null-ls"
-local cmp_nvim_lsp = require  "cmp_nvim_lsp"
-local lspconfig = require  "lspconfig"
-local typescript_config = require  "lspconfig.server_configurations.tsserver"
+local cmp_nvim_lsp = require "cmp_nvim_lsp"
+local lspconfig = require "lspconfig"
+local typescript_config = require "lspconfig.server_configurations.tsserver"
 
 lsp_status.register_progress()
 
-lsp_status.config  {
+lsp_status.config {
   current_function = false,
   indicator_errors = "❌",
   indicator_warnings = "⚠️ ",
@@ -23,7 +23,7 @@ lsp_status.config  {
 local capabilities = cmp_nvim_lsp.update_capabilities(lsp_status.capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport.properties = {
-  properties = {"documentation", "detail", "additionalTextEdits"},
+  properties = { "documentation", "detail", "additionalTextEdits" },
 }
 
 vim.diagnostic.config({
@@ -49,13 +49,12 @@ function _G.format_buffer()
   end
 end
 
-
 local function custom_attach(client)
   lsp_status.on_attach(client)
   print("LSP 🚀")
 
   local set_keymap = vim.api.nvim_set_keymap
-  local options = {noremap = true}
+  local options = { noremap = true }
 
   set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", options)
   set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", options)
@@ -129,16 +128,18 @@ local servers = {
   -- "pyright",
   "eslint",
   "sumneko_lua",
+  "jdtls",
 }
 
 for _, lsp in pairs(servers) do
-  local config = {on_attach = custom_attach, capabilities = capabilities}
+  local config = { on_attach = custom_attach, capabilities = capabilities }
 
   if lsp == 'tsserver' then
     function config.on_attach(client)
       client.resolved_capabilities.document_formatting = false
       custom_attach(client)
     end
+
     config.cmd = { "yarn", "exec", unpack(typescript_config.default_config.cmd) }
   end
 
@@ -159,7 +160,7 @@ for _, lsp in pairs(servers) do
           path = vim.split(package.path, ";"),
         },
         diagnostics = {
-          globals = {"vim"},
+          globals = { "vim" },
         },
         workspace = {
           library = {
@@ -167,9 +168,14 @@ for _, lsp in pairs(servers) do
             [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
           },
         },
-        telemetry = {enable = false},
+        telemetry = { enable = false },
       },
     }
+  end
+
+  if lsp == "jdtls" then
+    config.capabilities = cmp_nvim_lsp.update_capabilities(lsp_status.capabilities)
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
   end
 
   if lsp == "eslint" then
@@ -183,9 +189,8 @@ for _, lsp in pairs(servers) do
   end
 
   if lsp == "pyright" then
-    config = {on_attach = custom_attach}
+    config = { on_attach = custom_attach }
   end
 
   lspconfig[lsp].setup(config)
 end
-
