@@ -9,6 +9,9 @@ vim.api.nvim_command([[
  au TextYankPost * silent! lua vim.highlight.on_yank()
 ]])
 
+-- Hides "-- INSERT --" from under to statusline
+vim.api.nvim_command('set noshowmode')
+
 -- Enables text wrap
 vim.opt.linebreak = true
 vim.opt.wrap = true
@@ -20,7 +23,6 @@ vim.opt.textwidth = 0
 vim.opt.diffopt:append("algorithm:patience")
 vim.opt.diffopt:append("vertical")
 
--- set diffopt+=indent-heuristic
 vim.opt.cursorline = true
 vim.opt.relativenumber = true
 vim.opt.number = true

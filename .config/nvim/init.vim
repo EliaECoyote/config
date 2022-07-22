@@ -6,7 +6,7 @@
 call plug#begin('~/.vim/plugged')
 
 " Statusline
-Plug 'itchyny/lightline.vim'
+Plug 'nvim-lualine/lualine.nvim'
 " Vimify UNIX shell commands
 Plug 'tpope/vim-eunuch'
 " Adds comments with `gc`
@@ -67,12 +67,6 @@ Plug 'vim-test/vim-test'
 Plug 'mfussenegger/nvim-dap'
 " Themes
 Plug 'sainnhe/gruvbox-material'
-Plug 'joshdick/onedark.vim'
-Plug 'doums/darcula'
-Plug 'bluz71/vim-nightfly-guicolors'
-Plug 'sainnhe/sonokai'
-Plug 'mhartington/oceanic-next'
-Plug 'embark-theme/vim', { 'as': 'embark' }
 " Handle multi-file find and replace
 Plug 'mhinz/vim-grepper'
 
@@ -121,42 +115,6 @@ set tabstop=2 shiftwidth=2 expandtab
 " Case options
 set ignorecase
 set smartcase
-
-" }}}
-
-" Statusline {{{
-
-" Hides 'mode' label on the last line
-set noshowmode
-" Set lightline theme
-let g:lightline = {
-      \ 'colorscheme': 'onedark',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified', 'lsp' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'filetype' ],
-      \              [ 'percent' ],
-      \              [ 'gitbranch' ] ]
-      \ },
-      \ 'component_function': {
-      \   'lsp': 'LspStatus',
-      \   'gitbranch': 'FugitiveHead'
-      \ },
-      \ }
-let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
-let s:palette.normal.middle = [ [ 'none', 'none', 'none', 'none' ] ]
-let s:palette.inactive.middle = s:palette.normal.middle
-let s:palette.tabline.middle = s:palette.normal.middle
-call insert(s:palette.normal.right, s:palette.normal.left[1], 0)
-
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-
-  return ''
-endfunction
 
 " }}}
 
