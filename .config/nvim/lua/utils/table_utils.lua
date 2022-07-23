@@ -16,4 +16,4 @@ function table_utils.includes(t, value)
   return false
 end
 
-return table_utils;
+return table_utils

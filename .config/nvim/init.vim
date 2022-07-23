@@ -67,6 +67,7 @@ Plug 'vim-test/vim-test'
 Plug 'mfussenegger/nvim-dap'
 " Themes
 Plug 'sainnhe/gruvbox-material'
+Plug 'projekt0n/github-nvim-theme'
 " Handle multi-file find and replace
 Plug 'mhinz/vim-grepper'
 

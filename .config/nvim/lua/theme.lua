@@ -1,3 +1,5 @@
+local theme_utils = require("utils.theme_utils")
+
 vim.api.nvim_command([[
   if has('termguicolors')
     set termguicolors
@@ -34,7 +36,7 @@ vim.opt.shortmess:append("c")
 vim.opt.list = true
 vim.opt.listchars = { space = " ", tab = "->", eol = "¬" }
 
-local function setupStandardHighlights()
+local function setup_standard_highlight_groups()
   vim.api.nvim_set_hl(0, "LineNr", { fg = "#5eacd3" })
   vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "none", fg = "#ff8533" })
   vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
@@ -54,9 +56,10 @@ local function setupStandardHighlights()
   vim.api.nvim_set_hl(0, "FloatBorder", { link = "TelescopeBorder" })
 end
 
-local function setupDarkTheme()
+local function setup_dark_theme()
   vim.g.gruvbox_material_background = "hard"
   vim.g.gruvbox_material_palette = "original"
+  vim.api.nvim_command("colorscheme gruvbox-material")
 
   vim.api.nvim_set_hl(0, "CursorLine", { bg = "#4f4f4f" })
   vim.api.nvim_set_hl(0, "Visual", { bg = "#434f4e" })
@@ -68,24 +71,23 @@ local function setupDarkTheme()
   vim.api.nvim_set_hl(0, "DiffChange", { underline = 0, standout = 0, fg = "none", bg = "#383725" })
   vim.api.nvim_set_hl(0, "DiffDelete", { bold = 0, fg = "#3d2b28", bg = "#3d2b28" })
   vim.api.nvim_set_hl(0, "DiffText", { underline = 0, standout = 0, fg = "none", bg = "#454425" })
-  vim.api.nvim_command("colorscheme gruvbox-material")
 end
 
-local function setupLightTheme()
-  vim.g.gruvbox_material_background = "medium"
-  vim.g.gruvbox_material_palette = "original"
-  vim.api.nvim_command("colorscheme gruvbox-material")
+local function setup_light_theme()
+  require('github-theme').setup({
+    theme_style = "light",
+  })
 end
 
-vim.api.nvim_set_option("background", "light")
-local background = vim.opt.background:get()
+local background = theme_utils.get_background()
+vim.api.nvim_set_option("background", background)
 
 if (background == "light") then
-  setupLightTheme()
+  setup_light_theme()
 else
-  setupDarkTheme()
+  setup_dark_theme()
 end
-setupStandardHighlights()
+setup_standard_highlight_groups()
 
 -- Enable floating window borders by default
 local original_open_floating_preview = vim.lsp.util.open_floating_preview
