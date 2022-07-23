@@ -78,28 +78,6 @@ call plug#end()
 
 lua require"setup"
 
-" Syntax Highlighting {{{
-
-autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-let g:markdown_fenced_languages = [
-      \ 'css',
-      \ 'javascript',
-      \ 'typescript',
-      \ 'js=javascript',
-      \ 'ts=typescript',
-      \ 'json=javascript',
-      \ 'sass',
-      \ 'xml'
-      \ ]
-
-" }}}
-
-" Vifm {{{
-
-noremap <silent> - :Vifm<cr>
-
-" }}}
-
 " Scroll settings {{{
 
 map <ScrollWheelUp> <C-Y>
