@@ -78,37 +78,6 @@ call plug#end()
 
 lua require"setup"
 
-" Scroll settings {{{
-
-map <ScrollWheelUp> <C-Y>
-map <ScrollWheelDown> <C-E>
-
-" }}}
-
-" Default indentation & font settings {{{
-
-set smartindent
-filetype plugin indent on
-" Use spaces instead of tabs
-set tabstop=2 shiftwidth=2 expandtab
-" Case options
-set ignorecase
-set smartcase
-
-" }}}
-
-" vim-fugitive {{{
-
-nmap <leader>2 :Gvdiffsplit<cr>
-
-" Map keys to move between Gstatus files
-let g:nremap = {
-      \ ')' : '<Tab>',
-      \ '(' : '<S-Tab>'
-      \ }
-
-" }}}
-
 " vim-tmux-navigator {{{
 
 let g:tmux_navigator_no_mappings = 1

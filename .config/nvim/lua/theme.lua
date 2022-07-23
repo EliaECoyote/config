@@ -14,6 +14,20 @@ vim.api.nvim_command([[
 -- Hides "-- INSERT --" from under to statusline
 vim.api.nvim_command('set noshowmode')
 
+-- Default indentation & font settings
+vim.opt.smartindent = true
+vim.api.nvim_command("filetype plugin indent on")
+
+-- Use spaces instead of tabs
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+
+-- Case options
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+
 -- Enables text wrap
 vim.opt.linebreak = true
 vim.opt.wrap = true
@@ -30,7 +44,6 @@ vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.updatetime = 300
 vim.opt.shortmess:append("c")
-
 
 -- Highlights end-of-line
 vim.opt.list = true
