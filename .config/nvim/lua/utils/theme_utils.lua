@@ -8,4 +8,9 @@ function theme_utils.get_background()
   return theme
 end
 
+function theme_utils.extend_hi(group, new_config)
+  local hl = vim.api.nvim_get_hl_by_name(group, true)
+  vim.api.nvim_set_hl(0, group, vim.tbl_extend("force", hl, new_config))
+end
+
 return theme_utils
