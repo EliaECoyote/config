@@ -52,7 +52,14 @@ function _G.common_files(opts)
     "~/.config/karabiner/karabiner.json", "~/.gitconfig", "~/.gitignore",
     "~/.shellrc", "~/.workrc", "~/.zshrc",
   }
-  local folders = {"~/.config/nvim/", "~/Dropbox/vimwiki/"}
+  local folders = {
+    "~/.config/nvim/",
+    "~/.config/fzf/",
+    "~/.config/karabiner/",
+    "~/.config/vifm/",
+    "~/Dropbox/vimwiki/",
+    "/Volumes/Projects/playground/"
+  }
   local folder_files = file_utils.scan_deep_files(folders)
   for _, path in ipairs(folder_files) do table.insert(files, path) end
   opts = opts or {}
