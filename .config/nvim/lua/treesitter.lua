@@ -1,25 +1,24 @@
 local configs = require  "nvim-treesitter.configs"
 
-configs.setup  {
+configs.setup({
   ensure_installed = {
     "lua",
     "javascript",
+    "typescript",
+    "jsdoc",
     "json",
     "css",
     "dockerfile",
     "java",
     "python",
-    "typescript",
     "yaml",
+    "markdown",
   },
-  highlight = {enable = true},
+  highlight = { enable = true },
   -- TODO: enable treesitter indentation once it's more stable
-  -- indent = {
-  --   enable = true,
-  -- },
-}
+  indent = { enable = true },
+})
 
-vim.api.nvim_set_option("foldmethod", "expr")
-vim.api.nvim_set_option("foldexpr", "nvim_treesitter#foldexpr()")
-vim.api.nvim_set_option("foldlevel", 99)
-
+vim.g.foldmethod = "expr"
+vim.g.foldexpr = "nvim_treesitter#foldexpr()"
+vim.g.foldlevel = 99
