@@ -50,7 +50,6 @@ end
 
 local function custom_attach(client)
   lsp_status.on_attach(client)
-  print("LSP 🚀")
 
   local set_keymap = vim.api.nvim_set_keymap
   local options = { noremap = true }
@@ -66,7 +65,10 @@ local function custom_attach(client)
   set_keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev()<cr>", options)
 
   -- Uncomment to enable formatting on save
-  -- vim.cmd  [[autocmd BufWritePre <buffer> lua format_buffer()]]
+  -- vim.api.nvim_create_autocmd("BufWritePre", {
+  --   group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true }),
+  --   callback = format_buffer,
+  -- })
 end
 
 lsp_installer.setup({
@@ -140,7 +142,16 @@ for _, lsp in pairs(servers) do
       custom_attach(client)
     end
 
-    config.cmd = { "yarn", "exec", unpack(typescript_config.default_config.cmd) }
+    function config.on_init(client)
+      local path = client.workspace_folders[1].name
+      if string.match(path, "web-ui") then
+        client.config.cmd = {
+          "yarn",
+          "exec",
+          unpack(typescript_config.default_config.cmd)
+        }
+      end
+    end
   end
 
   if lsp == "html" then
