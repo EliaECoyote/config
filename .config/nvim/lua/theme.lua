@@ -35,8 +35,27 @@ vim.opt.wrap = true
 -- Disables hard-wrap
 vim.opt.textwidth = 0
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "gitcommit",
+  callback = function()
+    vim.opt_local.textwidth = 72
+  end,
+  group = vim.api.nvim_create_augroup("CommitMsg", { clear = true }),
+})
+
+-- -- Lua function
+-- local myluafun = function() print("This buffer enters") end
+
+-- -- Vimscript function name (as a string)
+-- local myvimfun = "g:MyVimFunction"
+
+-- vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+-- pattern = {"*.c", "*.h"},
+-- callback = myluafun,  -- Or myvimfun
+-- })
+
+
 -- Makes vimdiff easier to read
-vim.opt.diffopt:append("algorithm:patience")
 vim.opt.diffopt:append("vertical")
 
 vim.opt.cursorline = true
@@ -48,6 +67,16 @@ vim.opt.shortmess:append("c")
 -- Highlights end-of-line
 vim.opt.list = true
 vim.opt.listchars = { space = " ", tab = "->", eol = "¬" }
+
+vim.g.markdown_fenced_languages = {
+  'html',
+  'python',
+  'lua',
+  'vim',
+  'typescript',
+  'javascript'
+}
+
 
 local function setup_standard_highlight_groups()
   vim.api.nvim_set_hl(0, "LineNr", { fg = "#5eacd3" })
@@ -67,6 +96,11 @@ local function setup_standard_highlight_groups()
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
   -- Links LSP floating windows border color with telescope border color.
   vim.api.nvim_set_hl(0, "FloatBorder", { link = "TelescopeBorder" })
+  -- Don't replace text color on diff view.
+  theme_utils.extend_hi("DiffAdd", { fg = "none" });
+  theme_utils.extend_hi("DiffChange", { fg = "none" });
+  theme_utils.extend_hi("DiffDelete", { fg = "none" });
+  theme_utils.extend_hi("DiffText", { fg = "none" });
 end
 
 local function setup_dark_theme()
@@ -121,8 +155,8 @@ function win.default_opts(options)
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-      -- Disable diagnostic icons in sign column
-      signs = false,
-    }
-  )
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+  -- Disable diagnostic icons in sign column
+  signs = false,
+}
+)
