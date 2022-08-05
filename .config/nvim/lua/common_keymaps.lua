@@ -56,10 +56,9 @@ vim.keymap.set(
 )
 
 -- Buffers mappings
-
 vim.keymap.set(
   "n",
-  "bo",
+  "<leader>bo",
   function()
     local modified_count, deleted_count = buffer_utils.delete_other_buffers()
     if modified_count > 0 then
@@ -72,28 +71,20 @@ vim.keymap.set(
 )
 vim.keymap.set(
   "n",
-  "bd",
+  "<leader>bd",
   function()
-      vim.api.nvim_buf_delete(0, {})
+    vim.api.nvim_buf_delete(0, {})
+    print("Current buffer deleted")
   end,
   { noremap = true, silent = true }
 )
 
-
-
-
--- vim.api.nvim_buf_set_lines
--- function _G.copy_buffer()
---   local content = buffer_utils.buffer_to_string()
---   vim.api.nvim_del_keymap
---   vim.api. f
---  local content = vim.api.nvim_buf_get_lines(0, 0, vim.api.nvim_buf_line_count(0), false)
---   return table.concat(content, "\n")
---   vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
--- end
--- -- Copy all
--- vim.api.nvim_set_keymap(
---   "n",
---   "yA",
---   ":lua copy_buffer()
---   )
+-- Copy all
+vim.keymap.set(
+  {"n", "v"},
+  "yo",
+  function()
+    vim.cmd("%y+")
+  end,
+  { noremap = true, silent = true }
+)
