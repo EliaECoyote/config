@@ -73,7 +73,7 @@ vim.keymap.set(
   "n",
   "<leader>bd",
   function()
-    vim.api.nvim_buf_delete(0, {})
+    vim.api.nvim_buf_delete(0, { force = true })
     print("Current buffer deleted")
   end,
   { noremap = true, silent = true }
@@ -81,10 +81,18 @@ vim.keymap.set(
 
 -- Copy all
 vim.keymap.set(
-  {"n", "v"},
+  "n",
   "yo",
   function()
     vim.cmd("%y+")
   end,
   { noremap = true, silent = true }
+)
+
+-- Prepare to print lua code
+vim.keymap.set(
+  "n",
+  "<leader>l",
+  ":lua vim.pretty_print()<left>",
+  { noremap = true, silent = false }
 )
