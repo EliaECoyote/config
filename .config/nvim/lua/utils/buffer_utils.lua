@@ -10,7 +10,12 @@ function buffer_utils.buffer_to_string()
   return table.concat(content, "\n")
 end
 
--- Deletes buffer without losing the window layout.
+-- Enhanced deletes buffer function.
+-- Features:
+-- - Deletes buffer without losing the window layout
+-- - When passing `opts.loading = true`, the buffer will be de-listed
+-- - Will create a new empty buffer before deleting the last buffer
+--
 -- Inspired from https://github.com/famiu/bufdelete.nvim
 -- Returns `false` when buffer cannot be deleted, returns `true` otherwise.
 function buffer_utils.delete_buffer(bufnr, opts)
@@ -42,18 +47,29 @@ function buffer_utils.delete_buffer(bufnr, opts)
     vim.api.nvim_list_bufs()
   )
 
-  -- If there is only one buffer (which has to be `bufnr`), Neovim will automatically
-  -- create a new buffer upon deletion.
-  -- For more than one buffer, pick the next buffer (wrapping around if necessary)
-  if #buffers > 1 then
-    for i, v in ipairs(buffers) do
-      if v == bufnr then
-        local next_buffer = buffers[i % #buffers + 1]
-        for _, win in ipairs(windows) do
-          vim.api.nvim_win_set_buf(win, next_buffer)
-        end
-        break
+  if #buffers == 0 then
+    return false
+  end
+
+  -- If there is only one buffer (which has to be `bufnr`), we will create a
+  -- new buffer before deleting the previous one.
+  if #buffers == 1 and buffers[1] == bufnr then
+    local next_buffer = vim.api.nvim_create_buf(true, true)
+    if next_buffer == 0 then
+      return false
+    end
+    table.insert(buffers, next_buffer)
+  end
+
+  -- We pick and set the next buffer available.
+  -- This will replace the old buffer in all windows that were referencing it.
+  for i, candidate in ipairs(buffers) do
+    if candidate == bufnr then
+      local next_buffer = buffers[i % #buffers + 1]
+      for _, win in ipairs(windows) do
+        vim.api.nvim_win_set_buf(win, next_buffer)
       end
+      break
     end
   end
 
@@ -80,9 +96,9 @@ function buffer_utils.delete_other_buffers(opts)
     end,
     vim.api.nvim_list_bufs()
   )
-  for _, bufnr in ipairs(buffers) do
-    if bufnr ~= cur_buf then
-      if buffer_utils.delete_buffer(bufnr, opts) then
+  for _, candidate in ipairs(buffers) do
+    if candidate ~= cur_buf then
+      if buffer_utils.delete_buffer(candidate, opts) then
         deleted_count = deleted_count + 1
       else
         invalid_count = invalid_count + 1
