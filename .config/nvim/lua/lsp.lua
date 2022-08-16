@@ -1,11 +1,12 @@
-local lsp_status = require "lsp-status"
-local table_utils = require "utils.table_utils"
-local command_resolver = require "null-ls.helpers.command_resolver"
-local lsp_installer = require "nvim-lsp-installer"
-local null_ls = require "null-ls"
-local cmp_nvim_lsp = require "cmp_nvim_lsp"
-local lspconfig = require "lspconfig"
-local typescript_config = require "lspconfig.server_configurations.tsserver"
+local lsp_status = require("lsp-status")
+local table_utils = require("utils.table_utils")
+local command_resolver = require("null-ls.helpers.command_resolver")
+local mason = require("mason")
+local mason_lspconfig = require("mason-lspconfig")
+local null_ls = require("null-ls")
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local lspconfig = require("lspconfig")
+local typescript_config = require("lspconfig.server_configurations.tsserver")
 
 lsp_status.register_progress()
 
@@ -25,6 +26,16 @@ local capabilities = cmp_nvim_lsp.update_capabilities(lsp_status.capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport.properties = {
   properties = { "documentation", "detail", "additionalTextEdits" },
+}
+
+local servers = {
+  "tsserver",
+  "html",
+  "cssls",
+  -- "pyright",
+  "eslint",
+  "sumneko_lua",
+  "jdtls",
 }
 
 vim.diagnostic.config({
@@ -71,16 +82,11 @@ local function custom_attach(client)
   -- })
 end
 
-lsp_installer.setup({
-  automatic_installation = true,
-  ui = {
-    border = "rounded",
-    icons = {
-      server_installed = "✓",
-      server_pending = "➜",
-      server_uninstalled = "✗",
-    },
-  },
+mason.setup({
+  ui = { border = "rounded" },
+})
+mason_lspconfig.setup({
+  ensure_installed = servers
 })
 
 null_ls.setup({
@@ -90,8 +96,8 @@ null_ls.setup({
       timeout = 2000,
       dynamic_command = function(params)
         return command_resolver.from_node_modules(params)
-          or command_resolver.from_yarn_pnp(params)
-          or vim.fn.executable(params.command) == 1 and params.command
+            or command_resolver.from_yarn_pnp(params)
+            or vim.fn.executable(params.command) == 1 and params.command
       end,
       filetypes = {
         -- Here we disable JS filetypes; this is because, more often than not,
@@ -122,16 +128,6 @@ null_ls.setup({
     -- null_ls.builtins.formatting.black,
   },
 })
-
-local servers = {
-  "tsserver",
-  "html",
-  "cssls",
-  -- "pyright",
-  "eslint",
-  "sumneko_lua",
-  "jdtls",
-}
 
 for _, lsp in pairs(servers) do
   local config = { on_attach = custom_attach, capabilities = capabilities }
@@ -175,7 +171,7 @@ for _, lsp in pairs(servers) do
         },
         diagnostics = {
           -- Get the language server to recognize the `vim` global
-          globals = {"vim"},
+          globals = { "vim" },
         },
         workspace = {
           -- Make the server aware of Neovim runtime files

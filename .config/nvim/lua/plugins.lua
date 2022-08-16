@@ -20,13 +20,14 @@ Plug("machakann/vim-sandwich")
 Plug("stsewd/gx-extended.vim")
 -- Integrate non LSP stuff with neovim LSP diagnostic, actions...
 Plug("jose-elias-alvarez/null-ls.nvim")
--- LSP server configurations for various langs
-Plug("neovim/nvim-lspconfig")
 -- Pretty LSP feedback
 Plug("kyazdani42/nvim-web-devicons")
 Plug("folke/trouble.nvim")
--- Install LSP servers automatically
-Plug("williamboman/nvim-lsp-installer")
+-- Install and manage LSP servers
+Plug("williamboman/mason.nvim")
+Plug("williamboman/mason-lspconfig.nvim")
+-- LSP server configurations for various langs
+Plug("neovim/nvim-lspconfig")
 -- Autocompletion engine
 Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-buffer")
