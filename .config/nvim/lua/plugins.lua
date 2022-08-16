@@ -67,5 +67,7 @@ Plug("sainnhe/gruvbox-material")
 Plug("projekt0n/github-nvim-theme")
 -- Handle multi-file find and replace
 Plug("mhinz/vim-grepper")
+-- Highlight color codes
+Plug("norcalli/nvim-colorizer.lua")
 
 vim.call("plug#end")
