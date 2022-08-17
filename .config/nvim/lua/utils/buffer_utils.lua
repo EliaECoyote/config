@@ -15,15 +15,16 @@ end
 -- - Deletes buffer without losing the window layout
 -- - When passing `opts.loading = true`, the buffer will be de-listed
 -- - Will create a new empty buffer before deleting the last buffer
+-- - Doesn't delete modified buffers if keep_unmodified is true
 --
 -- Inspired from https://github.com/famiu/bufdelete.nvim
 -- Returns `false` when buffer cannot be deleted, returns `true` otherwise.
-function buffer_utils.delete_buffer(bufnr, opts)
+function buffer_utils.delete_buffer(bufnr, opts, delete_unmodified)
   opts = opts or {}
 
-  -- If buffer is modified and force isn't true, return false because
+  -- If buffer is modified and force isn't true or delete_unmodified isn't true, return false
   -- as we cannot delete this buffer.
-  if not opts.force and vim.api.nvim_buf_get_option(bufnr, "modified") then
+  if (not opts.force or not delete_unmodified) and vim.api.nvim_buf_get_option(bufnr, "modified") then
     return false
   end
 
@@ -73,9 +74,10 @@ function buffer_utils.delete_buffer(bufnr, opts)
     end
   end
 
-  -- Check if buffer still exists, to ensure the target buffer wasn't killed
-  -- due to options like bufhidden=wipe.
-  if vim.api.nvim_buf_is_valid(bufnr) then
+  -- Before deleting, ensure the target buffer:
+  -- - wasn't killed due to options like bufhidden=wipe
+  -- - is still listed
+  if vim.api.nvim_buf_is_valid(bufnr) and vim.api.nvim_buf_get_option(bufnr, "buflisted") then
     vim.api.nvim_buf_delete(bufnr, opts)
     if opts.unload then
       -- If the buffer has just been unloaded, we also remove it from the
@@ -86,7 +88,7 @@ function buffer_utils.delete_buffer(bufnr, opts)
   return true
 end
 
-function buffer_utils.delete_other_buffers(opts)
+function buffer_utils.delete_other_buffers(opts, delete_unmodified)
   local cur_buf = vim.api.nvim_get_current_buf()
   local deleted_count, invalid_count = 0, 0
   -- Get list of valid and listed buffers
@@ -98,7 +100,7 @@ function buffer_utils.delete_other_buffers(opts)
   )
   for _, candidate in ipairs(buffers) do
     if candidate ~= cur_buf then
-      if buffer_utils.delete_buffer(candidate, opts) then
+      if buffer_utils.delete_buffer(candidate, opts, delete_unmodified) then
         deleted_count = deleted_count + 1
       else
         invalid_count = invalid_count + 1

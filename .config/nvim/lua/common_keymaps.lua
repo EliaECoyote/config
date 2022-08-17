@@ -61,9 +61,9 @@ vim.keymap.set(
   "<leader>bo",
   function()
     local invalid_count, deleted_count = buffer_utils
-        .delete_other_buffers({ unload = true })
+        .delete_other_buffers({ force = true, unload = true }, false)
     if invalid_count > 0 then
-      print("⚠️ : " .. invalid_count .. " buffers have not been deleted")
+      print("⚠️ : " .. invalid_count .. " buffers are in modified state")
     else
       print(deleted_count .. " buffers deleted")
     end
@@ -74,22 +74,10 @@ vim.keymap.set(
   "n",
   "<leader>bd",
   function()
-    if buffer_utils.delete_buffer(0, { unload = true }) then
+    if buffer_utils.delete_buffer(0, { force = true, unload = true }, false) then
       print("Current buffer deleted")
     else
-      print("⚠️ : Cannot delete current buffer")
-    end
-  end,
-  { noremap = true, silent = true }
-)
-vim.keymap.set(
-  "n",
-  "<leader>bD",
-  function()
-    if buffer_utils.delete_buffer(0, { force = true }) then
-      print("Current buffer force deleted")
-    else
-      print("⚠️ : Cannot force delete current buffer")
+      print("⚠️ : Current buffer is in modified state")
     end
   end,
   { noremap = true, silent = true }
