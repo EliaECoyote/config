@@ -82,6 +82,18 @@ vim.keymap.set(
   end,
   { noremap = true, silent = true }
 )
+vim.keymap.set(
+  "n",
+  "<leader>bD",
+  function()
+    if buffer_utils.delete_buffer(0, { force = true, unload = true }, true) then
+      print("Current buffer deleted")
+    else
+      print("⚠️ : Something went wrong - cannot force delete the buffer")
+    end
+  end,
+  { noremap = true, silent = true }
+)
 
 -- Copy all
 vim.keymap.set(

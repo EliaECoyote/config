@@ -106,11 +106,11 @@ null_ls.setup({
         -- This allows us to improve formatting performances for JS files, while
         -- keeping prettier formatting available for other filetypes.
         --
-        -- "javascript",
-        -- "javascriptreact",
-        -- "typescript",
-        -- "typescriptreact",
-        -- "vue",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
         "css",
         "scss",
         "less",
@@ -189,13 +189,13 @@ for _, lsp in pairs(servers) do
   end
 
   if lsp == "eslint" then
-    config.settings = {
+    -- config.settings = {
       -- `packageManager` and `nodePath` are set to ensure that the eslint LS
       -- will work with pnp.
-      packageManager = "yarn",
-      nodePath = ".yarn/sdks",
-      filetypes = ESLINT_FILETYPES,
-    }
+      -- packageManager = "yarn",
+      -- nodePath = ".yarn/sdks",
+      -- filetypes = ESLINT_FILETYPES,
+    -- }
   end
 
   if lsp == "pyright" then
