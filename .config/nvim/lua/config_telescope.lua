@@ -1,6 +1,7 @@
+local utils_file = require("lib.utils_file")
+local utils_buffer = require("lib.utils_buffer")
 local terminal = require("toggleterm.terminal")
 local entry_display = require("telescope.pickers.entry_display")
-local utils_file = require("lib.utils_file")
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local builtin = require("telescope.builtin")
@@ -23,14 +24,17 @@ require("telescope").setup {
   },
   pickers = {
     buffers = {
-      sort_lastused = true,
       layout_strategy = "vertical",
       layout_config = { height = 0.9, width = 0.9, preview_cutoff = 10 },
-      -- mappings = {
-      --   n = {
-      --     bd =
-      --   }
-      -- }
+      attach_mappings = function(prompt_bufnr, map)
+        map("n", "bd", function()
+          local current_picker = action_state.get_current_picker(prompt_bufnr)
+          current_picker:delete_selection(function(selection)
+            utils_buffer.delete_buffer(selection.bufnr, { force = true, unload = true }, false)
+          end)
+        end)
+        return true
+      end,
     },
     live_grep = {
       path_display = { "smart", "absolute" }
