@@ -1,4 +1,4 @@
-local window_utils = require("utils.window_utils")
+local utils_window = require("lib.utils_window")
 vim.g.foldlevel = 99
 vim.g.foldmethod = "expr"
 vim.g.foldexpr = "nvim_treesitter#foldexpr()"
@@ -44,7 +44,7 @@ function _G.custom_fold_text()
   local no_spaces_line_text = string.gsub(line_text, " *", "", 1)
   local trimmed_line_text = no_spaces_line_text
 
-  local text_width = window_utils.get_text_width(0)
+  local text_width = utils_window.get_text_width(0)
   if (text_width - #prefix - #suffix - #trimmed_line_text < 0) then
     -- vim.pretty_print({ text_width, #prefix, #suffix, 4 })
     trimmed_line_text = string.sub(line_text, 1, text_width - #prefix - #suffix - 4) .. "... "

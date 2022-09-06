@@ -1,6 +1,6 @@
-local buffer_utils = {}
+local utils_buffer = {}
 
-function buffer_utils.buffer_to_string()
+function utils_buffer.buffer_to_string()
   local content = vim.api.nvim_buf_get_lines(
     0,
     0,
@@ -19,7 +19,7 @@ end
 --
 -- Inspired from https://github.com/famiu/bufdelete.nvim
 -- Returns `false` when buffer cannot be deleted, returns `true` otherwise.
-function buffer_utils.delete_buffer(bufnr, opts, delete_unmodified)
+function utils_buffer.delete_buffer(bufnr, opts, delete_unmodified)
   opts = opts or {}
 
   -- If buffer is modified and force isn't true or delete_unmodified isn't true, return false
@@ -88,7 +88,7 @@ function buffer_utils.delete_buffer(bufnr, opts, delete_unmodified)
   return true
 end
 
-function buffer_utils.delete_other_buffers(opts, delete_unmodified)
+function utils_buffer.delete_other_buffers(opts, delete_unmodified)
   local cur_buf = vim.api.nvim_get_current_buf()
   local deleted_count, invalid_count = 0, 0
   -- Get list of valid and listed buffers
@@ -100,7 +100,7 @@ function buffer_utils.delete_other_buffers(opts, delete_unmodified)
   )
   for _, candidate in ipairs(buffers) do
     if candidate ~= cur_buf then
-      if buffer_utils.delete_buffer(candidate, opts, delete_unmodified) then
+      if utils_buffer.delete_buffer(candidate, opts, delete_unmodified) then
         deleted_count = deleted_count + 1
       else
         invalid_count = invalid_count + 1
@@ -110,4 +110,4 @@ function buffer_utils.delete_other_buffers(opts, delete_unmodified)
   return invalid_count, deleted_count
 end
 
-return buffer_utils
+return utils_buffer

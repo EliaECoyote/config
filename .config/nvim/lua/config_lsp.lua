@@ -1,4 +1,4 @@
-local lsp_utils = require("utils.lsp_utils")
+local utils_lsp = require("lib.utils_lsp")
 local command_resolver = require("null-ls.helpers.command_resolver")
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
@@ -6,7 +6,7 @@ local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
 local typescript_config = require("lspconfig.server_configurations.tsserver")
 
-lsp_utils.setup_lsp_status()
+utils_lsp.setup_lsp_status()
 
 local servers = {
   "tsserver",
@@ -33,7 +33,7 @@ local resolve_from_node_modules = command_resolver.from_node_modules()
 local resolve_from_yarn_pnp = command_resolver.from_yarn_pnp()
 
 null_ls.setup({
-  on_attach = lsp_utils.custom_attach,
+  on_attach = utils_lsp.custom_attach,
   sources = {
     null_ls.builtins.formatting.prettier.with({
       timeout = 2000,
@@ -74,12 +74,12 @@ null_ls.setup({
 })
 
 for _, lsp in pairs(servers) do
-  local config = lsp_utils.make_default_config()
+  local config = utils_lsp.make_default_config()
 
   if lsp == 'tsserver' then
     function config.on_attach(client)
       client.resolved_capabilities.document_formatting = false
-      lsp_utils.custom_attach(client)
+      utils_lsp.custom_attach(client)
     end
 
     function config.on_init(client)
@@ -133,7 +133,7 @@ for _, lsp in pairs(servers) do
       -- will work with pnp.
       packageManager = "yarn",
       nodePath = ".yarn/sdks",
-      filetypes = lsp_utils.ESLINT_FILETYPES,
+      filetypes = utils_lsp.ESLINT_FILETYPES,
       -- root_dir = function(fname)
       --   print(lspconfig.util.find_git_ancestor(fname))
       --   return lspconfig.util.find_git_ancestor(fname)
@@ -142,7 +142,7 @@ for _, lsp in pairs(servers) do
   end
 
   if lsp == "pyright" then
-    config = { on_attach = lsp_utils.custom_attach }
+    config = { on_attach = utils_lsp.custom_attach }
   end
 
   if lsp == "jdtls" then
