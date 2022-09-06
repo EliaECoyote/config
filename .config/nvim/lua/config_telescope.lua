@@ -1,15 +1,13 @@
 local terminal = require("toggleterm.terminal")
-local entry_display = require('telescope.pickers.entry_display')
-local file_utils = require "utils.file_utils"
-local pickers = require "telescope.pickers"
-local finders = require "telescope.finders"
-local builtin = require "telescope.builtin"
-local config = require "telescope.config"
-local actions = require "telescope.actions"
-local previewer_utils = require('telescope.previewers.utils')
-local action_state = require "telescope.actions.state"
-local previewers = require('telescope.previewers')
-
+local entry_display = require("telescope.pickers.entry_display")
+local utils_file = require("lib.utils_file")
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local builtin = require("telescope.builtin")
+local config = require("telescope.config")
+local actions = require("telescope.actions")
+local previewer_utils = require("telescope.previewers.utils")
+local action_state = require("telescope.actions.state")
 
 local set_keymap = vim.api.nvim_set_keymap
 
@@ -64,7 +62,7 @@ function _G.common_files(opts)
     "~/Dropbox/vimwiki/",
     "/Volumes/Projects/playground/"
   }
-  local folder_files = file_utils.scan_deep_files(folders)
+  local folder_files = utils_file.scan_deep_files(folders)
   for _, path in ipairs(folder_files) do table.insert(files, path) end
   opts = opts or {}
   pickers.new(opts, {
@@ -176,7 +174,7 @@ end
 
 function _G.select_background(opts)
   local folders = { "~/.config/wallpapers/" }
-  local folder_files = file_utils.scan_deep_files(folders)
+  local folder_files = utils_file.scan_deep_files(folders)
   local entries = {}
   for _, path in ipairs(folder_files) do table.insert(entries, path) end
   opts = opts or {}

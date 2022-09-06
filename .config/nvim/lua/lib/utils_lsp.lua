@@ -1,10 +1,10 @@
 local lsp_status = require("lsp-status")
-local table_utils = require("utils.table_utils")
+local utils_table = require("lib.utils_table")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-local lsp_utils = {}
+local utils_lsp = {}
 
-lsp_utils.ESLINT_FILETYPES = {
+utils_lsp.ESLINT_FILETYPES = {
   "javascript",
   "javascript.jsx",
   "javascriptreact",
@@ -13,7 +13,7 @@ lsp_utils.ESLINT_FILETYPES = {
   "typescriptreact",
 }
 
-function lsp_utils.setup_lsp_status()
+function utils_lsp.setup_lsp_status()
   lsp_status.register_progress()
 
   lsp_status.config {
@@ -28,21 +28,21 @@ function lsp_utils.setup_lsp_status()
   }
 end
 
-function lsp_utils.format_buffer()
+function utils_lsp.format_buffer()
   vim.lsp.buf.formatting_seq_sync()
   -- Run eslint on buffers with JS filetype
-  if table_utils.includes(lsp_utils.ESLINT_FILETYPES, vim.bo.filetype) then
+  if utils_table.includes(utils_lsp.ESLINT_FILETYPES, vim.bo.filetype) then
     vim.cmd("EslintFixAll")
   end
 end
 
-function lsp_utils.custom_attach(client)
+function utils_lsp.custom_attach(client)
   lsp_status.on_attach(client)
 
   local options = { noremap = true }
 
 
-  vim.keymap.set("n", "<leader>0", lsp_utils.format_buffer, options)
+  vim.keymap.set("n", "<leader>0", utils_lsp.format_buffer, options)
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, options)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, options)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, options)
@@ -59,14 +59,14 @@ function lsp_utils.custom_attach(client)
   -- })
 end
 
-function lsp_utils.make_default_config()
+function utils_lsp.make_default_config()
   -- Combine capabilities from both nvim-cmp and lsp_status.
   local capabilities = cmp_nvim_lsp.update_capabilities(lsp_status.capabilities)
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport.properties = {
     properties = { "documentation", "detail", "additionalTextEdits" },
   }
-  return { on_attach = lsp_utils.custom_attach, capabilities = capabilities }
+  return { on_attach = utils_lsp.custom_attach, capabilities = capabilities }
 end
 
-return lsp_utils
+return utils_lsp

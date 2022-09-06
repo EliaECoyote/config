@@ -1,4 +1,4 @@
-local theme_utils = require("utils.theme_utils")
+local utils_theme = require("lib.utils_theme")
 
 vim.api.nvim_command([[
   if has('termguicolors')
@@ -96,10 +96,10 @@ local function setup_standard_highlight_groups()
   -- Links LSP floating windows border color with telescope border color.
   vim.api.nvim_set_hl(0, "FloatBorder", { link = "TelescopeBorder" })
   -- Don't replace text color on diff view.
-  theme_utils.extend_hi("DiffAdd", { fg = "none" });
-  theme_utils.extend_hi("DiffChange", { fg = "none" });
-  theme_utils.extend_hi("DiffDelete", { fg = "none" });
-  theme_utils.extend_hi("DiffText", { fg = "none" });
+  utils_theme.extend_hi("DiffAdd", { fg = "none" });
+  utils_theme.extend_hi("DiffChange", { fg = "none" });
+  utils_theme.extend_hi("DiffDelete", { fg = "none" });
+  utils_theme.extend_hi("DiffText", { fg = "none" });
 end
 
 local function setup_dark_theme()
@@ -125,7 +125,7 @@ local function setup_light_theme()
   })
 end
 
-local background = theme_utils.get_background()
+local background = utils_theme.get_background()
 vim.api.nvim_set_option("background", background)
 
 if (background == "light") then

@@ -1,11 +1,11 @@
-local window_utils = {}
+local utils_window = {}
 
 -- let signlist = split(signs, '\n')
 -- let foldColumnWidth = (&foldcolumn ? &foldcolumn : 0)
 -- let numberColumnWidth = &number ? strwidth(line('$')) : 0
 -- let signColumnWidth = len(signlist) >= 2 ? 2 : 0
 -- let width = winwidth(0) - foldColumnWidth - numberColumnWidth - signColumnWidth
-function window_utils.get_text_width(win)
+function utils_window.get_text_width(win)
   local width = vim.api.nvim_win_get_width(win)
   local number_width = vim.api.nvim_win_get_option(win, "numberwidth")
   local fold_column = vim.api.nvim_win_get_option(win, "foldcolumn")
@@ -32,4 +32,4 @@ end
 
 -- local foo
 -- return signs
-return window_utils
+return utils_window
