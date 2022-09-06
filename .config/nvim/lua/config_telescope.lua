@@ -94,7 +94,7 @@ local function terminals(opts)
   local function show_preview(entry, buf)
     local content = entry.content
     vim.api.nvim_buf_set_lines(buf, 0, -1, true, content)
-    previewer_utils.highlighter(buf, 'BufferCurrentTarget')
+    previewer_utils.highlighter(buf, "BufferCurrentTarget")
 
     vim.api.nvim_buf_call(buf, function()
       local win = vim.fn.win_findbuf(buf)[1]
