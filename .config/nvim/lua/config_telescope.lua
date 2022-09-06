@@ -9,23 +9,24 @@ local config = require("telescope.config")
 local actions = require("telescope.actions")
 local previewer_utils = require("telescope.previewers.utils")
 local action_state = require("telescope.actions.state")
+local fb_actions = require("telescope").extensions.file_browser.actions
 
 require("telescope").setup {
   defaults = {
-    vimgrep_arguments = {
-      "rg", "--color=never", "--no-heading", "--with-filename", "--line-number",
-      "--column", "--smart-case",
-    },
-    layout_strategy = "vertical",
-    layout_config = {
-      vertical = { height = 0.9, width = 0.9, preview_cutoff = 10 },
-    },
-    path_display = { "truncate", "absolute" },
+    -- vimgrep_arguments = {
+    --   "rg", "--color=never", "--no-heading", "--with-filename", "--line-number",
+    --   "--column", "--smart-case",
+    -- },
+    -- layout_strategy = "vertical",
+    -- layout_config = {
+    --   vertical = { height = 0.9, width = 0.9, preview_cutoff = 10 },
+    -- },
+    -- path_display = { "truncate", "absolute" },
   },
   pickers = {
     buffers = {
       layout_strategy = "vertical",
-      layout_config = { height = 0.9, width = 0.9, preview_cutoff = 10 },
+      path_display = { "truncate", "absolute" },
       attach_mappings = function(prompt_bufnr, map)
         map("n", "bd", function()
           local current_picker = action_state.get_current_picker(prompt_bufnr)
@@ -38,7 +39,13 @@ require("telescope").setup {
     },
     live_grep = {
       path_display = { "smart", "absolute" }
-    }
+    },
+    git_files = {
+      path_display = { "smart", "absolute" }
+    },
+  },
+  oldfiles = {
+    path_display = { "truncate", "absolute" },
   },
   extensions = {
     fzf = {
@@ -47,11 +54,63 @@ require("telescope").setup {
       override_file_sorter = true,
       case_mode = "smart_case",
     },
+    file_browser = {
+      theme = "ivy",
+      hidden = true,
+      hijack_netrw = true,
+      path = "%:p:h",
+      path_display = { "smart" },
+      mappings = {
+        ["i"] = {
+          ["<M-c>"] = false,
+          ["<M-r>"] = false,
+          ["<M-m>"] = false,
+          ["<M-y>"] = false,
+          ["<M-d>"] = false,
+          ["<C-o>"] = false,
+          ["<C-g>"] = false,
+          ["<C-e>"] = false,
+          ["<C-w>"] = false,
+          ["<C-t>"] = false,
+          ["<C-f>"] = false,
+          ["<C-h>"] = false,
+          ["<C-s>"] = false,
+          ["<S-CR>"] = false,
+        },
+        ["n"] = {
+          h = false,
+          c = false,
+          r = false,
+          d = false,
+          o = false,
+          g = false,
+          e = false,
+          w = false,
+          t = false,
+          f = false,
+          s = false,
+          ["<S-CR>"] = false,
+          ["<C-o>"] = fb_actions.create,
+          ["<C-O>"] = fb_actions.open,
+          ["<C-c>"] = fb_actions.rename,
+          ["<C-p>"] = fb_actions.move,
+          ["<C-y>"] = fb_actions.copy,
+          ["<C-d>"] = fb_actions.remove,
+          ["<C-w>"] = fb_actions.goto_cwd,
+          ["<C-W>"] = fb_actions.goto_cwd,
+          ["<C-f>"] = fb_actions.toggle_browser,
+          ["<C-s>"] = fb_actions.toggle_all,
+          ["<C-h>"] = fb_actions.goto_parent_dir,
+          -- ["<C-l>"] = fb_actions.,
+        },
+      },
+    },
   },
 }
 
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("live_grep_args")
+require("telescope").load_extension("file_browser")
 
 local function bookmarks(opts)
   local files = {
@@ -198,19 +257,17 @@ end
 local options = { noremap = true }
 
 vim.keymap.set("n", "<leader>o", builtin.buffers, options)
-
-vim.keymap.set("n", "<leader>fw", bookmarks, options)
-vim.keymap.set("n", "<leader>ft", terminals, options)
-
 vim.keymap.set("n", "<leader>ff", builtin.live_grep, options)
 vim.keymap.set("n", "<leader>F", require("telescope").extensions.live_grep_args.live_grep_args, options)
-
-vim.keymap.set("n", "<leader>fB", select_background, options)
 vim.keymap.set("n", "<leader>p", builtin.git_files, options)
 vim.keymap.set("n", "<leader>?", builtin.oldfiles, options)
 vim.keymap.set("n", "<leader>fq", builtin.quickfix, options)
 vim.keymap.set("n", "<leader>f?", builtin.builtin, options)
 vim.keymap.set("n", "<leader>fl", builtin.loclist, options)
+vim.keymap.set("n", "<leader>fb", require("telescope").extensions.file_browser.file_browser, options)
+vim.keymap.set("n", "<leader>fw", bookmarks, options)
+vim.keymap.set("n", "<leader>ft", terminals, options)
+vim.keymap.set("n", "<leader>fB", select_background, options)
 
 -- LSP
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, options)
