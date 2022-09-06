@@ -9,8 +9,6 @@ local actions = require("telescope.actions")
 local previewer_utils = require("telescope.previewers.utils")
 local action_state = require("telescope.actions.state")
 
-local set_keymap = vim.api.nvim_set_keymap
-
 require("telescope").setup {
   defaults = {
     vimgrep_arguments = {
@@ -36,7 +34,7 @@ require("telescope").setup {
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("live_grep_args")
 
-function _G.buffers()
+local function buffers()
   return builtin.buffers {
     sort_lastused = true,
     layout_strategy = "vertical",
@@ -44,11 +42,11 @@ function _G.buffers()
   }
 end
 
-function _G.live_grep()
+local function live_grep()
   return builtin.live_grep({ path_display = { "smart", "absolute" } })
 end
 
-function _G.common_files(opts)
+local function common_files(opts)
   local files = {
     "~/.tmux.conf", "~/.config/vifm/vifmrc",
     "~/.config/karabiner/karabiner.json", "~/.gitconfig", "~/.gitignore",
@@ -73,7 +71,7 @@ function _G.common_files(opts)
   }):find()
 end
 
-function _G.terminals(opts)
+local function terminals(opts)
   local function select_term(prompt_bufnr)
     local entry = action_state.get_selected_entry()
     if entry.id == nil then
@@ -157,10 +155,6 @@ function _G.terminals(opts)
   }):find()
 end
 
-function _G.live_grep_args(opts)
-  require("telescope").extensions.live_grep_args.live_grep_args(opts)
-end
-
 local function load_iterm_background(file_name)
   local apple_script = string.format([[
       tell application "iTerm2"
@@ -172,7 +166,7 @@ local function load_iterm_background(file_name)
   vim.fn.system(string.format("osascript -e '%s'", apple_script))
 end
 
-function _G.select_background(opts)
+local function select_background(opts)
   local folders = { "~/.config/wallpapers/" }
   local folder_files = utils_file.scan_deep_files(folders)
   local entries = {}
@@ -196,62 +190,22 @@ end
 
 local options = { noremap = true }
 
-set_keymap("n", "<leader>o", "v:lua buffers()<cr>", options)
+vim.keymap.set("n", "<leader>o", buffers, options)
 
-set_keymap("n", "<leader>fw", "v:lua common_files()<cr>", options)
-set_keymap("n", "<leader>ft", "v:lua terminals()<cr>", options)
+vim.keymap.set("n", "<leader>fw", common_files, options)
+vim.keymap.set("n", "<leader>ft", terminals, options)
 
-set_keymap("n", "<leader>ff", "v:lua live_grep()<cr>", options)
-set_keymap("n", "<leader>fF", "v:lua live_grep_args()<cr>", options)
+vim.keymap.set("n", "<leader>ff", live_grep, options)
+vim.keymap.set("n", "<leader>F", require("telescope").extensions.live_grep_args.live_grep_args, options)
 
-set_keymap("n", "<leader>fB", "v:lua select_background()<cr>", options)
-set_keymap("n", "<leader>p",
-  "<cmd>lua require('telescope.builtin').git_files()<cr>", options)
-set_keymap("n", "<leader>?",
-  "<cmd>lua require('telescope.builtin').oldfiles()<cr>", options)
-set_keymap("n", "<leader>fp",
-  "<cmd>lua require('telescope.builtin').file_browser()<cr>", options)
--- set_keymap("n", "<leader>ft",
---   "<cmd>lua require('telescope.builtin').help_tags()<cr>", options)
-set_keymap("n", "<leader>fb",
-  "<cmd>lua require('telescope.builtin').git_branches()<cr>", options)
-set_keymap("n", "<leader>fh",
-  "<cmd>lua require('telescope.builtin').search_history()<cr>", options)
-set_keymap("n", "<leader>fT",
-  "<cmd>lua require('telescope.builtin').colorscheme()<cr>", options)
-set_keymap("n", "<leader>fm",
-  "<cmd>lua require('telescope.builtin').marks()<cr>", options)
-set_keymap("n", "<leader>f\"",
-  "<cmd>lua require('telescope.builtin').registers()<cr>", options)
-set_keymap("n", "<leader>f/",
-  "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>",
-  options)
-set_keymap("n", "<leader>fhh",
-  "<cmd>lua require('telescope.builtin').highlights()<cr>", options)
-set_keymap("n", "<leader>fk",
-  "<cmd>lua require('telescope.builtin').keymaps()<cr>", options)
-set_keymap("n", "<leader>fc",
-  "<cmd>lua require('telescope.builtin').commands()<cr>", options)
-set_keymap("n", "<leader>fq",
-  "<cmd>lua require('telescope.builtin').quickfix()<cr>", options)
-set_keymap("n", "<leader>f?",
-  "<cmd>lua require('telescope.builtin').builtin()<cr>", options)
-set_keymap("n", "<leader>fl",
-  "<cmd>lua require('telescope.builtin').loclist()<cr>", options)
+vim.keymap.set("n", "<leader>fB", select_background, options)
+vim.keymap.set("n", "<leader>p", builtin.git_files, options)
+vim.keymap.set("n", "<leader>?", builtin.oldfiles, options)
+vim.keymap.set("n", "<leader>fq", builtin.quickfix, options)
+vim.keymap.set("n", "<leader>f?", builtin.builtin, options)
+vim.keymap.set("n", "<leader>fl", builtin.loclist, options)
 
 -- LSP
-vim.keymap.set("n", "<leader>a", '<cmd>lua vim.lsp.buf.code_action()<CR>', options)
-
-set_keymap("n", "gr",
-  "<cmd>lua require('telescope.builtin').lsp_references()<cr>", options)
-
-set_keymap("n", "g0",
-  "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
-  options)
-
-set_keymap("n", "gd",
-  "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>",
-  options)
-
-set_keymap("n", "<leader>fr",
-  "<cmd>lua require('telescope.builtin').resume()<cr>", options)
+vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, options)
+vim.keymap.set("n", "gr", builtin.lsp_references, options)
+vim.keymap.set("n", "gd", builtin.lsp_definitions, options)
