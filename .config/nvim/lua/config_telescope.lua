@@ -21,6 +21,21 @@ require("telescope").setup {
     },
     path_display = { "truncate", "absolute" },
   },
+  pickers = {
+    buffers = {
+      sort_lastused = true,
+      layout_strategy = "vertical",
+      layout_config = { height = 0.9, width = 0.9, preview_cutoff = 10 },
+      -- mappings = {
+      --   n = {
+      --     bd =
+      --   }
+      -- }
+    },
+    live_grep = {
+      path_display = { "smart", "absolute" }
+    }
+  },
   extensions = {
     fzf = {
       fuzzy = true,
@@ -34,19 +49,7 @@ require("telescope").setup {
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("live_grep_args")
 
-local function buffers()
-  return builtin.buffers {
-    sort_lastused = true,
-    layout_strategy = "vertical",
-    layout_config = { height = 0.9, width = 0.9, preview_cutoff = 10 },
-  }
-end
-
-local function live_grep()
-  return builtin.live_grep({ path_display = { "smart", "absolute" } })
-end
-
-local function common_files(opts)
+local function bookmarks(opts)
   local files = {
     "~/.tmux.conf", "~/.config/vifm/vifmrc",
     "~/.config/karabiner/karabiner.json", "~/.gitconfig", "~/.gitignore",
@@ -155,18 +158,18 @@ local function terminals(opts)
   }):find()
 end
 
-local function load_iterm_background(file_name)
-  local apple_script = string.format([[
-      tell application "iTerm2"
-        tell current session of current window
-          set background image to "%s" 
-        end tell
-      end tell
-  ]], file_name)
-  vim.fn.system(string.format("osascript -e '%s'", apple_script))
-end
-
 local function select_background(opts)
+  local function load_iterm_background(file_name)
+    local apple_script = string.format([[
+        tell application "iTerm2"
+          tell current session of current window
+            set background image to "%s" 
+          end tell
+        end tell
+    ]], file_name)
+    vim.fn.system(string.format("osascript -e '%s'", apple_script))
+  end
+
   local folders = { "~/.config/wallpapers/" }
   local folder_files = utils_file.scan_deep_files(folders)
   local entries = {}
@@ -190,12 +193,12 @@ end
 
 local options = { noremap = true }
 
-vim.keymap.set("n", "<leader>o", buffers, options)
+vim.keymap.set("n", "<leader>o", builtin.buffers, options)
 
-vim.keymap.set("n", "<leader>fw", common_files, options)
+vim.keymap.set("n", "<leader>fw", bookmarks, options)
 vim.keymap.set("n", "<leader>ft", terminals, options)
 
-vim.keymap.set("n", "<leader>ff", live_grep, options)
+vim.keymap.set("n", "<leader>ff", builtin.live_grep, options)
 vim.keymap.set("n", "<leader>F", require("telescope").extensions.live_grep_args.live_grep_args, options)
 
 vim.keymap.set("n", "<leader>fB", select_background, options)
