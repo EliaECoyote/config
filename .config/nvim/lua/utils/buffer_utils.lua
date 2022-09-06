@@ -78,12 +78,12 @@ function buffer_utils.delete_buffer(bufnr, opts, delete_unmodified)
   -- - wasn't killed due to options like bufhidden=wipe
   -- - is still listed
   if vim.api.nvim_buf_is_valid(bufnr) and vim.api.nvim_buf_get_option(bufnr, "buflisted") then
-    vim.api.nvim_buf_delete(bufnr, opts)
     if opts.unload then
       -- If the buffer has just been unloaded, we also remove it from the
       -- buffer list (to replicate the original :bdelete behavior).
       vim.api.nvim_buf_set_option(bufnr, "buflisted", false)
     end
+    vim.api.nvim_buf_delete(bufnr, opts)
   end
   return true
 end

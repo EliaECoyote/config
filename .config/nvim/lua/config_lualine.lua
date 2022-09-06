@@ -10,6 +10,7 @@ require("lualine").setup({
     refresh = {
       statusline = 200,
     },
+    globalstatus = true,
   },
   sections = {
     lualine_a = { "mode" },

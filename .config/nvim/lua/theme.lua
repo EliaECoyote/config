@@ -54,7 +54,6 @@ vim.api.nvim_create_autocmd("FileType", {
 -- callback = myluafun,  -- Or myvimfun
 -- })
 
-
 -- Makes vimdiff easier to read
 vim.opt.diffopt:append("vertical")
 
@@ -155,8 +154,7 @@ function win.default_opts(options)
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
+  vim.lsp.diagnostic.on_publish_diagnostics,
   -- Disable diagnostic icons in sign column
-  signs = false,
-}
+  { signs = false }
 )

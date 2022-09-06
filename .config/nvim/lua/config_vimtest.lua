@@ -6,6 +6,10 @@ vim.g["test#python#runner"] = "pytest"
 vim.g["test#javascript#runner"] = "jest"
 vim.g["test#javascript#jest#executable"] = "yarn test:unit"
 vim.g["test#javascript#jest#file_pattern"] = "\\v(__tests__/.*|(spec|test|unit))\\.(js|jsx|coffee|ts|tsx)$"
+vim.g["test#java#runner"] = "maventest"
+vim.g["test#java#maventest#executable"] = "mvn -T 0.5C"
+-- vim.g["test#java#maventest#options"] = "-Denforcer.skip -Dverification.skip"
+-- -Dmaven.surefire.debug
 
 -- Make it work with dogweb
 vim.g["test#python#pytest#options"] = "--with-pylons $DATADOG_ROOT/dogweb/test.ini --doctest-modules --disable-warnings"

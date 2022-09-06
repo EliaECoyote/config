@@ -16,7 +16,7 @@ Plug("tpope/vim-dispatch")
 Plug("editorconfig/editorconfig-vim")
 -- Handle text surround with quotes, tags, brackets
 Plug("machakann/vim-sandwich")
--- Makes gx cmd work for urls and files 
+-- Makes gx cmd work for urls and files
 Plug("stsewd/gx-extended.vim")
 -- Integrate non LSP stuff with neovim LSP diagnostic, actions...
 Plug("jose-elias-alvarez/null-ls.nvim")
@@ -33,6 +33,8 @@ Plug("hrsh7th/cmp-nvim-lsp")
 Plug("hrsh7th/cmp-buffer")
 Plug("hrsh7th/cmp-path")
 Plug("hrsh7th/nvim-cmp")
+-- LSP language-specific addons
+Plug("mfussenegger/nvim-jdtls")
 -- Snippets
 Plug("rafamadriz/friendly-snippets")
 Plug("hrsh7th/cmp-vsnip")
@@ -70,5 +72,7 @@ Plug("projekt0n/github-nvim-theme")
 Plug("mhinz/vim-grepper")
 -- Highlight color codes
 Plug("norcalli/nvim-colorizer.lua")
+-- Terminal management
+Plug("akinsho/toggleterm.nvim", { ["tag"] = "v2.*" })
 
 vim.call("plug#end")

@@ -41,13 +41,13 @@ vim.keymap.set(
 )
 
 -- Tabs mappings
-
 vim.keymap.set(
   "n",
   "tn",
   ":tabnew<cr>",
   { noremap = true, silent = true }
 )
+
 vim.keymap.set(
   "n",
   "td",
