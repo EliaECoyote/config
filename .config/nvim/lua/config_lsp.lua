@@ -4,6 +4,7 @@ local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
+local utils_lspconfig = require("lspconfig.util")
 local typescript_config = require("lspconfig.server_configurations.tsserver")
 
 utils_lsp.setup_lsp_status()
@@ -132,11 +133,11 @@ for _, lsp in pairs(servers) do
       -- `packageManager` and `nodePath` are set to ensure that the eslint LS
       -- will work with pnp.
       packageManager = "yarn",
-      nodePath = ".yarn/sdks",
+      nodePath = "/Users/elia.camposilvan/dd/web-ui/.yarn/sdks",
       filetypes = utils_lsp.ESLINT_FILETYPES,
       -- root_dir = function(fname)
-      --   print(lspconfig.util.find_git_ancestor(fname))
-      --   return lspconfig.util.find_git_ancestor(fname)
+      --   print(fname)
+      --   utils_lspconfig.root_pattern(".git")(fname)
       -- end,
     }
   end
