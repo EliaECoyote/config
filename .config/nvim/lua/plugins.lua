@@ -44,8 +44,6 @@ Plug("hrsh7th/vim-vsnip-integ")
 Plug("nvim-lua/lsp-status.nvim")
 -- Git management plugin
 Plug("tpope/vim-fugitive")
--- Adds Tree explorer
-Plug("vifm/vifm.vim")
 -- Adds git diff markers on the left + hunks management
 Plug("mhinz/vim-signify") -- Fuzzy finder
 Plug("nvim-lua/popup.nvim")
@@ -53,6 +51,7 @@ Plug("nvim-lua/plenary.nvim")
 Plug("nvim-telescope/telescope.nvim")
 Plug("nvim-telescope/telescope-fzf-native.nvim", { ["do"] = "make" })
 Plug("nvim-telescope/telescope-live-grep-args.nvim")
+Plug("nvim-telescope/telescope-file-browser.nvim")
 Plug("stevearc/dressing.nvim")
 -- Treesitter!
 Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" })

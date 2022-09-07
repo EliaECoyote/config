@@ -10,14 +10,6 @@ vim.keymap.set(
   utils_table.merge(default_options, { expr = true })
 )
 
--- Vifm mappings
-vim.keymap.set(
-  "n",
-  "-",
-  ":Vifm<cr>",
-  default_options
-)
-
 -- Enables smoother scroll
 vim.keymap.set(
   "",
