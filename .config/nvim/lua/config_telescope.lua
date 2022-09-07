@@ -1,23 +1,25 @@
 local utils_file = require("lib.utils_file")
 local utils_buffer = require("lib.utils_buffer")
+local telescope = require("telescope")
 local terminal = require("toggleterm.terminal")
 local entry_display = require("telescope.pickers.entry_display")
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local builtin = require("telescope.builtin")
 local config = require("telescope.config")
+local themes = require("telescope.themes")
 local actions = require("telescope.actions")
 local previewer_utils = require("telescope.previewers.utils")
 local action_state = require("telescope.actions.state")
 local fb_actions = require("telescope").extensions.file_browser.actions
 
-require("telescope").setup {
+telescope.setup({
   defaults = {
-    -- vimgrep_arguments = {
-    --   "rg", "--color=never", "--no-heading", "--with-filename", "--line-number",
-    --   "--column", "--smart-case",
-    -- },
-    -- layout_strategy = "vertical",
+    vimgrep_arguments = {
+      "rg", "--color=never", "--no-heading", "--with-filename", "--line-number",
+      "--column", "--smart-case",
+    },
+    layout_strategy = "vertical",
     -- layout_config = {
     --   vertical = { height = 0.9, width = 0.9, preview_cutoff = 10 },
     -- },
@@ -59,7 +61,8 @@ require("telescope").setup {
       hidden = true,
       hijack_netrw = true,
       path = "%:p:h",
-      path_display = { "smart" },
+      -- path_display = { "tail" },
+      -- path_display = { "smart" },
       mappings = {
         ["i"] = {
           ["<M-c>"] = false,
@@ -101,18 +104,17 @@ require("telescope").setup {
           ["<C-f>"] = fb_actions.toggle_browser,
           ["<C-s>"] = fb_actions.toggle_all,
           ["<C-h>"] = fb_actions.goto_parent_dir,
-          -- ["<C-l>"] = fb_actions.,
         },
       },
     },
   },
-}
+})
 
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("live_grep_args")
 require("telescope").load_extension("file_browser")
 
-local function bookmarks(opts)
+local function bookmarks()
   local files = {
     "~/.tmux.conf", "~/.config/vifm/vifmrc",
     "~/.config/karabiner/karabiner.json", "~/.gitconfig", "~/.gitignore",
@@ -128,7 +130,9 @@ local function bookmarks(opts)
   }
   local folder_files = utils_file.scan_deep_files(folders)
   for _, path in ipairs(folder_files) do table.insert(files, path) end
-  opts = opts or {}
+  local opts = {
+    path_display = { "tail" }
+  }
   pickers.new(opts, {
     prompt_title = "Bookmarks",
     finder = finders.new_table(files),
@@ -137,57 +141,18 @@ local function bookmarks(opts)
   }):find()
 end
 
-local function terminals(opts)
-  local function select_term(prompt_bufnr)
-    local entry = action_state.get_selected_entry()
-    if entry.id == nil then
-      return
-    end
-    actions.close(prompt_bufnr)
-
-    local term = terminal.get(entry.id)
-    if term == nil then
-      return
-    end
-
-    if term:is_open() then
-      vim.api.nvim_set_current_win(term.window)
-    else
-      term:open()
-    end
-  end
-
-  local function show_preview(entry, buf)
-    local content = entry.content
-    vim.api.nvim_buf_set_lines(buf, 0, -1, true, content)
-    previewer_utils.highlighter(buf, "BufferCurrentTarget")
-
-    vim.api.nvim_buf_call(buf, function()
-      local win = vim.fn.win_findbuf(buf)[1]
-      vim.wo[win].conceallevel = 2
-      vim.wo[win].wrap = true
-      vim.wo[win].linebreak = true
-      vim.bo[buf].textwidth = 80
-    end)
-  end
-
-  local function get_content_buf(bufnr)
-    local content_table = vim.api.nvim_buf_get_lines(bufnr, 0, -1, true)
-    return content_table
-  end
-
+local function terminals()
   local terms_table = terminal.get_all()
   local terms = {}
   for _, term in pairs(terms_table) do
     table.insert(terms, {
       bufnr = term.bufnr,
       id = term.id,
-      content = get_content_buf(term.bufnr),
       name = term.name,
     })
   end
 
-  opts = opts or {}
+  local opts = themes.get_dropdown()
   pickers.new(opts, {
     prompt_title = "Terms",
     finder = finders.new_table({
@@ -195,7 +160,6 @@ local function terminals(opts)
       entry_maker = function(term)
         term.value = term.id
         term.ordinal = term.name
-        term.preview_command = show_preview
         term.display = function(entry)
           local displayer = entry_display.create({
             separator = " ",
@@ -205,16 +169,30 @@ local function terminals(opts)
               { remaining = true },
             },
           })
-          return displayer({ entry.id .. "\t| " .. entry.name })
+          return displayer({ entry.id .. "\t|\t" .. entry.name })
         end
         return term
       end,
     }),
-    previewer = config.values.file_previewer(opts),
     sorter = config.values.file_sorter(opts),
     attach_mappings = function(prompt_bufnr)
       actions.select_default:replace(function()
-        select_term(prompt_bufnr)
+        local entry = action_state.get_selected_entry()
+        if entry.id == nil then
+          return
+        end
+        actions.close(prompt_bufnr)
+
+        local term = terminal.get(entry.id)
+        if term == nil then
+          return
+        end
+
+        if term:is_open() then
+          vim.api.nvim_set_current_win(term.window)
+        else
+          term:open()
+        end
       end)
       return true
     end
