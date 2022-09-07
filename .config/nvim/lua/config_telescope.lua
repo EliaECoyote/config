@@ -19,7 +19,6 @@ telescope.setup({
       "rg", "--color=never", "--no-heading", "--with-filename", "--line-number",
       "--column", "--smart-case",
     },
-    layout_strategy = "vertical",
     -- layout_config = {
     --   vertical = { height = 0.9, width = 0.9, preview_cutoff = 10 },
     -- },
@@ -27,7 +26,7 @@ telescope.setup({
   },
   pickers = {
     buffers = {
-      layout_strategy = "vertical",
+      theme = "ivy",
       path_display = { "truncate", "absolute" },
       attach_mappings = function(prompt_bufnr, map)
         map("n", "bd", function()
@@ -40,13 +39,15 @@ telescope.setup({
       end,
     },
     live_grep = {
-      path_display = { "smart", "absolute" }
+      path_display = { "smart", "absolute" },
     },
     git_files = {
+      theme = "ivy",
       path_display = { "smart", "absolute" }
     },
   },
   oldfiles = {
+    theme = "ivy",
     path_display = { "truncate", "absolute" },
   },
   extensions = {
