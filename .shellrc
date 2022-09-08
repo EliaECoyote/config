@@ -1,5 +1,5 @@
 # vim: set fdm=marker:
-
+#
 # ----------------------------
 # Shared shells configuration 
 # ----------------------------
@@ -18,12 +18,6 @@ export GOBIN="${GOPATH}/bin"
 export PATH="${GOBIN}:${PATH}"
 # Enable Go modules-mode by default
 export GO111MODULE=on
-
-# }}}
-
-# Company-specific stuff {{{
-
-[ -f ~/.workrc ] && source ~/.workrc
 
 # }}}
 
@@ -120,7 +114,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 alias hub-pr='hub pull-request -o'
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-alias vim='nvim'
+alias vim='nvim .'
 alias v='vim'
 
 # }}}
@@ -138,4 +132,10 @@ foldersize() {
 video_to_gif() {
   ffmpeg -i $1 -vf "scale=640:-2" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 --colors 128 > out.gif
 }
+
+# Company-specific stuff {{{
+
+[ -f ~/.workrc ] && source ~/.workrc
+
+# }}}
 
