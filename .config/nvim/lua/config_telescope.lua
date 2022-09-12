@@ -54,7 +54,7 @@ local function bookmarks(opts)
   end
   opts = opts or {}
   opts.prompt_title = "Bookmarks"
-  opts.path_display = { "truncate" }
+  opts.path_display = telescope_defaults.path_display
   opts.finder = finders.new_table({
     results = files,
     entry_maker = make_entry.gen_from_file(opts)
