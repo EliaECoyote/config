@@ -123,6 +123,7 @@ local function terminals()
 end
 
 local function project_files(opts)
+  opts = opts or {}
   local ok = pcall(builtin.git_files, opts)
   if not ok then builtin.find_files(opts) end
 end
@@ -163,13 +164,20 @@ end
 telescope.setup({
   defaults = telescope_defaults,
   pickers = {
+    oldfiles = {
+      theme = telescope_defaults.theme,
+    },
+    git_files = {
+      theme = telescope_defaults.theme,
+    },
     lsp_references = {
-      theme = "ivy",
+      theme = telescope_defaults.theme,
     },
     lsp_definitions = {
-      theme = "ivy",
+      theme = telescope_defaults.theme,
     },
     buffers = {
+      theme = telescope_defaults.theme,
       attach_mappings = function(prompt_bufnr, map)
         map("n", "<C-x>", function()
           local current_picker = action_state.get_current_picker(prompt_bufnr)
