@@ -87,6 +87,11 @@ vim.keymap.set(
   { noremap = true, silent = true }
 )
 
+-- Search for visually selected text using '*' and '#'
+-- https://vim.fandom.com/wiki/Search_for_visually_selected_text#Simple
+vim.keymap.set('v', '*', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
+vim.keymap.set('v', '#', [[y?\V<C-R>=escape(@",'/?')<CR><CR>]])
+
 -- Copy all
 vim.keymap.set(
   "n",
