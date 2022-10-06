@@ -73,6 +73,7 @@ local config = utils_table.merge(
       -- you make during a debug session immediately.
       -- Remove the option if you do not want that.
       require("jdtls").setup_dap({ hotcodereplace = "auto" })
+      client.resolved_capabilities.document_formatting = false
       utils_lsp.custom_attach(client)
     end,
 
