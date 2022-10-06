@@ -26,23 +26,34 @@ setopt incappendhistory
 
 # Prompt settings {{{
 
-PROMPT=""
-NEWLINE=$'\n'
-
-parse-git-branch() {
+function parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
-function set-prompt() {
-  CURRENT_BRANCH=$(parse-git-branch)
-  PROMPT="%F{red}%~%f ${CURRENT_BRANCH} ${NEWLINE}%F{cyan}⇢ %f"
-}
-function zle-line-init {
-  set-prompt
-  zle reset-prompt
-}
-zle -N zle-line-init
+# NEWLINE=$'\n'
+setopt PROMPT_SUBST
+# export PROMPT='%F{red}%~%f $(parse_git_branch) ${NEWLINE}%F{cyan}⇢ %f'
+export PROMPT='%F{red}%~%f $(parse_git_branch) %F{cyan}⇢ %f'
 
 # }}}
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+function setup_custom_keybindings() {
+  # shellcheck source=~/.fzf.zsh
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+}
+
+# Vim mode + fzf {{{
+
+export VI_MODE_SET_CURSOR=true
+if [ "${VIM_SHELL}" != "false" ]
+then
+  source "$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+  # We need to setup custom keybindings after zsh-vi-mode has been initialized
+  # in order to avoid overwriting them.
+  zvm_after_init_commands+=(setup_custom_keybindings)
+else
+  setup_custom_keybindings;
+fi
+
+# }}}
+

@@ -6,7 +6,8 @@ toggleterm.setup({
   direction = "float",
   float_opts = {
     border = "rounded"
-  }
+  },
+  env = { VIM_SHELL = false }
 })
 
 local function set_terminal_keymaps()
