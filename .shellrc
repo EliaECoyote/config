@@ -7,6 +7,9 @@
 # Prefer GNU binaries to Macintosh binaries.
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 
+# Export common binaries
+export PATH="$HOME/.local/bin:${PATH}"
+
 # Define base directory relative to which user specific configuration files should be stored
 # cf. https://specifications.freedesktop.org/basedir-spec/basedir-spec-0.6.html
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -25,7 +28,7 @@ export GO111MODULE=on
 
 if [ -e ~/.env ]
 then
-  export $(cat ~/.env | xargs)
+  export $(cat "$HOME/.env" | xargs)
 else
   echo "⚠️  No env found!"
 fi
