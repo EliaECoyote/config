@@ -73,11 +73,11 @@ local config = utils_table.merge(
       -- you make during a debug session immediately.
       -- Remove the option if you do not want that.
       require("jdtls").setup_dap({ hotcodereplace = "auto" })
-      client.resolved_capabilities.document_formatting = false
+      client.server_capabilities.document_formatting = false
       utils_lsp.custom_attach(client)
     end,
 
-    capabilities = cmp_nvim_lsp.update_capabilities(lsp_status.capabilities)
+    capabilities = cmp_nvim_lsp.default_capabilities(lsp_status.capabilities)
   })
 
 jdtls.start_or_attach(config)

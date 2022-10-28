@@ -21,6 +21,12 @@ local telescope_defaults = {
     "rg", "--color=never", "--no-heading", "--with-filename", "--line-number",
     "--column", "--smart-case", "--trim",
   },
+  mappings = {
+    i = {
+      ["<C-s>"] = actions.cycle_previewers_next,
+      ["<C-a>"] = actions.cycle_previewers_prev,
+    },
+  },
 }
 
 local function set_current_folder_as_cwd(prompt_bufnr)
@@ -122,11 +128,11 @@ local function terminals()
   }):find()
 end
 
-local function project_files(opts)
-  opts = opts or {}
-  local ok = pcall(builtin.git_files, opts)
-  if not ok then builtin.find_files(opts) end
-end
+-- local function project_files(opts)
+--   opts = opts or {}
+--   local ok = pcall(builtin.git_files, opts)
+--   if not ok then builtin.find_files(opts) end
+-- end
 
 local function select_background(opts)
   local function load_iterm_background(file_name)
@@ -164,10 +170,16 @@ end
 telescope.setup({
   defaults = telescope_defaults,
   pickers = {
+    live_grep = {
+      theme = telescope_defaults.theme,
+    },
     oldfiles = {
       theme = telescope_defaults.theme,
     },
     git_files = {
+      theme = telescope_defaults.theme,
+    },
+    find_files = {
       theme = telescope_defaults.theme,
     },
     lsp_references = {
@@ -201,6 +213,7 @@ telescope.setup({
     },
     file_browser = {
       theme = "ivy",
+      path_display = { "smart" },
       hidden = true,
       hijack_netrw = true,
       path = "%:p:h",
@@ -259,8 +272,8 @@ local options = { noremap = true }
 
 vim.keymap.set("n", "<leader>o", builtin.buffers, options)
 vim.keymap.set("n", "<leader>ff", builtin.live_grep, options)
-vim.keymap.set("n", "<leader>F", telescope.extensions.live_grep_args.live_grep_args, options)
-vim.keymap.set("n", "<leader>p", project_files, options)
+vim.keymap.set("n", "<leader>fF", telescope.extensions.live_grep_args.live_grep_args, options)
+vim.keymap.set("n", "<leader>p", builtin.find_files, options)
 vim.keymap.set("n", "<leader>?", builtin.oldfiles, options)
 vim.keymap.set("n", "<leader>fq", builtin.quickfix, options)
 vim.keymap.set("n", "<leader>f?", builtin.builtin, options)

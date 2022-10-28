@@ -1,7 +1,5 @@
 local utils_window = require("lib.utils_window")
 vim.g.foldlevel = 99
-vim.g.foldmethod = "expr"
-vim.g.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Remap toggle fold
 vim.keymap.set(

@@ -89,8 +89,18 @@ vim.keymap.set(
 
 -- Search for visually selected text using '*' and '#'
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text#Simple
-vim.keymap.set('v', '*', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
-vim.keymap.set('v', '#', [[y?\V<C-R>=escape(@",'/?')<CR><CR>]])
+vim.cmd([[
+  vnoremap <silent> * :<C-U>
+    \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+    \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+    \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+    \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+  vnoremap <silent> # :<C-U>
+    \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+    \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+    \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+    \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+]])
 
 -- Copy all
 vim.keymap.set(

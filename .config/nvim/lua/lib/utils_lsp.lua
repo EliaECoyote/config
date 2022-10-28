@@ -29,7 +29,7 @@ function utils_lsp.setup_lsp_status()
 end
 
 function utils_lsp.format_buffer()
-  vim.lsp.buf.formatting_seq_sync()
+  vim.lsp.buf.format()
   -- Run eslint on buffers with JS filetype
   if utils_table.includes(utils_lsp.ESLINT_FILETYPES, vim.bo.filetype) then
     vim.cmd("EslintFixAll")
@@ -61,11 +61,12 @@ end
 
 function utils_lsp.make_default_config()
   -- Combine capabilities from both nvim-cmp and lsp_status.
-  local capabilities = cmp_nvim_lsp.update_capabilities(lsp_status.capabilities)
+  local capabilities = cmp_nvim_lsp.default_capabilities(lsp_status.capabilities)
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport.properties = {
     properties = { "documentation", "detail", "additionalTextEdits" },
   }
+
   return { on_attach = utils_lsp.custom_attach, capabilities = capabilities }
 end
 

@@ -1,85 +1,37 @@
 local utils_lsp = require("lib.utils_lsp")
-local command_resolver = require("null-ls.helpers.command_resolver")
-local mason = require("mason")
-local mason_lspconfig = require("mason-lspconfig")
-local null_ls = require("null-ls")
+local constants_lsp = require("lib.constants_lsp")
 local lspconfig = require("lspconfig")
-local utils_lspconfig = require("lspconfig.util")
 local typescript_config = require("lspconfig.server_configurations.tsserver")
 
-utils_lsp.setup_lsp_status()
+require('lspconfig.ui.windows').default_options.border = "rounded"
 
-local servers = {
-  "tsserver",
-  "html",
-  "cssls",
-  "pyright",
-  "eslint",
-  "sumneko_lua",
-  "jdtls",
-}
+utils_lsp.setup_lsp_status()
 
 vim.diagnostic.config({
   float = { source = "always" },
 })
 
-mason.setup({
-  ui = { border = "rounded" },
-})
-mason_lspconfig.setup({
-  ensure_installed = servers
-})
-
-local resolve_from_node_modules = command_resolver.from_node_modules()
-local resolve_from_yarn_pnp = command_resolver.from_yarn_pnp()
-
-null_ls.setup({
-  on_attach = utils_lsp.custom_attach,
-  sources = {
-    null_ls.builtins.formatting.prettier.with({
-      timeout = 2000,
-      dynamic_command = function(params)
-        return resolve_from_yarn_pnp(params)
-            or resolve_from_node_modules(params)
-            or vim.fn.executable(params.command) == 1
-            and params.command
-      end,
-      filetypes = {
-        -- Here we disable JS filetypes; this is because, more often than not,
-        -- prettier is run through eslint with plugins such as
-        -- [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier).
-        -- This allows us to improve formatting performances for JS files, while
-        -- keeping prettier formatting available for other filetypes.
-        --
-        "javascript",
-        "javascriptreact",
-        -- "typescript",
-        -- "typescriptreact",
-        "vue",
-        "css",
-        "scss",
-        "less",
-        "html",
-        "json",
-        "jsonc",
-        "yaml",
-        "markdown",
-        "graphql",
-        "handlebars",
-      },
-    }),
-    -- null_ls.builtins.diagnostics.pydocstyle,
-    null_ls.builtins.formatting.isort,
-    null_ls.builtins.formatting.black,
-  },
-})
-
-for _, lsp in pairs(servers) do
+for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   local config = utils_lsp.make_default_config()
 
+  if lsp == 'denols' then
+    config.capabilities = nil
+    config.init_options = {
+      enable = true,
+      lint = false,
+      unstable = false,
+      importMap = "./import_map.json",
+      compilerOptions = {
+        target = "es6",
+        lib = { "dom", "dom.iterable", "dom.asynciterable", "deno.ns" }
+      }
+    }
+  end
+
   if lsp == 'tsserver' then
+    config.capabilities.textDocument.completion.completionItem.snippetSupport = true
     function config.on_attach(client)
-      client.resolved_capabilities.document_formatting = false
+      client.server_capabilities.documentFormattingProvider = false
       utils_lsp.custom_attach(client)
     end
 
@@ -93,6 +45,12 @@ for _, lsp in pairs(servers) do
         }
       end
     end
+
+    config.typescript = {
+      preferences = {
+        importModuleSpecifier = "non-relative"
+      }
+    }
   end
 
   if lsp == "html" then
@@ -102,6 +60,10 @@ for _, lsp in pairs(servers) do
       "liquid", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", -- mixed
       "vue", "svelte",
     }
+  end
+
+  if lsp == "jsonls" then
+    config.capabilities.textDocument.completion.completionItem.snippetSupport = true
   end
 
   -- Setup sumneko_lua to show autocompletion and suggestions for neovim lua
@@ -132,13 +94,9 @@ for _, lsp in pairs(servers) do
     config.settings = {
       -- `packageManager` and `nodePath` are set to ensure that the eslint LS
       -- will work with pnp.
-      packageManager = "yarn",
       nodePath = "/Users/elia.camposilvan/dd/web-ui/.yarn/sdks",
+      packageManager = "yarn",
       filetypes = utils_lsp.ESLINT_FILETYPES,
-      -- root_dir = function(fname)
-      --   print(fname)
-      --   utils_lspconfig.root_pattern(".git")(fname)
-      -- end,
     }
   end
 
@@ -146,11 +104,11 @@ for _, lsp in pairs(servers) do
     config = { on_attach = utils_lsp.custom_attach }
   end
 
-  if lsp == "jdtls" then
-    -- This is already handled by ~/.config/nvim/ftplugin/java.lua
-    -- We return to avoid setting up the LSP with 2 different clients.
-    return
+  -- jdtls is already handled by ~/.config/nvim/ftplugin/java.lua (through the
+  -- nvim-jdtls plugin).
+  -- We thus ignore its LSP setup here, in order to avoid setting up the LSP
+  -- with 2 different clients.
+  if lsp ~= "jdtls" then
+    lspconfig[lsp].setup(config)
   end
-
-  lspconfig[lsp].setup(config)
 end
