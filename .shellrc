@@ -56,9 +56,7 @@ export GIT_EDITOR="$VISUAL"
 
 # FZF settings {{{
 
-export FZF_DEFAULT_OPS="--extended"
-export FZF_DEFAULT_COMMAND="rg --files --hidden --smart-case --no-ignore --follow"
-export FZF_ALT_C_COMMAND='find .'
+export FZF_DEFAULT_COMMAND="fd --type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # }}}
