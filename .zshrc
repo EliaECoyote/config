@@ -39,12 +39,12 @@ export PROMPT='%F{red}%~%f $(parse_git_branch) %F{cyan}⇢ %f'
 # }}}
 
 function setup_custom_keybindings() {
-  # shellcheck source=~/.fzf.zsh
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 }
 
-# Vim mode + fzf {{{
+# Zsh Vim mode {{{
 
+# https://github.com/jeffreytse/zsh-vi-mode
 export VI_MODE_SET_CURSOR=true
 if [ "${VIM_SHELL}" != "false" ]
 then
