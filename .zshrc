@@ -1,7 +1,8 @@
-# vim: set fdm=marker:
-
 # Load shared config
 source ~/.shellrc
+
+# Add homebrew binaries to the path.
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:${PATH?}"
 
 # Git {{{
 
@@ -56,4 +57,3 @@ else
 fi
 
 # }}}
-
