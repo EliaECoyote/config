@@ -24,7 +24,7 @@ vim.keymap.set(
   default_options
 )
 
--- Reload vim config file
+-- Source conf file
 vim.keymap.set(
   "n",
   "<leader>s",
@@ -85,6 +85,20 @@ vim.keymap.set(
     end
   end,
   { noremap = true, silent = true }
+)
+
+-- Move in quickfix
+vim.keymap.set(
+  "n",
+  "[q",
+  ":cprevious<cr>",
+  { noremap = true }
+)
+vim.keymap.set(
+  "n",
+  "]q",
+  ":cnext<cr>",
+  { noremap = true }
 )
 
 -- Search for visually selected text using '*' and '#'
