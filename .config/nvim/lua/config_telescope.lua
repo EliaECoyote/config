@@ -128,12 +128,6 @@ local function terminals()
   }):find()
 end
 
--- local function project_files(opts)
---   opts = opts or {}
---   local ok = pcall(builtin.git_files, opts)
---   if not ok then builtin.find_files(opts) end
--- end
-
 local function select_background(opts)
   local function load_iterm_background(file_name)
     local apple_script = string.format([[
