@@ -110,4 +110,21 @@ function utils_buffer.delete_other_buffers(opts, delete_unmodified)
   return invalid_count, deleted_count
 end
 
+-- Does not handle rectangular selection
+-- local function get_visual_selection_content()
+--   local _, row_start, col_start, _ = unpack(vim.fn.getpos("'<"))
+--   local _, row_end, col_end, _ = unpack(vim.fn.getpos("'>"))
+--   local lines = vim.api.nvim_buf_get_lines(0, row_start - 1, row_end, false)
+--   local lines_length = #lines
+--   if lines_length > 0 then
+--     -- Strip down unselected content from last line
+--     -- print("stripping from " .. col_end)
+--     lines[lines_length] = string.sub(lines[lines_length], 1, col_end)
+--     -- Strip down unselected content from first line
+--     lines[1] = string.sub(lines[1], col_start)
+--   end
+--   vim.pretty_print(lines)
+--   return table.concat(lines, '\n')
+-- end
+
 return utils_buffer
