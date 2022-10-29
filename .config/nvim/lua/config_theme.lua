@@ -101,7 +101,7 @@ end
 local function setup_dark_theme()
   vim.g.gruvbox_material_background = "hard"
   vim.g.gruvbox_material_palette = "original"
-  vim.api.nvim_command("colorscheme gruvbox-material")
+  vim.api.nvim_command("silent! colorscheme gruvbox-material")
 
   vim.api.nvim_set_hl(0, "CursorLine", { bg = "#4f4f4f" })
   vim.api.nvim_set_hl(0, "Visual", { bg = "#434f4e" })
