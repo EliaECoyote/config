@@ -102,7 +102,6 @@ local function setup(use)
     run = "make",
   })
 
-
   use({
     "nvim-telescope/telescope.nvim",
     requires = {
@@ -110,7 +109,7 @@ local function setup(use)
       "nvim-telescope/telescope-fzf-native.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
-      "kyazdani42/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
     },
     config = function()
       require("config_telescope")
