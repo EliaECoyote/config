@@ -1,35 +1,38 @@
 local utils_table = require("lib.utils_table")
 local utils_buffer = require("lib.utils_buffer")
 
-local default_options = { noremap = true, silent = true }
 
 vim.keymap.set(
   "n",
   "0",
   "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
-  utils_table.merge(default_options, { expr = true })
+  {
+    noremap = true,
+    silent = true,
+    expr = true,
+    desc = "Toggle between col 0 and first char."
+  }
 )
 
--- Enables smoother scroll
 vim.keymap.set(
   "",
   "<ScrollWheelUp>",
   "<C-Y>",
-  default_options
+  {
+    noremap = true,
+    silent = true,
+    desc = "Smooth mouse wheel scroll."
+  }
 )
 vim.keymap.set(
   "",
   "<ScrollWheelDown>",
   "<C-E>",
-  default_options
-)
-
--- Source conf file
-vim.keymap.set(
-  "n",
-  "<leader>s",
-  ":source %<cr>",
-  { noremap = true, silent = false }
+  {
+    noremap = true,
+    silent = true,
+    desc = "Smooth mouse wheel scroll."
+  }
 )
 
 -- Tabs mappings
@@ -37,17 +40,24 @@ vim.keymap.set(
   "n",
   "tn",
   ":tabnew<cr>",
-  { noremap = true, silent = true }
+  {
+    noremap = true,
+    silent = true,
+    desc = "Tab new."
+  }
 )
 
 vim.keymap.set(
   "n",
   "td",
   ":tabclose<cr>",
-  { noremap = true, silent = true }
+  {
+    noremap = true,
+    silent = true,
+    desc = "Tab close."
+  }
 )
 
--- Buffers mappings
 vim.keymap.set(
   "n",
   "<leader>bo",
@@ -60,7 +70,11 @@ vim.keymap.set(
       print(deleted_count .. " buffers deleted")
     end
   end,
-  { noremap = true, silent = true }
+  {
+    noremap = true,
+    silent = true,
+    desc = "Delete other buffers."
+  }
 )
 vim.keymap.set(
   "n",
@@ -72,7 +86,11 @@ vim.keymap.set(
       print("⚠️ : Current buffer is in modified state")
     end
   end,
-  { noremap = true, silent = true }
+  {
+    noremap = true,
+    silent = true,
+    desc = "Delete current buffer."
+  }
 )
 vim.keymap.set(
   "n",
@@ -84,7 +102,11 @@ vim.keymap.set(
       print("⚠️ : Something went wrong - cannot force delete the buffer")
     end
   end,
-  { noremap = true, silent = true }
+  {
+    noremap = true,
+    silent = true,
+    desc = "Force delete current buffer."
+  }
 )
 
 -- Move in quickfix
@@ -92,13 +114,13 @@ vim.keymap.set(
   "n",
   "[q",
   ":cprevious<cr>",
-  { noremap = true }
+  { noremap = true, desc = "Prev quickfix." }
 )
 vim.keymap.set(
   "n",
   "]q",
   ":cnext<cr>",
-  { noremap = true }
+  { noremap = true, desc = "Next quickfix." }
 )
 
 -- Search for visually selected text using '*' and '#'
@@ -116,14 +138,17 @@ vim.cmd([[
     \gVzv:call setreg('"', old_reg, old_regtype)<CR>
 ]])
 
--- Copy all
 vim.keymap.set(
   "n",
   "yo",
   function()
     vim.cmd("%y+")
   end,
-  { noremap = true, silent = true }
+  {
+    noremap = true,
+    silent = true,
+    desc = "Copy buffer to clipboard.",
+  }
 )
 
 -- Prepare to print lua code
@@ -131,5 +156,9 @@ vim.keymap.set(
   "n",
   "<leader>l",
   ":lua vim.pretty_print()<left>",
-  { noremap = true, silent = false }
+  {
+    noremap = true,
+    silent = false,
+    desc = "Log with lua."
+  }
 )
