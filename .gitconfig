@@ -1,14 +1,14 @@
 [user]
-  email = elia.camposilvan@gmail.com
+  email = 25326494+EliaECoyote@users.noreply.github.com
   name = EliaECoyote
 [url "git@github.com:"]
-    insteadOf = https://github.com/
+  insteadOf = https://github.com/
 [pull]
   ff = only
 [core]
   editor = nvim
   hooksPath = /usr/local/dd/global_hooks
-	excludesfile = /Users/elia.camposilvan/.gitignore
+  excludesfile = /Users/elia.camposilvan/.gitignore
 [alias]
   s = status
   d = diff
