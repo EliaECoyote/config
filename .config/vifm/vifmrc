@@ -417,3 +417,6 @@ set vicmd=nvim
 
 " Display relative line numbers
 set relativenumber
+
+" Allow accessing zsh functions
+set shellcmdflag=-ic
