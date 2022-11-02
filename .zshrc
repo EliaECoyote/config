@@ -45,7 +45,11 @@ function setup_custom_keybindings() {
 # Zsh Vim mode {{{
 
 # https://github.com/jeffreytse/zsh-vi-mode
-export VI_MODE_SET_CURSOR=true
+function zvm_config() {
+  export VI_MODE_SET_CURSOR=true
+  export ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+}
+
 if [ "${VIM_SHELL}" != "false" ]
 then
   source "$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
