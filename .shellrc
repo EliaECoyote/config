@@ -115,8 +115,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 alias hub-pr='hub pull-request -o'
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-alias vim='nvim .'
-alias v='vim'
+alias v='nvim'
 alias lazyconfig='lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # }}}
