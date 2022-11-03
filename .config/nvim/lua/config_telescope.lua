@@ -209,7 +209,6 @@ telescope.setup({
       theme = "ivy",
       path_display = { "smart" },
       hidden = true,
-      hijack_netrw = true,
       path = "%:p:h",
       mappings = {
         ["i"] = {
