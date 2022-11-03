@@ -43,9 +43,15 @@ function utils_buffer.delete_buffer(bufnr, opts, delete_unmodified)
           return
         end
 
-        -- Try using previous buffer
-        vim.cmd("bprevious")
-        if cur_bufnr ~= vim.api.nvim_win_get_buf(winnr) then return end
+        -- Try using the previous listed buffer
+        local ok, result = pcall(vim.cmd, "bprevious")
+        vim.pretty_print(result)
+
+        -- If there's no other listed buffer, we would get E85.
+        -- In that case, we want to create a new buffer instead.
+        if ok and (result == nil or not result:find("E85")) and cur_bufnr ~= vim.api.nvim_win_get_buf(winnr) then
+          return
+        end
 
         -- Create new listed scratch buffer
         local new_buf = vim.api.nvim_create_buf(true, true)
