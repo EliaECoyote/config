@@ -22,8 +22,6 @@ local function setup(use)
   use("editorconfig/editorconfig-vim")
   -- Makes gx cmd work for urls and files
   use("stsewd/gx-extended.vim")
-  -- Handle multi-file find and replace
-  use("mhinz/vim-grepper")
 
   use({
     "tpope/vim-fugitive",
