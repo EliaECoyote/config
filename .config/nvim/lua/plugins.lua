@@ -85,7 +85,7 @@ local function setup(use)
   use({
     "norcalli/nvim-colorizer.lua",
     config = function()
-      require("config_nvim_colorizer")
+      require("colorizer").setup()
     end
   })
 
