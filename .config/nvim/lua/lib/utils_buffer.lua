@@ -1,25 +1,17 @@
 local utils_buffer = {}
 
-function utils_buffer.buffer_to_string()
-  local content = vim.api.nvim_buf_get_lines(
-    0,
-    0,
-    vim.api.nvim_buf_line_count(0),
-    false
-  )
-  return table.concat(content, "\n")
+-- Computes "true" buffer nr.
+function utils_buffer.get_real_bufnr(bufnr)
+  if bufnr == nil or bufnr == 0 then
+    return vim.api.nvim_get_current_buf()
+  end
+  return bufnr
 end
 
--- Enhanced deletes buffer function.
--- Features:
--- - Deletes buffer without losing the window layout
--- - When passing `opts.loading = true`, the buffer will be de-listed
--- - Will create a new empty buffer before deleting the last buffer
--- - Doesn't delete modified buffers if keep_unmodified is true
---
--- Inspired from https://github.com/famiu/bufdelete.nvim
+-- Deletes buffer without losing the window layout
 -- Returns `false` when buffer cannot be deleted, returns `true` otherwise.
 function utils_buffer.delete_buffer(bufnr, opts, delete_unmodified)
+  bufnr = utils_buffer.get_real_bufnr(bufnr)
   opts = opts or {}
 
   -- If buffer is modified and force isn't true or delete_unmodified isn't true, return false
@@ -28,68 +20,55 @@ function utils_buffer.delete_buffer(bufnr, opts, delete_unmodified)
     return false
   end
 
-  if bufnr == 0 or bufnr == nil then
-    bufnr = vim.api.nvim_get_current_buf()
-  end
-
   -- Get list of windows IDs with the buffer to close
   local windows = vim.tbl_filter(
-    function(win)
-      return vim.api.nvim_win_get_buf(win) == bufnr
-    end,
+    function(win) return vim.api.nvim_win_get_buf(win) == bufnr end,
     vim.api.nvim_list_wins()
   )
 
-  -- Get list of valid and listed buffers
-  local buffers = vim.tbl_filter(
-    function(buf)
-      return vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_get_option(buf, "buflisted")
-    end,
-    vim.api.nvim_list_bufs()
-  )
+  -- Replaces the buffer for each window. We try, respectively, to:
+  -- - Use the alternate buffer (if listed)
+  -- - Use the previous listed buffer
+  -- - Create a buffer from scratch
 
-  if #buffers == 0 then
+  for _, winnr in ipairs(windows) do
+    local cur_bufnr = vim.api.nvim_win_get_buf(winnr)
+    vim.api.nvim_win_call(
+      winnr,
+      function()
+        -- Try using alternate buffer
+        local alt_bufnr = vim.fn.bufnr('#')
+        if alt_bufnr ~= cur_bufnr and vim.fn.buflisted(alt_bufnr) == 1 then
+          vim.api.nvim_win_set_buf(winnr, alt_bufnr)
+          return
+        end
+
+        -- Try using previous buffer
+        vim.cmd("bprevious")
+        if cur_bufnr ~= vim.api.nvim_win_get_buf(winnr) then return end
+
+        -- Create new listed scratch buffer
+        local new_buf = vim.api.nvim_create_buf(true, true)
+        vim.api.nvim_win_set_buf(winnr, new_buf)
+      end
+    )
+  end
+
+  local command = string.format("bdelete%s %d", opts.force and "!" or "", bufnr)
+  -- Use `pcall` here to take care of case where hiding the buffer was enough. This
+  -- can happen with 'bufhidden' option values:
+  -- - If hiding already deleted the buffer, we would get E516.
+  local ok, result = pcall(vim.cmd, command)
+  if not (ok or result ~= nil and result:find('E516')) then
+    print(result)
     return false
   end
 
-  -- If there is only one buffer (which has to be `bufnr`), we will create a
-  -- new buffer before deleting the previous one.
-  if #buffers == 1 and buffers[1] == bufnr then
-    local next_buffer = vim.api.nvim_create_buf(true, true)
-    if next_buffer == 0 then
-      return false
-    end
-    table.insert(buffers, next_buffer)
-  end
-
-  -- We pick and set the next buffer available.
-  -- This will replace the old buffer in all windows that were referencing it.
-  for i, candidate in ipairs(buffers) do
-    if candidate == bufnr then
-      local next_buffer = buffers[i % #buffers + 1]
-      for _, win in ipairs(windows) do
-        vim.api.nvim_win_set_buf(win, next_buffer)
-      end
-      break
-    end
-  end
-
-  -- Before deleting, ensure the target buffer:
-  -- - wasn't killed due to options like bufhidden=wipe
-  -- - is still listed
-  if vim.api.nvim_buf_is_valid(bufnr) and vim.api.nvim_buf_get_option(bufnr, "buflisted") then
-    if opts.unload then
-      -- If the buffer has just been unloaded, we also remove it from the
-      -- buffer list (to replicate the original :bdelete behavior).
-      vim.api.nvim_buf_set_option(bufnr, "buflisted", false)
-    end
-    vim.api.nvim_buf_delete(bufnr, opts)
-  end
   return true
 end
 
 function utils_buffer.delete_other_buffers(opts, delete_unmodified)
-  local cur_buf = vim.api.nvim_get_current_buf()
+  local cur_buf = utils_buffer.get_real_bufnr(0)
   local deleted_count, invalid_count = 0, 0
   -- Get list of valid and listed buffers
   local buffers = vim.tbl_filter(
@@ -109,22 +88,5 @@ function utils_buffer.delete_other_buffers(opts, delete_unmodified)
   end
   return invalid_count, deleted_count
 end
-
--- Does not handle rectangular selection
--- local function get_visual_selection_content()
---   local _, row_start, col_start, _ = unpack(vim.fn.getpos("'<"))
---   local _, row_end, col_end, _ = unpack(vim.fn.getpos("'>"))
---   local lines = vim.api.nvim_buf_get_lines(0, row_start - 1, row_end, false)
---   local lines_length = #lines
---   if lines_length > 0 then
---     -- Strip down unselected content from last line
---     -- print("stripping from " .. col_end)
---     lines[lines_length] = string.sub(lines[lines_length], 1, col_end)
---     -- Strip down unselected content from first line
---     lines[1] = string.sub(lines[1], col_start)
---   end
---   vim.pretty_print(lines)
---   return table.concat(lines, '\n')
--- end
 
 return utils_buffer
