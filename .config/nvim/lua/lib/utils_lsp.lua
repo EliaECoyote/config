@@ -43,6 +43,7 @@ function utils_lsp.custom_attach(client)
 
 
   vim.keymap.set("n", "<leader>0", utils_lsp.format_buffer, options)
+  vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, options)
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, options)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, options)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, options)

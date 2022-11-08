@@ -266,7 +266,8 @@ local options = { noremap = true }
 vim.keymap.set("n", "<leader>o", builtin.buffers, options)
 vim.keymap.set("n", "<leader>ff", builtin.live_grep, options)
 vim.keymap.set("n", "<leader>fF", telescope.extensions.live_grep_args.live_grep_args, options)
-vim.keymap.set("n", "<leader>p", builtin.find_files, options)
+vim.keymap.set("n", "<leader>fp", builtin.find_files, options)
+vim.keymap.set("n", "<leader>p", function() builtin.find_files(themes.get_dropdown({ previewer = false })) end, options)
 vim.keymap.set("n", "<leader>?", builtin.oldfiles, options)
 vim.keymap.set("n", "<leader>fq", builtin.quickfix, options)
 vim.keymap.set("n", "<leader>f?", builtin.builtin, options)
@@ -278,6 +279,5 @@ vim.keymap.set("n", "<leader>fB", select_background, options)
 vim.keymap.set("n", "<leader>fr", builtin.resume, options)
 
 -- LSP
-vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, options)
 vim.keymap.set("n", "gr", builtin.lsp_references, options)
 vim.keymap.set("n", "gd", builtin.lsp_definitions, options)
