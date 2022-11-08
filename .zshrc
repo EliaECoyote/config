@@ -1,3 +1,5 @@
+# vim: set fdm=marker:
+#
 # Load shared config
 source ~/.shellrc.bash
 
