@@ -22,6 +22,7 @@ local function setup(use)
   use("editorconfig/editorconfig-vim")
   -- Makes gx cmd work for urls and files
   use("stsewd/gx-extended.vim")
+  use("vifm/vifm.vim")
 
   use({
     "tpope/vim-fugitive",
