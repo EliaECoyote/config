@@ -8,4 +8,3 @@ source ~/.shellrc.bash
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # }}}
-

@@ -1,5 +1,5 @@
 # vim: set fdm=marker:
-#
+
 # ----------------------------
 # Shared shells configuration 
 # ----------------------------
@@ -120,6 +120,8 @@ alias lazyconfig='lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # }}}
 
+# Bash functions {{{
+
 # Prints all the processes currently listening on a port
 processes_listening_in_port() {
   lsof -i:$1 -sTCP:LISTEN
@@ -131,7 +133,7 @@ foldersize() {
 }
 
 video_to_gif() {
-  ffmpeg -i $1 -vf "scale=640:-2" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 --colors 128 > out.gif
+  ffmpeg -i "$1" -vf "scale=640:-2" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 --colors 128 > out.gif
 }
 
 # example:
@@ -156,6 +158,8 @@ vicd() {
   fi
   cd "$dst"
 }
+
+# }}}
 
 # Company-specific stuff {{{
 

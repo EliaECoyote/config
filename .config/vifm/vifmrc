@@ -79,27 +79,22 @@ set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
 
 " Ignore case in search patterns unless it contains at least one uppercase
 " letter
-
 set ignorecase
 set smartcase
 
 " Don't highlight search results automatically
-
 set nohlsearch
 
 " Use increment searching (search while typing)
 set incsearch
 
 " Try to leave some space from cursor to upper/lower border in lists
-
 set scrolloff=4
 
 " Don't do too many requests to slow file systems
-
 set slowfs=curlftpfs
 
 " Set custom status line look
-
 set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
 
 " ------------------------------------------------------------------------------
@@ -196,7 +191,7 @@ filetype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
        \ {Open in MPlayerX}
        \ open -a MPlayerX.app,
 fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
-          \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
+          \*.fl[icv],*.m2v,*.mov,*.webm,*.mts,*.m4v,*.r[am],*.qt,*.divx,
           \*.as[fx]
          \ ffprobe -pretty %c 2>&1
 
@@ -417,6 +412,10 @@ only
 " Open file in new nvim tab
 nnoremap o :!nvim %f<cr>
 
+" Convert video to gif
+nnoremap <space>cv :!!bash -ic "video_to_gif %d/%f"<cr>
+
+
 " Command used to edit files in various contexts
 set vicmd=nvim
 
@@ -424,7 +423,7 @@ set vicmd=nvim
 set relativenumber
 
 " Allow accessing zsh functions
-set shellcmdflag=-ic
+" set shellcmdflag=-ic
 
 " FZF integration
 if $TMUX
