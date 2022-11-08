@@ -56,7 +56,7 @@ set norunexec
 
 " Selected color scheme
 
-colorscheme gruvbox
+colorscheme papercolor-light
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
@@ -406,13 +406,18 @@ nnoremap <f8> :delete<cr>
 " Always show hidden files by default
 set dotfiles
 
-" Open file in new MacVim tab
+" Display dirs in multiple cascading columns
+set millerview
+set milleroptions="lsize:1,csize:1,rsize:1,rpreview:all"
+
+" Start vifm with only one pane
+" https://stackoverflow.com/a/40094128
+only
+
+" Open file in new nvim tab
 nnoremap o :!nvim %f<cr>
 
-" Command used to edit files in various contexts.  The default is vim.
-" If you would like to use another vi clone such as Elvis or Vile
-" you will need to change this setting.
-
+" Command used to edit files in various contexts
 set vicmd=nvim
 
 " Display relative line numbers
@@ -422,10 +427,6 @@ set relativenumber
 set shellcmdflag=-ic
 
 " FZF integration
-
-" Write the current bookmarks to a file (same as EvilDroidMax)
-
-" Fzf through bookmarks
 if $TMUX
     " Use popup window. Requires tmux 3.2 and up
     command! fdcddir :execute 'cd "'.system('fd -HE ''.git'' -t d . | fzf-tmux -p 90,30').'"'
