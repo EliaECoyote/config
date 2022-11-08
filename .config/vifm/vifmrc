@@ -420,3 +420,23 @@ set relativenumber
 
 " Allow accessing zsh functions
 set shellcmdflag=-ic
+
+" FZF integration
+
+" Write the current bookmarks to a file (same as EvilDroidMax)
+
+" Fzf through bookmarks
+if $TMUX
+    " Use popup window. Requires tmux 3.2 and up
+    command! fdcddir :execute 'cd "'.system('fd -HE ''.git'' -t d . | fzf-tmux -p 90,30').'"'
+    command! fdeditfiles :execute 'edit "'.system('fd -HE ''.git'' -t f . | fzf-tmux -p 90,30').'"'
+else
+    " Use full-screen. Works even without tmux
+    command! fdcddir :execute 'cd "'.term('fd -HE ''.git'' -t d . | fzf 2>/dev/tty').'"'
+    command! fdeditfiles :execute 'edit "'.term('fd -HE ''.git'' -t f . | fzf 2>/dev/tty').'"'
+endif
+
+" cd to child directory
+nnoremap <a-c> :fdcddir<cr>
+" edit file from child directory in vim
+" nnoremap <space>f :fdeditfiles<cr>
