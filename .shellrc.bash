@@ -163,7 +163,7 @@ vicd() {
 
 # Company-specific stuff {{{
 
-[ -f ~/.workrc ] && source ~/.workrc
+[ -f ~/.workrc.bash ] && source ~/.workrc.bash
 
 # }}}
 
