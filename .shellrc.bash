@@ -134,6 +134,19 @@ video_to_gif() {
   ffmpeg -i $1 -vf "scale=640:-2" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 --colors 128 > out.gif
 }
 
+# example:
+# ```
+# # Get latest commit for 2022-10-10 in `main` branch
+# get_commit_before 2022-10-10
+#
+# # Get latest commit for 2022-10-10 in `staging` branch
+# get_commit_before 2022-10-10 staging
+# ```
+commit_before() {
+  branch="${2:-main}"
+  git rev-list -n1 --before=$1 $branch
+}
+
 # https://wiki.vifm.info/index.php/How_to_set_shell_working_directory_after_leaving_Vifm
 vicd() {
   local dst="$(command vifm --choose-dir - "$@")"
