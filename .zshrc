@@ -1,5 +1,5 @@
 # Load shared config
-source ~/.shellrc
+source ~/.shellrc.bash
 
 # Add homebrew binaries to the path.
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:${PATH?}"

@@ -1,7 +1,7 @@
 # vim: set fdm=marker:
 
 # Load shared config
-source ~/.shellrc
+source ~/.shellrc.bash
 
 # Fzf {{{
 
