@@ -134,6 +134,7 @@ video_to_gif() {
   ffmpeg -i $1 -vf "scale=640:-2" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 --colors 128 > out.gif
 }
 
+# https://wiki.vifm.info/index.php/How_to_set_shell_working_directory_after_leaving_Vifm
 vicd() {
   local dst="$(command vifm --choose-dir - "$@")"
   if [ -z "$dst" ]; then

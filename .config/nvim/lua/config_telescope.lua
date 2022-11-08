@@ -44,7 +44,7 @@ local function bookmarks(opts)
   local files = {
     "~/.tmux.conf", "~/.config/vifm/vifmrc",
     "~/.config/karabiner/karabiner.json", "~/.gitconfig", "~/.gitignore",
-    "~/.shellrc", "~/.workrc", "~/.zshrc",
+    "~/.shellrc.bash", "~/.workrc", "~/.zshrc",
   }
   local folders = {
     "~/.config/nvim/",
@@ -272,7 +272,6 @@ vim.keymap.set("n", "<leader>?", builtin.oldfiles, options)
 vim.keymap.set("n", "<leader>fq", builtin.quickfix, options)
 vim.keymap.set("n", "<leader>f?", builtin.builtin, options)
 vim.keymap.set("n", "<leader>fl", builtin.loclist, options)
-vim.keymap.set("n", "<leader>fb", telescope.extensions.file_browser.file_browser, options)
 vim.keymap.set("n", "<leader>fw", bookmarks, options)
 vim.keymap.set("n", "<leader>ft", terminals, options)
 vim.keymap.set("n", "<leader>fB", select_background, options)

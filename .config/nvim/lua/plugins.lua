@@ -22,7 +22,21 @@ local function setup(use)
   use("editorconfig/editorconfig-vim")
   -- Makes gx cmd work for urls and files
   use("stsewd/gx-extended.vim")
-  use("vifm/vifm.vim")
+  use({
+    "vifm/vifm.vim",
+    config = function()
+      vim.keymap.set(
+        "n",
+        "<leader>fb",
+        ":Vifm<cr>",
+        {
+          noremap = true,
+          silent = true,
+          desc = "Start Vifm on local buffer path"
+        }
+      )
+    end
+  })
 
   use({
     "tpope/vim-fugitive",
