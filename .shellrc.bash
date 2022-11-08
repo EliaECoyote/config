@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # vim: set fdm=marker:
 
 # ----------------------------
@@ -103,7 +105,7 @@ function open_pr() {
 
 # Show file authors stats
 function author_stats() {
-  git blame --line-porcelain $1 | grep  "^author " | sort | uniq -c | sort -nr
+  git blame --line-porcelain "$1" | grep  "^author " | sort | uniq -c | sort -nr
 }
 
 # Alias to handle `config` bare repo more easily
@@ -124,29 +126,30 @@ alias lazyconfig='lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # Prints all the processes currently listening on a port
 processes_listening_in_port() {
-  lsof -i:$1 -sTCP:LISTEN
+  lsof -i:"$1" -sTCP:LISTEN
 }
 
 # Prints the size of an element. Can be used with `folder_name\/*` syntax
 foldersize() {
-  du -hcs $1
+  du -hcs "$1"
 }
 
 video_to_gif() {
   ffmpeg -i "$1" -vf "scale=640:-2" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 --colors 128 > out.gif
 }
 
-# example:
-# ```
-# # Get latest commit for 2022-10-10 in `main` branch
-# get_commit_before 2022-10-10
-#
-# # Get latest commit for 2022-10-10 in `staging` branch
-# get_commit_before 2022-10-10 staging
-# ```
-commit_before() {
-  branch="${2:-main}"
-  git rev-list -n1 --before=$1 $branch
+commit_past() {
+  local branch_prompt="Select a branch (default: main): "
+  local date_prompt="Select a date (e.g.: 2022-10-10 | 1 day ago | 2 weeks ago): "
+  if [ -n "$ZSH_VERSION" ]; then
+    read -r "?$branch_prompt" branch
+    read -r "?$date_prompt" date
+  else
+    read -rp "$branch_prompt" branch
+    read -rp "$date_prompt" date
+  fi
+  branch="${branch:-main}"
+  git rev-list -n1 --before="$date" "$branch"
 }
 
 # https://wiki.vifm.info/index.php/How_to_set_shell_working_directory_after_leaving_Vifm
@@ -156,7 +159,7 @@ vicd() {
       echo 'Directory picking cancelled/failed'
       return 1
   fi
-  cd "$dst"
+  cd "$dst" || exit
 }
 
 # }}}
