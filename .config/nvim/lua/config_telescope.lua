@@ -44,7 +44,7 @@ local function bookmarks(opts)
   local files = {
     "~/.tmux.conf", "~/.config/vifm/vifmrc",
     "~/.config/karabiner/karabiner.json", "~/.gitconfig", "~/.gitignore",
-    "~/.shellrc.bash", "~/.workrc", "~/.zshrc",
+    "~/.shellrc.bash", "~/.workrc.bash", "~/.bashrc", "~/.zshrc",
   }
   local folders = {
     "~/.config/nvim/",
