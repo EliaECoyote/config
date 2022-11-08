@@ -22,7 +22,7 @@ end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.api.nvim_create_autocmd("TermOpen", {
-  pattern = "term://*",
+  pattern = "term://*toggleterm#*",
   callback = function()
     set_terminal_keymaps()
     vim.opt_local.textwidth = 72
