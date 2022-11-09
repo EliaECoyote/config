@@ -52,6 +52,7 @@ local function bookmarks(opts)
     "~/.config/karabiner/",
     "~/.config/vifm/",
     "~/.local/bin/",
+    "~/.github/",
     "~/Dropbox/vimwiki/",
     "/Volumes/Projects/playground/"
   }
