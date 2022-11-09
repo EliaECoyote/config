@@ -3,7 +3,7 @@
 # vim: set fdm=marker:
 
 # ----------------------------
-# Shared shells configuration 
+# Shared shells configuration
 # ----------------------------
 
 # Prefer GNU binaries to Macintosh binaries.
@@ -28,8 +28,7 @@ export GO111MODULE=on
 
 # Load env variables {{{
 
-if [ -e ~/.env ]
-then
+if [ -e ~/.env ]; then
   export $(cat "$HOME/.env" | xargs)
 else
   echo "⚠️  No env found!"
@@ -92,22 +91,6 @@ alias ....='cd ../../..'
 
 alias g='git'
 
-# Open PR {{{2
-
-function open_pr() {
-  github_url=$(git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#https://#' -e 's@com:@com/@' -e 's%\.git$%%' | awk '/github/');
-  branch_name=$(git symbolic-ref HEAD | cut -d"/" -f 3,4);
-  pr_url="$github_url/compare/$branch_name?expand=1";
-  open "$pr_url";
-}
-
-# }}}
-
-# Show file authors stats
-function author_stats() {
-  git blame --line-porcelain "$1" | grep  "^author " | sort | uniq -c | sort -nr
-}
-
 # Alias to handle `config` bare repo more easily
 alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
@@ -133,25 +116,6 @@ processes_listening_in_port() {
 foldersize() {
   du -hcs "$1"
 }
-
-video_to_gif() {
-  ffmpeg -i "$1" -vf "scale=640:-2" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 --colors 128 > out.gif
-}
-
-commit_past() {
-  local branch_prompt="Select a branch (default: main): "
-  local date_prompt="Select a date (e.g.: 2022-10-10 | 1 day ago | 2 weeks ago): "
-  if [ -n "$ZSH_VERSION" ]; then
-    read -r "?$branch_prompt" branch
-    read -r "?$date_prompt" date
-  else
-    read -rp "$branch_prompt" branch
-    read -rp "$date_prompt" date
-  fi
-  branch="${branch:-main}"
-  git rev-list -n1 --before="$date" "$branch"
-}
-
 # https://wiki.vifm.info/index.php/How_to_set_shell_working_directory_after_leaving_Vifm
 vicd() {
   local dst="$(command vifm --choose-dir - "$@")"
@@ -166,7 +130,6 @@ vicd() {
 
 # Company-specific stuff {{{
 
-[ -f ~/.workrc.bash ] && source ~/.workrc.bash
+[ -f "$HOME/.workrc.bash" ] && source "$HOME/.workrc.bash"
 
 # }}}
-

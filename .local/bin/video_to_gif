@@ -1,0 +1,5 @@
+#!/bin/bash
+
+output_file="${2:-out.gif}"
+
+ffmpeg -i "$1" -vf "scale=640:-2" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 --colors 128 >"$output_file"
