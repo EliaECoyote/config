@@ -1,7 +1,7 @@
 # vim: set fdm=marker:
 #
 # Load shared config
-source ~/.shellrc.bash
+source "$HOME/.shellrc"
 
 # Add homebrew binaries to the path.
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:${PATH?}"
@@ -11,7 +11,7 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:${PATH?}"
 # Enables git completion.
 # Note that `git-completion.zsh` is not designed to be sourced.
 # Here we're loading it through a zsh function, available in `fpath`.
-zstyle ':completion:*:*:git:*' script ~/.config/git-completion.bash
+zstyle ':completion:*:*:git:*' script "$HOME/.config/git-completion.bash"
 # `compinit` scans $fpath, so do this before calling it.
 fpath=(~/.zsh/functions $fpath)
 autoload -Uz compinit && compinit

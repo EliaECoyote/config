@@ -130,6 +130,6 @@ vicd() {
 
 # Company-specific stuff {{{
 
-[ -f "$HOME/.workrc.bash" ] && source "$HOME/.workrc.bash"
+[ -f "$HOME/.workrc" ] && source "$HOME/.workrc"
 
 # }}}

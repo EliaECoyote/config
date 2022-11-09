@@ -1,10 +1,12 @@
+#!/bin/bash
+
 # vim: set fdm=marker:
 
 # Load shared config
-source ~/.shellrc.bash
+source "$HOME/.shellrc"
 
 # Fzf {{{
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f "$HOME/.fzf.bash" ] && source "$HOME/.fzf.bash"
 
 # }}}
