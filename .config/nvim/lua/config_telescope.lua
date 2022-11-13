@@ -184,6 +184,9 @@ telescope.setup({
     lsp_definitions = {
       theme = telescope_defaults.theme,
     },
+    builtin = {
+      theme = telescope_defaults.theme,
+    },
     buffers = {
       theme = telescope_defaults.theme,
       attach_mappings = function(prompt_bufnr, map)
