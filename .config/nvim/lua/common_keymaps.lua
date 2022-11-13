@@ -58,6 +58,29 @@ vim.keymap.set(
   }
 )
 
+local VOCALS_ACCENTS = {
+  a = "à",
+  A = "À",
+  e = "è",
+  E = "È",
+  i = "ì",
+  I = "Ì",
+  o = "ò",
+  O = "Ò",
+  u = "ù",
+  U = "Ù",
+}
+
+-- Emulate backtick dead-key for accents
+for key, value in pairs(VOCALS_ACCENTS) do
+  vim.keymap.set(
+    "i",
+    "<A-`>" .. key,
+    value,
+    { noremap = true, silent = true, desc = "Type accent " .. value .. " char" }
+  )
+end
+
 vim.keymap.set(
   "n",
   "<leader>bo",
