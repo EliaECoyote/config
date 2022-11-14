@@ -1,9 +1,7 @@
-# Add homebrew binaries to the path.
-export PATH=/usr/local/bin:$PATH
-
-if [ -r ~/.bashrc ]; then
-   source ~/.bashrc
+if [ -r "$HOME/.profile" ]; then
+  source "$HOME/.profile"
 fi
-if [ -r ~/.bashenv ]; then
-   source ~/.env
+
+if [ -r "$HOME/.bashrc" ]; then
+  source "$HOME/.bashrc"
 fi
