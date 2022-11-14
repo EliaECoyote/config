@@ -7,6 +7,7 @@
 # ----------------------------
 
 # Load env variables {{{
+
 if [ -e "$HOME/.env" ]; then
   export $(cat "$HOME/.env" | xargs)
 else
