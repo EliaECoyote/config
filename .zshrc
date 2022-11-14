@@ -3,9 +3,6 @@
 # Load shared config
 source "$HOME/.shellrc"
 
-# Add homebrew binaries to the path.
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:${PATH?}"
-
 # Git {{{
 
 # Enables git completion.
