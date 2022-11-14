@@ -1,8 +1,6 @@
 #!/bin/bash
 
-branch_prompt="Select a branch (default: main): "
-date_prompt="Select a date (e.g.: 2022-10-10 | 1 day ago | 2 weeks ago): "
-read -rp "$branch_prompt" branch
-read -rp "$date_prompt" date
+read -rp "Select a branch (default: main) -> " branch
+read -rp "Select a date (e.g.: 2022-10-10 | 1 day ago | 2 weeks ago) -> " date
 branch="${branch:-main}"
 git rev-list -n1 --before="$date" "$branch"
