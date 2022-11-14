@@ -7,7 +7,7 @@
 	<key>BracketedPasteMode</key>
 	<true/>
 	<key>Command</key>
-	<string></string>
+	<string>/bin/bash</string>
 	<key>CompactMinimalTabBarHeight</key>
 	<real>22</real>
 	<key>Control</key>
