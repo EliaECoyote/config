@@ -42,6 +42,7 @@ end
 
 local function bookmarks(opts)
   local files = {
+    "~/.profile", "~/.bash_profile",
     "~/.tmux.conf", "~/.config/vifm/vifmrc",
     "~/.config/karabiner/karabiner.json", "~/.gitconfig", "~/.gitignore",
     "~/.shellrc", "~/.workrc", "~/.bashrc", "~/.zshrc",
