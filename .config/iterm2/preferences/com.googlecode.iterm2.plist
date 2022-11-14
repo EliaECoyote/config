@@ -6,6 +6,8 @@
 	<true/>
 	<key>BracketedPasteMode</key>
 	<true/>
+	<key>Command</key>
+	<string></string>
 	<key>CompactMinimalTabBarHeight</key>
 	<real>22</real>
 	<key>Control</key>
@@ -929,7 +931,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string>tmux</string>
+			<string>/bin/bash</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -962,9 +964,9 @@
 				<real>1</real>
 			</dict>
 			<key>Cursor Type</key>
-			<integer>1</integer>
+			<integer>2</integer>
 			<key>Custom Command</key>
-			<string>No</string>
+			<string>Custom Shell</string>
 			<key>Custom Directory</key>
 			<string>No</string>
 			<key>Default Bookmark</key>
@@ -1538,7 +1540,7 @@
 	<key>SeparateStatusBarsPerPane</key>
 	<true/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>SoundForEsc</key>
