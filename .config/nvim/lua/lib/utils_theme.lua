@@ -3,7 +3,7 @@ local utils_theme = {}
 function utils_theme.get_background()
   local theme = os.getenv("THEME")
   if (theme == nil or (theme ~= "dark" and theme ~= "light")) then
-    return "dark"
+    return "light"
   end
   return theme
 end
