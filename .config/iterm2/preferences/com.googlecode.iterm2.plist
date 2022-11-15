@@ -7,7 +7,7 @@
 	<key>BracketedPasteMode</key>
 	<true/>
 	<key>Command</key>
-	<string></string>
+	<string>/bin/bash</string>
 	<key>CompactMinimalTabBarHeight</key>
 	<real>22</real>
 	<key>Control</key>
@@ -720,6 +720,10 @@
 	<integer>1048848</integer>
 	<key>IRMemory</key>
 	<integer>4</integer>
+	<key>NeverWarnAboutShortLivedSessions_9F4DBDE6-18C1-4D0C-A68A-37925D5EFA24</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_9F4DBDE6-18C1-4D0C-A68A-37925D5EFA24_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
