@@ -7,7 +7,7 @@
 	<key>BracketedPasteMode</key>
 	<true/>
 	<key>Command</key>
-	<string>/bin/bash</string>
+	<string></string>
 	<key>CompactMinimalTabBarHeight</key>
 	<real>22</real>
 	<key>Control</key>
@@ -997,7 +997,7 @@
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
-			<string>export THEME="light"; tmux</string>
+			<string>tmux</string>
 			<key>Initial Use Transparency</key>
 			<false/>
 			<key>Jobs to Ignore</key>
