@@ -8,7 +8,7 @@
 
 # Load env variables {{{
 
-if [ -e "$HOME/.env" ]; then
+if test -r "$HOME/.env"; then
   export $(cat "$HOME/.env" | xargs)
 else
   echo "⚠️  No env found!"
@@ -78,6 +78,8 @@ vicd() {
 
 # Company-specific stuff {{{
 
-[ -f "$HOME/.workrc" ] && source "$HOME/.workrc"
+if test -r "$HOME/.workrc"; then
+  source "$HOME/.workrc"
+fi
 
 # }}}

@@ -1,11 +1,11 @@
 source "$HOME/.shellrc"
 
 # Load fzf
-if [ -r "$HOME/.fzf.bash" ]; then
+if test -r "$HOME/.fzf.bash"; then
   source "$HOME/.fzf.bash"
 fi
 
-if [ -r "$HOME/.config/git-completion.bash" ]; then
+if test -r "$HOME/.config/git-completion.bash"; then
   source "$HOME/.config/git-completion.bash"
   # Load autocomplete for git alias "g"
   __git_complete g __git_main
