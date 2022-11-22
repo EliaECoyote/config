@@ -132,6 +132,13 @@ vim.keymap.set(
   }
 )
 
+vim.keymap.set(
+  "i",
+  "<C-r>",
+  "<C-r><C-o>",
+  { noremap = true, desc = "Insert contents of named register. Inserts text literally, not as if you typed it." }
+)
+
 -- Move in quickfix
 vim.keymap.set(
   "n",
