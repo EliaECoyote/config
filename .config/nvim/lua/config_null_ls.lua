@@ -9,7 +9,7 @@ null_ls.setup({
   on_attach = utils_lsp.custom_attach,
   sources = {
     null_ls.builtins.formatting.prettier.with({
-      timeout = 2000,
+      timeout = 8000,
       dynamic_command = function(params)
         return resolve_from_yarn_pnp(params)
             or resolve_from_node_modules(params)
