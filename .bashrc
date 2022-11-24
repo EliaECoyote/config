@@ -19,4 +19,16 @@ shopt -s histappend
 # Append to history file after each command, and reread it
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
-export PS1="\[$(tput sgr0)\]\[\033[38;5;1m\]\w\[$(tput sgr0)\] \$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/') \\$\n\[\033[38;5;6m\]⇢\[$(tput sgr0)\] "
+prompt_color() {
+  echo "\[\033[${1}m\]"
+}
+
+BLACK="0;30"
+RED="0;31"
+BLUE="0;34"
+
+CWD="\w"
+GIT_BRANCH="\$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')"
+
+PS1="$(prompt_color $RED) $CWD $(prompt_color $BLACK)$GIT_BRANCH \$ \n $(prompt_color $BLUE)⇢ $(prompt_color $BLACK)"
+export PS1
