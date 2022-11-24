@@ -54,7 +54,6 @@ local function setup(use)
 
   use({
     'nvim-treesitter/nvim-treesitter',
-    commit = "4cccb6f494eb255b32a290d37c35ca12584c74d0",
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
     config = function()
       require("config_treesitter")
@@ -191,12 +190,6 @@ local function setup(use)
     config = function()
       require("config_toggleterm")
     end
-  })
-
-  -- Themes
-  use({
-    "projekt0n/github-nvim-theme",
-    "sainnhe/gruvbox-material",
   })
 end
 
