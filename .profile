@@ -35,6 +35,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Silence macos default shell warnings
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# Enable terminal.app colors
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
 # Golang settings
 export GOPATH="${HOME?}/go"
 export GOBIN="${GOPATH}/bin"
