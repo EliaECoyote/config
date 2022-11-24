@@ -80,8 +80,8 @@ local THEMES = {
   coyote = {
     base00 = "#ffffff", base01 = "#eeeeee", base02 = "#bcbcbc", base03 = "#878787",
     base04 = "#0087af", base05 = "#000000", base06 = "#005f87", base07 = "#444444",
-    base08 = "#000000", base09 = "#d70000", base0A = "#005faf", base0B = "#5f8700",
-    base0C = "#005f87", base0D = "#00425e", base0E = "#d70087", base0F = "#005f87",
+    base08 = "#000000", base09 = "#d70000", base0A = "#0087af", base0B = "#5f8700",
+    base0C = "#005faf", base0D = "#00425e", base0E = "#d70087", base0F = "#005f87",
   },
   google_light = {
     base00 = "#ffffff", base01 = "#e0e0e0", base02 = "#c5c8c6", base03 = "#b4b7b4",
