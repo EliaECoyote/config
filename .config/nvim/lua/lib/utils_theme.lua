@@ -119,7 +119,7 @@ function M.setup_theme(colors, diff_colors)
     Boolean      = { fg = colors.base09 },
     Character    = { fg = colors.base08 },
     Comment      = { fg = colors.base03 },
-    Conditional  = { fg = colors.base0E, bold = true },
+    Conditional  = { fg = colors.base0E },
     Constant     = { fg = colors.base09 },
     Define       = { fg = colors.base0E, bold = true },
     Delimiter    = { fg = colors.base05 },
