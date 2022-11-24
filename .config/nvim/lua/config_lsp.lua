@@ -1,7 +1,6 @@
 local utils_lsp = require("lib.utils_lsp")
 local constants_lsp = require("lib.constants_lsp")
 local lspconfig = require("lspconfig")
-local typescript_config = require("lspconfig.server_configurations.tsserver")
 
 require('lspconfig.ui.windows').default_options.border = "rounded"
 
@@ -31,19 +30,8 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   if lsp == 'tsserver' then
     config.capabilities.textDocument.completion.completionItem.snippetSupport = true
     function config.on_attach(client)
-      client.server_capabilities.documentFormattingProvider = false
       utils_lsp.custom_attach(client)
-    end
-
-    function config.on_init(client)
-      local path = client.workspace_folders[1].name
-      if string.match(path, "web-ui") then
-        client.config.cmd = {
-          "yarn",
-          "exec",
-          unpack(typescript_config.default_config.cmd)
-        }
-      end
+      client.server_capabilities.documentFormattingProvider = false
     end
 
     config.typescript = {
