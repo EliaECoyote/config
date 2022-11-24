@@ -52,10 +52,16 @@ end
 --   base0C = "#56b6c2", base0D = "#0184bc", base0E = "#c678dd", base0F = "#a06949",
 -- })
 -- ```
-function M.setup_theme(colors)
+function M.setup_theme(colors, diff_colors)
   if vim.fn.exists("syntax_on") then
     vim.cmd("syntax reset")
   end
+  diff_colors = diff_colors or {
+    add = { bg = colors.base01, fg = colors.base01 },
+    delete = { bg = colors.base02, fg = colors.base02 },
+    change = { bg = colors.base01, fg = colors.base01 },
+    diff = { bg = colors.base01 },
+  }
 
   local hi_config = {
     -- Vim editor highlights
@@ -189,16 +195,19 @@ function M.setup_theme(colors)
     CmpItemKindOperator      = { link = "@operator" },
     CmpItemKindTypeParameter = { link = "@type" },
 
-    -- Diff highligts
-    DiffAdd     = { fg = colors.base0B, bg = colors.base01 },
-    DiffChange  = { fg = colors.base05, bg = colors.base01 },
-    DiffDelete  = { fg = colors.base02, bg = colors.base00 },
-    DiffText    = { fg = colors.base0D, bg = colors.base01 },
-    DiffAdded   = { fg = colors.base0B, bg = colors.base00 },
+    DiffAdd     = { bg = diff_colors.add.bg },
+    DiffChange  = { bg = diff_colors.change.bg },
+    DiffDelete  = { bg = diff_colors.delete.bg },
+    DiffText    = { bg = diff_colors.diff.bg, bold = true },
+    DiffAdded   = { bg = colors.base00 },
     DiffFile    = { fg = colors.base08, bg = colors.base00 },
     DiffNewFile = { fg = colors.base0B, bg = colors.base00 },
     DiffLine    = { fg = colors.base0D, bg = colors.base00 },
     DiffRemoved = { fg = colors.base08, bg = colors.base00 },
+
+    GitSignsAdd    = { fg = diff_colors.add.fg },
+    GitSignsChange = { fg = diff_colors.change.fg },
+    GitSignsDelete = { fg = diff_colors.delete.fg },
 
     -- Git highlights
     gitcommitOverflow      = { fg = colors.base08 },

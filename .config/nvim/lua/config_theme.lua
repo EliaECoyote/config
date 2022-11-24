@@ -80,8 +80,8 @@ local THEMES = {
   coyote = {
     base00 = "#ffffff", base01 = "#eeeeee", base02 = "#bcbcbc", base03 = "#878787",
     base04 = "#0087af", base05 = "#000000", base06 = "#005f87", base07 = "#444444",
-    base08 = "#000000", base09 = "#d70000", base0A = "#0087af", base0B = "#5f8700",
-    base0C = "#005faf", base0D = "#00425e", base0E = "#d70087", base0F = "#005f87",
+    base08 = "#000000", base09 = "#8700af", base0A = "#0087af", base0B = "#5f8700",
+    base0C = "#005faf", base0D = "#005faf", base0E = "#d70087", base0F = "#005faf",
   },
   google_light = {
     base00 = "#ffffff", base01 = "#e0e0e0", base02 = "#c5c8c6", base03 = "#b4b7b4",
@@ -106,12 +106,18 @@ local THEMES = {
 -- end
 
 vim.api.nvim_set_option("background", "light")
-
-utils_theme.setup_theme(THEMES.coyote)
+utils_theme.setup_theme(
+  THEMES.coyote,
+  {
+    add = { bg = "DarkSeaGreen1", fg = "green" },
+    delete = { bg = "Salmon1", fg = "red" },
+    change = { bg = "PaleTurquoise1", fg = "blue" },
+    diff = { bg = "PaleTurquoise1" }
+  }
+)
 
 -- For LSP-related UI customzations, see
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization
-
 vim.diagnostic.config({ signs = false, float = { border = "rounded" } })
 
 -- Override all LSP floating windows borders
