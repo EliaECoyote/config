@@ -1,13 +1,5 @@
 local M = {}
 
-function M.get_background()
-  local theme = os.getenv("THEME")
-  if (theme == nil or (theme ~= "dark" and theme ~= "light")) then
-    return "light"
-  end
-  return theme
-end
-
 function M.extend_hi(group, new_config)
   local hl = vim.api.nvim_get_hl_by_name(group, true)
   vim.api.nvim_set_hl(0, group, vim.tbl_extend("force", hl, new_config))
@@ -21,6 +13,9 @@ end
 -- @param colors (table) table with keys "base00", "base01", "base02",
 --   "base03", "base04", "base05", "base06", "base07", "base08", "base09",
 --   "base0A", "base0B", "base0C", "base0D", "base0E", "base0F".
+--   Each key should map to a valid 6 digit hex color.
+-- @param status_colors (table) table with keys "info_fg", "success",
+-- "success_fg", "warn", "warn_fg", "error", "error_fg".
 --   Each key should map to a valid 6 digit hex color.
 --
 -- @framework (cf. https://github.com/tinted-theming/home/blob/main/styling.md)
@@ -45,23 +40,28 @@ end
 --
 -- @example
 -- ```lua
--- setup_theme.setup({
---   base00 = "#16161D", base01 = "#2c313c", base02 = "#3e4451", base03 = "#6c7891",
---   base04 = "#565c64", base05 = "#abb2bf", base06 = "#9a9bb3", base07 = "#c5c8e6",
---   base08 = "#e06c75", base09 = "#d19a66", base0A = "#e5c07b", base0B = "#98c379",
---   base0C = "#56b6c2", base0D = "#0184bc", base0E = "#c678dd", base0F = "#a06949",
--- })
+-- setup_theme.setup(
+--   {
+--     base00 = "#16161D", base01 = "#2c313c", base02 = "#3e4451", base03 = "#6c7891",
+--     base04 = "#565c64", base05 = "#abb2bf", base06 = "#9a9bb3", base07 = "#c5c8e6",
+--     base08 = "#e06c75", base09 = "#d19a66", base0A = "#e5c07b", base0B = "#98c379",
+--     base0C = "#56b6c2", base0D = "#0184bc", base0E = "#c678dd", base0F = "#a06949",
+--   },
+--   {
+--     info_fg = '#75beff',
+--     success = '#d4f8db',
+--     success_fg = '#22863a',
+--     warn = '#fff5b1',
+--     warn_fg = '#e36209',
+--     error = '#fae5e7',
+--     error_fg = '#d73a49',
+--   }
+-- )
 -- ```
-function M.setup_theme(colors, diff_colors)
+function M.setup_theme(colors, status_colors)
   if vim.fn.exists("syntax_on") then
     vim.cmd("syntax reset")
   end
-  diff_colors = diff_colors or {
-    add = { bg = colors.base01, fg = colors.base01 },
-    delete = { bg = colors.base02, fg = colors.base02 },
-    change = { bg = colors.base01, fg = colors.base01 },
-    diff = { bg = colors.base01 },
-  }
 
   local hi_config = {
     -- Vim editor highlights
@@ -69,8 +69,8 @@ function M.setup_theme(colors, diff_colors)
     Bold         = { bold = true },
     Debug        = { fg = colors.base08 },
     Directory    = { fg = colors.base0D },
-    Error        = { fg = colors.base00, bg = colors.base08 },
-    ErrorMsg     = { fg = colors.base08, bg = colors.base00, },
+    Error        = { fg = status_colors.error_fg },
+    ErrorMsg     = { fg = status_colors.error_fg },
     Exception    = { fg = colors.base08 },
     FoldColumn   = { fg = colors.base03, bg = colors.base00, },
     Folded       = { fg = colors.base02, bg = colors.base00, },
@@ -88,7 +88,7 @@ function M.setup_theme(colors, diff_colors)
     Underlined   = { fg = colors.base08, underline = true },
     Visual       = { bg = colors.base02 },
     VisualNOS    = { fg = colors.base08 },
-    WarningMsg   = { fg = colors.base08 },
+    WarningMsg   = { fg = status_colors.warn_fg },
     WildMenu     = { fg = colors.base00, bg = colors.base05 },
     Title        = { fg = colors.base0D },
     Conceal      = { fg = colors.base0D, bg = colors.base00 },
@@ -153,22 +153,22 @@ function M.setup_theme(colors, diff_colors)
     GitDeleteSign       = { fg = colors.base08 },
     GitChangeDeleteSign = { fg = colors.base04 },
 
-    ErrorSign   = { fg = colors.base08 },
-    WarningSign = { fg = colors.base09 },
-    InfoSign    = { fg = colors.base0D },
-    HintSign    = { fg = colors.base0C },
+    ErrorSign   = { fg = status_colors.error_fg },
+    WarningSign = { fg = status_colors.warn_fg },
+    InfoSign    = { fg = status_colors.info_fg },
+    HintSign    = { fg = status_colors.warn_fg },
 
-    ErrorFloat   = { fg = colors.base08, bg = colors.base01 },
-    WarningFloat = { fg = colors.base09, bg = colors.base01 },
-    InfoFloat    = { fg = colors.base0D, bg = colors.base01 },
-    HintFloat    = { fg = colors.base0C, bg = colors.base01 },
+    ErrorFloat   = { fg = status_colors.error_fg },
+    WarningFloat = { fg = status_colors.warn_fg },
+    InfoFloat    = { fg = status_colors.info_fg },
+    HintFloat    = { fg = status_colors.warn_fg },
 
-    ErrorHighlight   = { underline = true, sp = colors.base08 },
-    WarningHighlight = { underline = true, sp = colors.base09 },
-    InfoHighlight    = { underline = true, sp = colors.base0D },
-    HintHighlight    = { underline = true, sp = colors.base0C },
+    ErrorHighlight   = { underline = true, sp = status_colors.error_fg },
+    WarningHighlight = { underline = true, sp = status_colors.warn_fg },
+    InfoHighlight    = { underline = true, sp = status_colors.info_fg },
+    HintHighlight    = { underline = true, sp = status_colors.warn_fg },
 
-    SpellBad   = { undercurl = true, sp = colors.base08 },
+    SpellBad   = { undercurl = true, sp = status_colors.error_fg },
     SpellLocal = { undercurl = true, sp = colors.base0C },
     SpellCap   = { undercurl = true, sp = colors.base0D },
     SpellRare  = { undercurl = true, sp = colors.base0E },
@@ -195,19 +195,19 @@ function M.setup_theme(colors, diff_colors)
     CmpItemKindOperator      = { link = "@operator" },
     CmpItemKindTypeParameter = { link = "@type" },
 
-    DiffAdd     = { bg = diff_colors.add.bg },
-    DiffChange  = { bg = diff_colors.change.bg },
-    DiffDelete  = { bg = diff_colors.delete.bg },
-    DiffText    = { bg = diff_colors.diff.bg, bold = true },
-    DiffAdded   = { bg = colors.base00 },
-    DiffFile    = { fg = colors.base08, bg = colors.base00 },
-    DiffNewFile = { fg = colors.base0B, bg = colors.base00 },
-    DiffLine    = { fg = colors.base0D, bg = colors.base00 },
-    DiffRemoved = { fg = colors.base08, bg = colors.base00 },
+    DiffAdd     = { bg = status_colors.success },
+    DiffDelete  = { bg = status_colors.error },
+    DiffChange  = { bg = status_colors.warn },
+    DiffText    = { bg = status_colors.warn, bold = true },
+    DiffAdded   = { bg = status_colors.success },
+    DiffFile    = { fg = status_colors.warn_fg, bg = status_colors.warn },
+    DiffNewFile = { fg = status_colors.success_fg, bg = status_colors.success },
+    DiffLine    = { fg = status_colors.warn_fg, bg = status_colors.warn },
+    DiffRemoved = { fg = status_colors.error_fg, bg = status_colors.error },
 
-    GitSignsAdd    = { fg = diff_colors.add.fg },
-    GitSignsChange = { fg = diff_colors.change.fg },
-    GitSignsDelete = { fg = diff_colors.delete.fg },
+    GitSignsAdd    = { fg = status_colors.success_fg },
+    GitSignsChange = { fg = status_colors.warn_fg },
+    GitSignsDelete = { fg = status_colors.error_fg },
 
     -- Git highlights
     gitcommitOverflow      = { fg = colors.base08 },
@@ -239,7 +239,7 @@ function M.setup_theme(colors, diff_colors)
 
     -- Markdown highlights
     markdownCode             = { fg = colors.base0B },
-    markdownError            = { fg = colors.base05, bg = colors.base00 },
+    markdownError            = { link = "ErrorHighlight" },
     markdownCodeBlock        = { fg = colors.base0B },
     markdownHeadingDelimiter = { fg = colors.base0D },
 
