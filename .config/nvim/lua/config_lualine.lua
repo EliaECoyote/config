@@ -1,3 +1,4 @@
+local constants_theme = require("lib.constants_theme")
 -- Lualine sections visualization:
 -- +-------------------------------------------------+
 -- | A | B | C                             X | Y | Z |
@@ -63,7 +64,7 @@ require("lualine").setup({
     globalstatus = true,
   },
   sections = {
-    lualine_a = { "mode" },
+    lualine_a = { { "mode", fmt = function(str) return str:sub(1, 4) end } },
     lualine_b = { "filename" },
     lualine_c = {
       {
