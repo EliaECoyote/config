@@ -34,7 +34,7 @@ null_ls.setup({
         "html",
         -- "json",
         -- "jsonc",
-        "yaml",
+        -- "yaml",
         "markdown",
         "graphql",
         "handlebars",
@@ -46,6 +46,7 @@ null_ls.setup({
     null_ls.builtins.formatting.google_java_format.with({
       timeout = 8000,
     }),
+    null_ls.builtins.diagnostics.yamllint,
     null_ls.builtins.formatting.shfmt.with({
       -- `-i 2` sets indentation to 2 spaces.
       args = { "-filename", "$FILENAME", "-i", "2" }
