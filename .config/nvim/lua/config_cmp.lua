@@ -47,7 +47,8 @@ cmp.setup({
   mapping = {
     ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    ["<CR>"] = cmp.mapping.confirm({ select = false }, { "i", "s" }),
+    ["<C-Space>"] = cmp.mapping.confirm({ select = true }, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if luasnip.expandable() then
         luasnip.expand()
@@ -56,14 +57,14 @@ cmp.setup({
       else
         fallback()
       end
-    end),
+    end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
         fallback()
       end
-    end)
+    end, { "i", "s" })
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
@@ -74,11 +75,11 @@ cmp.setup({
   },
   -- Note: The order matches the cmp menu's sort order.
   sources = cmp.config.sources({
+    { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "buffer" },
     { name = "path" },
-    { name = "luasnip" },
   }),
   experimental = {
     ghost_text = true,
