@@ -1,6 +1,12 @@
 local M = {}
 
 M.THEMES = {
+  coyote = {
+    base00 = "#ffffff", base01 = "#eeeeee", base02 = "#d9d9d9", base03 = "#878787",
+    base04 = "#0087af", base05 = "#000000", base06 = "#005f87", base07 = "#444444",
+    base08 = "#000000", base09 = "#8700af", base0A = "#0087af", base0B = "#5f8700",
+    base0C = "#005faf", base0D = "#005faf", base0E = "#d70087", base0F = "#005faf",
+  },
   github_light = {
     base00 = "#ffffff", base01 = "#f5f5f5", base02 = "#c8c8fa", base03 = "#969896",
     base04 = "#e8e8e8", base05 = "#333333", base06 = "#ffffff", base07 = "#ffffff",
@@ -12,12 +18,6 @@ M.THEMES = {
     base04 = "#0087af", base05 = "#000000", base06 = "#005f87", base07 = "#444444",
     base08 = "#8700af", base09 = "#d70000", base0A = "#d70087", base0B = "#5f8700",
     base0C = "#d75f00", base0D = "#d75f00", base0E = "#005faf", base0F = "#005f87",
-  },
-  coyote = {
-    base00 = "#ffffff", base01 = "#eeeeee", base02 = "#d9d9d9", base03 = "#878787",
-    base04 = "#0087af", base05 = "#000000", base06 = "#005f87", base07 = "#444444",
-    base08 = "#000000", base09 = "#8700af", base0A = "#0087af", base0B = "#5f8700",
-    base0C = "#005faf", base0D = "#005faf", base0E = "#d70087", base0F = "#005faf",
   },
   google_light = {
     base00 = "#ffffff", base01 = "#e0e0e0", base02 = "#c5c8c6", base03 = "#b4b7b4",
@@ -39,7 +39,7 @@ M.STATUS_THEMES = {
     success = "#d4f8db",
     success_fg = "#22863a",
     warn = "#fff5b1",
-    warn_fg = "#FFDA00",
+    warn_fg = "#c7a200",
     error = "#fae5e7",
     error_fg = "#d73a49",
   },
