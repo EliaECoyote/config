@@ -429,3 +429,5 @@ command! fdeditfiles :execute 'edit "'.term('fd -HE ''.git'' -t f . | fzf 2>/dev
 nnoremap <a-c> :fdcddir<cr>
 " edit file from child directory in vim
 nnoremap <space>f :fdeditfiles<cr>
+
+source $XDG_CONFIG_HOME/vifm/favicons.vifm
