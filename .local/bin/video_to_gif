@@ -2,4 +2,9 @@
 
 output_file="${2:-out.gif}"
 
-ffmpeg -i "$1" -vf "scale=640:-2" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 --colors 128 >"$output_file"
+# The `scale` can be increased / decreased (e.g. "scale=640:-2") to increase / decrease quality.
+# Recommended values are:
+# - 1280
+# - 854
+# - 640
+ffmpeg -i "$1" -vf "scale=854:-2" -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=7 --colors 128 >"$output_file"
