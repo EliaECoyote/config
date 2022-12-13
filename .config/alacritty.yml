@@ -399,6 +399,9 @@ key_bindings:
     mods: Command
     mode: ~Search
     action: SearchBackward
+  - key: Key6
+    mods: Control
+    chars: "\x1e"
 
   # Make macos meta key work properly
   - key: Left
