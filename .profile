@@ -8,11 +8,26 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 
-# Add homebrew binaries to the path.
-export PATH="/usr/local/bin:$PATH"
-
 # Prefer GNU binaries to Macintosh binaries.
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
+export PATH="/opt/homebrew/opt/gnu-indent/libexec/gnubin:$PATH"
+export MANPATH="/opt/homebrew/opt/gnu-indent/libexec/gnuman:$MANPATH"
+export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+export MANPATH="/opt/homebrew/opt/gnu-sed/libexec/gnuman:$MANPATH"
+export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
+export MANPATH="/opt/homebrew/opt/gnu-tar/libexec/gnuman:$MANPATH"
+export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+export MANPATH="/opt/homebrew/opt/grep/libexec/gnuman:$MANPATH"
+export PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
+export MANPATH="/opt/homebrew/opt/gawk/libexec/gnuman:$MANPATH"
+export PATH="/opt/homebrew/opt/gnu-getopt/bin:$PATH"
+export MANPATH="/opt/homebrew/opt/gnu-getopt/share/man:$MANPATH"
+export PATH="/opt/homebrew/opt/gnutls/bin:$PATH"
+export MANPATH="/opt/homebrew/opt/gnutls/share/man:$MANPATH"
+
+# Export non-system libraries and executables
+export PATH="/usr/local/bin:$PATH"
 
 # Export local binaries
 export PATH="$HOME/.local/bin:${PATH}"
