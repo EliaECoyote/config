@@ -44,14 +44,13 @@ alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # App aliases {{{
 
-alias hub-pr='hub pull-request -o'
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 alias v='nvim'
 alias lazyconfig='lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # }}}
 
-# Bash functions {{{
+# Shell functions {{{
 
 # Prints all the processes currently listening on a port
 processes_listening_in_port() {
