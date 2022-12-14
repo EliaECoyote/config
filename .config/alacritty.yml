@@ -28,8 +28,6 @@ colors:
   primary:
     background: "#ffffff"
     foreground: "#000000"
-    # dim_foreground: "#828482"
-    # bright_foreground: "#eaeaea"
   cursor:
     text: "#ffffff"
     cursor: "#000000"
