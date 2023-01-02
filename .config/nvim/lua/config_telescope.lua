@@ -54,8 +54,9 @@ local function bookmarks(opts)
     "~/.config/vifm/",
     "~/.local/bin/",
     "~/.github/",
-    "~/Dropbox/vimwiki/",
-    "/Volumes/Projects/playground/"
+    "~/Dropbox/",
+    "~/dev/playground",
+    "~/dev/EPIJudge",
   }
   local folder_files = utils_file.scan_deep_files(folders)
   for _, path in ipairs(folder_files) do
@@ -270,8 +271,7 @@ require("telescope").load_extension("file_browser")
 local options = { noremap = true }
 
 vim.keymap.set("n", "<leader>o", builtin.buffers, options)
-vim.keymap.set("n", "<leader>ff", builtin.live_grep, options)
-vim.keymap.set("n", "<leader>fF", telescope.extensions.live_grep_args.live_grep_args, options)
+vim.keymap.set("n", "<leader>ff", telescope.extensions.live_grep_args.live_grep_args, options)
 vim.keymap.set("n", "<leader>fp", builtin.find_files, options)
 vim.keymap.set("n", "<leader>p", function() builtin.find_files(themes.get_dropdown({ previewer = false })) end, options)
 vim.keymap.set("n", "<leader>?", builtin.oldfiles, options)
