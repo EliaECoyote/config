@@ -82,9 +82,6 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
 
   if lsp == "eslint" then
     config.settings = {
-      -- `packageManager` and `nodePath` are set to ensure that the eslint LS
-      -- will work with pnp.
-      nodePath = "/Users/elia.camposilvan/dd/web-ui/.yarn/sdks",
       packageManager = "yarn",
       filetypes = utils_lsp.ESLINT_FILETYPES,
     }
