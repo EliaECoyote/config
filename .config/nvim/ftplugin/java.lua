@@ -33,7 +33,7 @@ local config = utils_table.merge(
       -- Must point to the                                                     Change this to
       -- eclipse.jdt.ls installation                                           the actual version
 
-      "-configuration", "/Users/elia.camposilvan/.local/share/nvim/lsp_servers/jdtls/config_mac",
+      "-configuration", constants_path.LSP_SERVERS .. "/jdtls/config_mac",
       -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
       -- Must point to the                      Change to one of `linux`, `win` or `mac`
       -- eclipse.jdt.ls installation            Depending on your system.
