@@ -42,6 +42,7 @@ null_ls.setup({
     }),
     -- null_ls.builtins.diagnostics.pydocstyle,
     null_ls.builtins.formatting.isort,
+    null_ls.builtins.formatting.terraform_fmt,
     null_ls.builtins.formatting.black,
     null_ls.builtins.formatting.google_java_format.with({
       timeout = 8000,
