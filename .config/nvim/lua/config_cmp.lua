@@ -47,8 +47,8 @@ cmp.setup({
   mapping = {
     ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-    ["<CR>"] = cmp.mapping.confirm({ select = false }, { "i", "s" }),
-    ["<C-Space>"] = cmp.mapping.confirm({ select = true }, { "i", "s" }),
+    ["<CR>"] = cmp.mapping.confirm({ select = false }),
+    ["<C-Space>"] = cmp.mapping.confirm({ select = true }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if luasnip.expandable() then
         luasnip.expand()
@@ -57,14 +57,14 @@ cmp.setup({
       else
         fallback()
       end
-    end, { "i", "s" }),
+    end),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
         fallback()
       end
-    end, { "i", "s" })
+    end)
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
