@@ -1,5 +1,4 @@
 local utils_window = require("lib.utils_window")
-vim.g.foldlevel = 99
 
 -- Remap toggle fold
 vim.keymap.set(
@@ -55,3 +54,4 @@ function _G.custom_fold_text()
 end
 
 vim.opt.foldtext = 'v:lua.custom_fold_text()'
+vim.opt.foldenable = false

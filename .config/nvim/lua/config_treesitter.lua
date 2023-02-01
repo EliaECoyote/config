@@ -9,13 +9,11 @@ configs.setup({
   },
   indent = {
     enable = true,
-    disable = {
-      -- Waiting for better treesitter indents for python:
-      -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136
-      "python",
-    },
+    -- Waiting for better treesitter indents for python:
+    -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1136
+    disable = { "python" },
   },
 })
 
-vim.g.foldmethod = "expr"
-vim.g.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
