@@ -54,10 +54,10 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
     config.capabilities.textDocument.completion.completionItem.snippetSupport = true
   end
 
-  -- Setup sumneko_lua to show autocompletion and suggestions for neovim lua
+  -- Setup lua_ls to show autocompletion and suggestions for neovim lua
   -- apis.
-  -- cf. https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/sumneko_lua.lua
-  if lsp == "sumneko_lua" then
+  -- cf. https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/lua_ls.lua
+  if lsp == "lua_ls" then
     config.settings = {
       Lua = {
         runtime = {
