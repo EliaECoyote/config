@@ -10,7 +10,6 @@ shell:
     - --login
 
 window:
-  decorations: none
   startup_mode: Maximized
   title: ""
   dynamic_title: false
