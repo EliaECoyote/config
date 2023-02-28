@@ -5,7 +5,7 @@ local lsp_status = require("lsp-status")
 local lspconfig_util = require("lspconfig.util")
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-local workspace_dir = "/Volumes/Projects/dd/jdtls-data-config/" .. project_name
+local workspace_dir = vim.fn.expand('$HOME/dev/jdtls-data-config/') .. project_name
 local utils_lsp = require("lib.utils_lsp")
 local utils_table = require("lib.utils_table")
 
@@ -43,12 +43,10 @@ local config = utils_table.merge(
       -- See `data directory configuration` section in the README
       "-data", workspace_dir
     },
-
     -- 💀
     -- This is the default if not provided, you can remove it. Or adjust as needed.
     -- One dedicated LSP server & client will be started per unique root_dir
     root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew" }),
-
     -- Here you can configure eclipse.jdt.ls specific settings
     -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
     -- for a list of options
@@ -56,7 +54,6 @@ local config = utils_table.merge(
       java = {
       }
     },
-
     -- Language server `initializationOptions`
     -- You need to extend the `bundles` with paths to jar files
     -- if you want to use additional eclipse.jdt.ls plugins.
@@ -67,7 +64,6 @@ local config = utils_table.merge(
     init_options = {
       bundles = {}
     },
-
     on_attach = function(client)
       -- With `hotcodereplace = "auto" the debug adapter will try to apply code changes
       -- you make during a debug session immediately.
