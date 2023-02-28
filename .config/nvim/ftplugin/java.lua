@@ -1,5 +1,5 @@
 local jdtls = require("jdtls")
--- local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local constants_path = require("lib.constants_path")
 local lspconfig_util = require("lspconfig.util")
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
@@ -51,6 +51,12 @@ local config = utils_table.merge(
     -- for a list of options
     settings = {
       java = {
+        home = "/Users/elia.camposilvan/.sdkman/candidates/maven/current",
+        import = {
+          gradle = {
+            jvmArguments = { "-Xms1024m", "", "-Xmx4096m" }
+          }
+        }
       }
     },
     -- Language server `initializationOptions`
@@ -63,17 +69,14 @@ local config = utils_table.merge(
     init_options = {
       bundles = {}
     },
-    on_attach = function(client)
-      -- With `hotcodereplace = "auto" the debug adapter will try to apply code changes
-      -- you make during a debug session immediately.
-      -- Remove the option if you do not want that.
-      require("jdtls").setup_dap({ hotcodereplace = "auto" })
-      client.server_capabilities.document_formatting = false
-      utils_lsp.custom_attach()
-    end,
-
-    -- capabilities = cmp_nvim_lsp.default_capabilities()
+    capabilities = cmp_nvim_lsp.default_capabilities()
   })
+
+-- Disable blocking messages
+-- cf. https://github.com/mfussenegger/nvim-jdtls/issues/207
+config.handlers = config.handlers or {}
+config.handlers['language/status'] = function()
+end
 
 jdtls.start_or_attach(config)
 
