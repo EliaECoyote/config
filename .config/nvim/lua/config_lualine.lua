@@ -1,4 +1,3 @@
-local constants_theme = require("lib.constants_theme")
 -- Lualine sections visualization:
 -- +-------------------------------------------------+
 -- | A | B | C                             X | Y | Z |
@@ -71,7 +70,6 @@ require("lualine").setup({
         "diagnostics",
         sources = { "nvim_diagnostic" },
       },
-      "require'lsp-status'.status()",
     },
     lualine_x = {},
     lualine_y = { "filetype" },

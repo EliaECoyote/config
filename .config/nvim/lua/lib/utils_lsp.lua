@@ -1,4 +1,3 @@
-local lsp_status = require("lsp-status")
 local utils_table = require("lib.utils_table")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
@@ -13,21 +12,6 @@ utils_lsp.ESLINT_FILETYPES = {
   "typescriptreact",
 }
 
-function utils_lsp.setup_lsp_status()
-  lsp_status.register_progress()
-
-  lsp_status.config {
-    current_function = false,
-    indicator_errors = "❌",
-    indicator_warnings = "⚠️ ",
-    indicator_info = "ℹ️ ",
-    indicator_hint = "❗",
-    indicator_ok = "All good!",
-    diagnostics = false,
-    status_symbol = "",
-  }
-end
-
 function utils_lsp.format_buffer()
   vim.lsp.buf.format()
   -- Run eslint on buffers with JS filetype
@@ -36,9 +20,7 @@ function utils_lsp.format_buffer()
   end
 end
 
-function utils_lsp.custom_attach(client)
-  lsp_status.on_attach(client)
-
+function utils_lsp.custom_attach()
   local options = { noremap = true }
 
 
@@ -61,8 +43,7 @@ function utils_lsp.custom_attach(client)
 end
 
 function utils_lsp.make_default_config()
-  -- Combine capabilities from both nvim-cmp and lsp_status.
-  local capabilities = cmp_nvim_lsp.default_capabilities(lsp_status.capabilities)
+  local capabilities = cmp_nvim_lsp.default_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport.properties = {
     properties = { "documentation", "detail", "additionalTextEdits" },

@@ -62,10 +62,18 @@ local function setup(use)
 
   use({
     "nvim-lualine/lualine.nvim",
-    requires = "nvim-lua/lsp-status.nvim",
     config = function()
       require("config_lualine")
     end,
+  })
+
+  use({
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup({
+        text = { spinner = "dots" }
+      })
+    end
   })
 
   use({
@@ -86,9 +94,6 @@ local function setup(use)
   use({
     "neovim/nvim-lspconfig",
     after = { "mason.nvim", "nvim-cmp" },
-    requires = {
-      "nvim-lua/lsp-status.nvim",
-    },
     config = function()
       require("config_lsp")
     end
@@ -103,7 +108,6 @@ local function setup(use)
 
   use({
     "jose-elias-alvarez/null-ls.nvim",
-    requires = "nvim-lua/lsp-status.nvim",
     config = function()
       require("config_null_ls")
     end

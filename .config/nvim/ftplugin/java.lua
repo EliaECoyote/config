@@ -1,7 +1,6 @@
 local jdtls = require("jdtls")
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
+-- local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local constants_path = require("lib.constants_path")
-local lsp_status = require("lsp-status")
 local lspconfig_util = require("lspconfig.util")
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
@@ -70,10 +69,10 @@ local config = utils_table.merge(
       -- Remove the option if you do not want that.
       require("jdtls").setup_dap({ hotcodereplace = "auto" })
       client.server_capabilities.document_formatting = false
-      utils_lsp.custom_attach(client)
+      utils_lsp.custom_attach()
     end,
 
-    capabilities = cmp_nvim_lsp.default_capabilities(lsp_status.capabilities)
+    -- capabilities = cmp_nvim_lsp.default_capabilities()
   })
 
 jdtls.start_or_attach(config)

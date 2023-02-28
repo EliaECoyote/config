@@ -4,11 +4,11 @@ local lspconfig = require("lspconfig")
 
 require('lspconfig.ui.windows').default_options.border = "rounded"
 
-utils_lsp.setup_lsp_status()
-
 vim.diagnostic.config({
   float = { source = "always" },
 })
+
+vim.lsp.set_log_level("DEBUG")
 
 for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   local config = utils_lsp.make_default_config()
@@ -30,7 +30,7 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   if lsp == 'tsserver' then
     config.capabilities.textDocument.completion.completionItem.snippetSupport = true
     function config.on_attach(client)
-      utils_lsp.custom_attach(client)
+      utils_lsp.custom_attach()
       client.server_capabilities.documentFormattingProvider = false
     end
 
