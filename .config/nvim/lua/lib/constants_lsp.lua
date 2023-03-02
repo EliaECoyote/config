@@ -8,7 +8,6 @@ constants_lsp.LSP_SERVERS = {
   "pyright",
   "eslint",
   "lua_ls",
-  "jdtls",
   "bashls",
   "jsonls",
 }

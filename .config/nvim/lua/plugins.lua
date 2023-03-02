@@ -160,9 +160,6 @@ local function setup(use)
     end
   })
 
-  -- LSP language-specific plugins
-  use("mfussenegger/nvim-jdtls")
-
   -- Navigate seamlessly between tmux and vim splits
   use({
     "christoomey/vim-tmux-navigator",
