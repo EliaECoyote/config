@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 -- Automatically save any changes made to the buffer before it is hidden
 vim.g.autowrite = true
 
