@@ -1,4 +1,3 @@
-local utils_table = require("lib.utils_table")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 local utils_lsp = {}

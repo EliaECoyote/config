@@ -30,7 +30,6 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
     function config.on_attach(client)
       client.server_capabilities.documentFormattingProvider = false
     end
-
     config.typescript = {
       preferences = {
         importModuleSpecifier = "non-relative"
