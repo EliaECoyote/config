@@ -1,13 +1,11 @@
 local utils_table = require("lib.utils_table")
 local utils_buffer = require("lib.utils_buffer")
 
-
 vim.keymap.set(
   "n",
   "0",
   "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
   {
-    noremap = true,
     silent = true,
     expr = true,
     desc = "Toggle between col 0 and first char."
@@ -19,7 +17,6 @@ vim.keymap.set(
   "<ScrollWheelUp>",
   "<C-Y>",
   {
-    noremap = true,
     silent = true,
     desc = "Smooth mouse wheel scroll."
   }
@@ -29,7 +26,6 @@ vim.keymap.set(
   "<ScrollWheelDown>",
   "<C-E>",
   {
-    noremap = true,
     silent = true,
     desc = "Smooth mouse wheel scroll."
   }
@@ -41,7 +37,6 @@ vim.keymap.set(
   "tn",
   ":tabnew<cr>",
   {
-    noremap = true,
     silent = true,
     desc = "Tab new."
   }
@@ -52,7 +47,6 @@ vim.keymap.set(
   "td",
   ":tabclose<cr>",
   {
-    noremap = true,
     silent = true,
     desc = "Tab close."
   }
@@ -139,20 +133,6 @@ vim.keymap.set(
   { noremap = true, desc = "Insert contents of named register. Inserts text literally, not as if you typed it." }
 )
 
--- Move in quickfix
-vim.keymap.set(
-  "n",
-  "[q",
-  ":cprevious<cr>",
-  { noremap = true, desc = "Prev quickfix." }
-)
-vim.keymap.set(
-  "n",
-  "]q",
-  ":cnext<cr>",
-  { noremap = true, desc = "Next quickfix." }
-)
-
 -- Search for visually selected text using '*' and '#'
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text#Simple
 vim.cmd([[
@@ -192,3 +172,15 @@ vim.keymap.set(
     desc = "Log with lua."
   }
 )
+
+-- vim.keymap.set("n", "<C-f>", utils_lsp.format_buffer)
+vim.keymap.set("n", "<C-f>", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action)
+vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
+vim.keymap.set("n", "K", vim.lsp.buf.hover)
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
+vim.keymap.set("n", "gs", vim.lsp.buf.signature_help)
+vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol)
+vim.keymap.set("n", "<F2>", vim.lsp.buf.rename)
+vim.keymap.set("n", "]g", vim.diagnostic.goto_next)
+vim.keymap.set("n", "[g", vim.diagnostic.goto_prev)

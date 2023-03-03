@@ -1,4 +1,3 @@
-local utils_lsp = require("lib.utils_lsp")
 local command_resolver = require("null-ls.helpers.command_resolver")
 local null_ls = require("null-ls")
 
@@ -6,7 +5,6 @@ local resolve_from_node_modules = command_resolver.from_node_modules()
 local resolve_from_yarn_pnp = command_resolver.from_yarn_pnp()
 
 null_ls.setup({
-  on_attach = utils_lsp.custom_attach,
   sources = {
     null_ls.builtins.formatting.prettier.with({
       timeout = 8000,

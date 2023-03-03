@@ -8,21 +8,6 @@ vim.keymap.set(
   { noremap = true, silent = true }
 )
 
--- Move between folds
-vim.keymap.set(
-  { "n", "v" },
-  "[z",
-  "zk",
-  { noremap = true, silent = true }
-)
-vim.keymap.set(
-  { "n", "v" },
-  "]z",
-  "zj",
-  { noremap = true, silent = true }
-)
-
-
 ---Renders like these:
 -- »» TSString = {··} ········································ «« [ 223]····
 -- »» Setup function ········································· «« [ 666]····

@@ -1,7 +1,6 @@
 local utils_file    = require("lib.utils_file")
 local utils_buffer  = require("lib.utils_buffer")
 local telescope     = require("telescope")
-local terminal      = require("toggleterm.terminal")
 local entry_display = require("telescope.pickers.entry_display")
 local pickers       = require("telescope.pickers")
 local finders       = require("telescope.finders")
@@ -72,97 +71,6 @@ local function bookmarks(opts)
   opts.previewer = config.values.file_previewer(opts)
   opts.sorter = config.values.file_sorter(opts)
   pickers.new(themes.get_ivy(opts), telescope_defaults):find()
-end
-
-local function terminals()
-  local terms_table = terminal.get_all()
-  local terms = {}
-  for _, term in pairs(terms_table) do
-    table.insert(terms, {
-      bufnr = term.bufnr,
-      id = term.id,
-      name = term.name,
-    })
-  end
-
-  local opts = themes.get_dropdown()
-  pickers.new(opts, {
-    prompt_title = "Terms",
-    finder = finders.new_table({
-      results = terms,
-      entry_maker = function(term)
-        term.value = term.id
-        term.ordinal = term.name
-        term.display = function(entry)
-          local displayer = entry_display.create({
-            separator = " ",
-            items = {
-              { width = 40 },
-              { width = 18 },
-              { remaining = true },
-            },
-          })
-          return displayer({ entry.id .. "\t|\t" .. entry.name })
-        end
-        return term
-      end,
-    }),
-    sorter = config.values.file_sorter(opts),
-    attach_mappings = function(prompt_bufnr)
-      actions.select_default:replace(function()
-        local entry = action_state.get_selected_entry()
-        if entry.id == nil then
-          return
-        end
-        actions.close(prompt_bufnr)
-
-        local term = terminal.get(entry.id)
-        if term == nil then
-          return
-        end
-
-        if term:is_open() then
-          vim.api.nvim_set_current_win(term.window)
-        else
-          term:open()
-        end
-      end)
-      return true
-    end
-  }):find()
-end
-
-local function select_background(opts)
-  local function load_iterm_background(file_name)
-    local apple_script = string.format([[
-        tell application "iTerm2"
-          tell current session of current window
-            set background image to "%s" 
-          end tell
-        end tell
-    ]], file_name)
-    vim.fn.system(string.format("osascript -e '%s'", apple_script))
-  end
-
-  local folders = { "~/.config/wallpapers/" }
-  local folder_files = utils_file.scan_deep_files(folders)
-  local entries = {}
-  for _, path in ipairs(folder_files) do table.insert(entries, path) end
-  opts = opts or {}
-  pickers.new(opts, {
-    prompt_title = "Select Background",
-    finder = finders.new_table(entries),
-    previewer = false,
-    sorter = config.values.file_sorter(opts),
-    attach_mappings = function(prompt_bufnr)
-      actions.select_default:replace(function()
-        actions.close(prompt_bufnr)
-        local selection = action_state.get_selected_entry()[1]
-        load_iterm_background(selection)
-      end)
-      return true
-    end
-  }):find()
 end
 
 telescope.setup({
@@ -270,17 +178,12 @@ require("telescope").load_extension("file_browser")
 
 local options = { noremap = true }
 
+vim.keymap.set("n", "<C-p>", function() builtin.find_files(themes.get_dropdown({ previewer = false })) end, options)
 vim.keymap.set("n", "<leader>o", builtin.buffers, options)
 vim.keymap.set("n", "<leader>ff", telescope.extensions.live_grep_args.live_grep_args, options)
-vim.keymap.set("n", "<leader>fp", builtin.find_files, options)
-vim.keymap.set("n", "<leader>p", function() builtin.find_files(themes.get_dropdown({ previewer = false })) end, options)
-vim.keymap.set("n", "<leader>?", builtin.oldfiles, options)
-vim.keymap.set("n", "<leader>fq", builtin.quickfix, options)
+vim.keymap.set("n", "<leader>fo", builtin.oldfiles, options)
 vim.keymap.set("n", "<leader>f?", builtin.builtin, options)
-vim.keymap.set("n", "<leader>fl", builtin.loclist, options)
 vim.keymap.set("n", "<leader>fw", bookmarks, options)
-vim.keymap.set("n", "<leader>ft", terminals, options)
-vim.keymap.set("n", "<leader>fB", select_background, options)
 vim.keymap.set("n", "<leader>fr", builtin.resume, options)
 
 -- LSP

@@ -8,8 +8,6 @@ vim.diagnostic.config({
   float = { source = "always" },
 })
 
-vim.lsp.set_log_level("DEBUG")
-
 for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   local config = utils_lsp.make_default_config()
 
@@ -30,7 +28,6 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   if lsp == 'tsserver' then
     config.capabilities.textDocument.completion.completionItem.snippetSupport = true
     function config.on_attach(client)
-      utils_lsp.custom_attach()
       client.server_capabilities.documentFormattingProvider = false
     end
 
@@ -81,6 +78,10 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   end
 
   if lsp == "eslint" then
+    function config.on_attach(client)
+      client.server_capabilities.documentFormattingProvider = true
+    end
+
     config.settings = {
       packageManager = "yarn",
       filetypes = utils_lsp.ESLINT_FILETYPES,
@@ -88,14 +89,8 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   end
 
   if lsp == "pyright" then
-    config = { on_attach = utils_lsp.custom_attach }
+    config = {}
   end
 
-  -- jdtls is already handled by ~/.config/nvim/ftplugin/java.lua (through the
-  -- nvim-jdtls plugin).
-  -- We thus ignore its LSP setup here, in order to avoid setting up the LSP
-  -- with 2 different clients.
-  if lsp ~= "jdtls" then
-    lspconfig[lsp].setup(config)
-  end
+  lspconfig[lsp].setup(config)
 end

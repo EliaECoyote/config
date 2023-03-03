@@ -1,206 +1,179 @@
--- Use a protected call to avoid crashes when packer isn't available.
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-  return
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
-
--- Read the `packer_plugins` table to see current status of plugins.
-local function setup(use)
-  use("wbthomason/packer.nvim")
-  -- Adds comments with `gc`
-  use("tpope/vim-commentary")
-  -- Heuristically set buffer options
-  use("tpope/vim-sleuth")
-  -- Loads editorconfig files
-  use("editorconfig/editorconfig-vim")
-  -- Makes gx cmd work for urls and files
-  use("stsewd/gx-extended.vim")
-  use({
-    "vifm/vifm.vim",
-    config = function()
-      vim.keymap.set(
-        "n",
-        "<leader>fb",
-        ":Vifm<cr>",
-        {
-          noremap = true,
-          silent = true,
-          desc = "Start Vifm on local buffer path"
+require("lazy").setup({
+    -- Adds comments with `gc`
+    "tpope/vim-commentary",
+    -- Heuristically set buffer options
+    "tpope/vim-sleuth",
+    -- Handy bracket mappings
+    "tpope/vim-unimpaired",
+    -- Loads editorconfig files
+    "editorconfig/editorconfig-vim",
+    -- Makes gx cmd work for urls and files
+    "stsewd/gx-extended.vim",
+    -- Git wrapper
+    {
+      "tpope/vim-fugitive",
+      config = function()
+        -- Map keys to move between Gstatus files
+        vim.g.nremap = {
+              [")"] = "<Tab>",
+              ["("] = "<S-Tab>",
         }
-      )
-    end
-  })
-
-  use({
-    "tpope/vim-fugitive",
-    config = function()
-      require("config_fugitive")
-    end
-  })
-
-  use({
-    "lewis6991/gitsigns.nvim",
-    config = function()
-      require("config_gitsigns")
-    end
-  })
-
-  use({
-    'nvim-treesitter/nvim-treesitter',
-    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
-    config = function()
-      require("config_treesitter")
-    end
-  })
-
-  use({
-    "nvim-lualine/lualine.nvim",
-    config = function()
-      require("config_lualine")
-    end,
-  })
-
-  use({
-    "j-hui/fidget.nvim",
-    config = function()
-      require("fidget").setup({
-        text = { spinner = "dots" }
-      })
-    end
-  })
-
-  use({
-    "machakann/vim-sandwich",
-    config = function()
-      require("config_sandwich")
-    end
-  })
-
-  use({
-    "williamboman/mason.nvim",
-    requires = "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("config_mason")
-    end
-  })
-
-  use({
-    "neovim/nvim-lspconfig",
-    after = { "mason.nvim", "nvim-cmp" },
-    config = function()
-      require("config_lsp")
-    end
-  })
-
-  use({
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup()
-    end
-  })
-
-  use({
-    "jose-elias-alvarez/null-ls.nvim",
-    config = function()
-      require("config_null_ls")
-    end
-  })
-
-  use({
-    "nvim-telescope/telescope-fzf-native.nvim",
-    run = "make",
-  })
-
-  use({
-    "nvim-telescope/telescope.nvim",
-    requires = {
-      "nvim-lua/plenary.nvim",
+      end
+    },
+    -- LSP goodies
+    {
+      "neovim/nvim-lspconfig",
+      dependencies = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
+      config = function()
+        local constants_lsp = require("lib.constants_lsp")
+        require("mason").setup({
+          ui = { border = "rounded" },
+        })
+        require("mason-lspconfig").setup({
+          ensure_installed = constants_lsp.LSP_SERVERS
+        })
+        require("config_lsp")
+      end
+    },
+    {
+      "jose-elias-alvarez/null-ls.nvim",
+      config = function() require("config_null_ls") end
+    },
+    -- Explorer
+    {
+      "vifm/vifm.vim",
+      config = function()
+        vim.keymap.set(
+          "n",
+          "<leader>fb",
+          ":Vifm<cr>",
+          {
+            silent = true,
+            desc = "Start Vifm on local buffer path"
+          }
+        )
+      end
+    },
+    {
+      "lewis6991/gitsigns.nvim",
+      name = "gitsigns",
+      opts = {
+        on_attach = function(bufnr)
+          local gs = package.loaded.gitsigns
+          -- Navigation
+          vim.keymap.set('n', ']c', function()
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+          end, { buffer = bufnr, expr = true })
+          vim.keymap.set('n', '[c', function()
+            if vim.wo.diff then return '[c' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
+          end, { buffer = bufnr, expr = true })
+        end
+      },
+    },
+    {
+      'nvim-treesitter/nvim-treesitter',
+      build = ":TSUpdate",
+      config = function() require("config_treesitter") end
+    },
+    {
+      "nvim-lualine/lualine.nvim",
+      config = function() require("config_lualine") end,
+    },
+    {
+      "j-hui/fidget.nvim",
+      name = "fidget",
+      opts = { text = { spinner = "dots" }, }
+    },
+    {
+      "machakann/vim-sandwich",
+      config = function() require("config_sandwich") end
+    },
+    {
+      "nvim-telescope/telescope.nvim",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope-fzf-native.nvim",
+        "nvim-telescope/telescope-live-grep-args.nvim",
+        "nvim-telescope/telescope-file-browser.nvim",
+        "nvim-tree/nvim-web-devicons",
+      },
+      config = function() require("config_telescope") end
+    },
+    {
       "nvim-telescope/telescope-fzf-native.nvim",
-      "nvim-telescope/telescope-live-grep-args.nvim",
-      "nvim-telescope/telescope-file-browser.nvim",
-      "nvim-tree/nvim-web-devicons",
+      build = "make",
     },
-    config = function()
-      require("config_telescope")
-    end
-  })
-
-  use({
-    "stevearc/dressing.nvim",
-    config = function()
-      require("config_dressing")
-    end
-  })
-
-  -- Autocompletion engine / sources / snippets.
-  use({
-    "hrsh7th/nvim-cmp",
-    requires = {
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp",
-      -- Neovim Lua apis autocomplete.
-      "hrsh7th/cmp-nvim-lua",
-      -- LuaSnip integration.
-      "saadparwaiz1/cmp_luasnip",
-      -- Snippet engine
-      "L3MON4D3/LuaSnip",
-      -- Snippets library
-      "rafamadriz/friendly-snippets",
+    {
+      "stevearc/dressing.nvim",
+      opts = {
+        input = {
+          win_options = {
+            winblend = 0,
+          },
+        },
+        select = {
+          -- Priority list of preferred vim.select implementations
+          backend = { "telescope", "builtin" },
+          -- Options for telescope selector
+          -- These are passed into the telescope picker directly. Can be used like:
+          -- telescope = require('telescope.themes').get_ivy({...})
+          telescope = nil,
+        },
+      }
     },
-    config = function()
-      require("config_cmp")
-    end
+    -- Autocompletion engine / sources / snippets.
+    {
+      "hrsh7th/nvim-cmp",
+      dependencies = {
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lsp",
+        -- Neovim Lua apis autocomplete.
+        "hrsh7th/cmp-nvim-lua",
+        -- LuaSnip integration.
+        "saadparwaiz1/cmp_luasnip",
+        -- Snippet engine
+        "L3MON4D3/LuaSnip",
+        -- Snippets library
+        "rafamadriz/friendly-snippets",
+      },
+      config = function() require("config_cmp") end
+    },
+    -- Navigate seamlessly between tmux and vim splits
+    {
+      "christoomey/vim-tmux-navigator",
+      config = function() require("config_vim_tmux_navigator") end
+    },
+    -- Open current line on github
+    "ruanyl/vim-gh-line",
+    {
+      "vim-test/vim-test",
+      config = function() require("config_vimtest") end
+    },
+    {
+      "mfussenegger/nvim-dap",
+      config = function() require("config_dap") end
+    },
+  },
+  {
+    defaults = { lazy = false },
+    ui = { border = "rounded" }
   })
-
-  -- Navigate seamlessly between tmux and vim splits
-  use({
-    "christoomey/vim-tmux-navigator",
-    config = function()
-      require("config_vim_tmux_navigator")
-    end
-  })
-
-  -- Open current line on github
-  use("ruanyl/vim-gh-line")
-
-  use({
-    "vim-test/vim-test",
-    config = function()
-      require("config_vimtest")
-    end
-  })
-
-  use({
-    "mfussenegger/nvim-dap",
-    config = function()
-      require("config_dap")
-    end
-  })
-
-  use({
-    "akinsho/toggleterm.nvim",
-    tag = '*',
-    config = function()
-      require("config_toggleterm")
-    end
-  })
-end
-
-packer.startup({
-  setup,
-  config = {
-    ensure_dependencies = true,
-    display = {
-      open_fn = require("packer.util").float,
-      prompt_border = "rounded",
-    }
-  }
-})
