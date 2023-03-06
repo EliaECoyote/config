@@ -112,7 +112,6 @@ require("lazy").setup({
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-fzf-native.nvim",
         "nvim-telescope/telescope-live-grep-args.nvim",
-        "nvim-telescope/telescope-file-browser.nvim",
         "nvim-tree/nvim-web-devicons",
       },
       config = function() require("config_telescope") end
