@@ -15,11 +15,10 @@ null_ls.setup({
             and params.command
       end,
       filetypes = {
-        -- We don't consider JS filetypes, as more often than not,
-        -- prettier is run through eslint with plugins such as
-        -- [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier).
-        -- This allows us to improve formatting performances for JS files, while
-        -- keeping prettier formatting available for other filetypes.
+        "javascript",
+        "typescript",
+        "javascriptreact",
+        "typescriptreact",
         "vue",
         "css",
         "scss",

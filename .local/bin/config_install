@@ -3,9 +3,10 @@
 # Inspired from https://www.atlassian.com/git/tutorials/dotfiles
 
 git clone --bare git@github.com:EliaECoyote/config.git "$HOME/.config.git"
-function config {
-  /usr/bin/git --git-dir="$HOME/.config.git/" --work-tree="$HOME" "$@"
-}
+
+# Define the alias in the current shell scope:
+alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+
 mkdir -p .config-backup
 config checkout
 if [ $? = 0 ]; then
