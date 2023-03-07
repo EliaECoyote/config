@@ -50,7 +50,12 @@ vim.opt.cursorline = true
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.updatetime = 300
+
+-- Disable redundant messages from ins-completion-menu
 vim.opt.shortmess:append("c")
+-- Disable intro message
+vim.opt.shortmess:append("I")
+
 
 -- Highlights end-of-line
 vim.opt.list = true
