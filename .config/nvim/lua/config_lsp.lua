@@ -26,13 +26,15 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   end
 
   if lsp == 'tsserver' then
-    config.capabilities.textDocument.completion.completionItem.snippetSupport = true
     function config.on_attach(client)
       client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
     end
+    config.init_options = config.init_options or {}
+    config.init_options.maxTsServerMemory = 8192
     config.typescript = {
       preferences = {
-        importModuleSpecifier = "non-relative"
+        importModuleSpecifierPreference = "non-relative"
       }
     }
   end
