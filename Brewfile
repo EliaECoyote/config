@@ -43,3 +43,5 @@ cask "karabiner-elements"
 cask "tiles"
 # Ncurses-based file manager with vi-like keybindings
 cask "vifm"
+# Shell extension to jump to frequently used directories
+cask "autojump"
