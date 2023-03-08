@@ -1,5 +1,7 @@
 # Setup fzf
 # ---------
+HOMEBREW_ROOT="$(brew --prefix)"
+
 if [[ ! "$PATH" == *$HOMEBREW_ROOT/opt/fzf/bin* ]]; then
   PATH="${PATH:+${PATH}:}$HOMEBREW_ROOT/opt/fzf/bin"
 fi
