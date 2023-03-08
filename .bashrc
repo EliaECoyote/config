@@ -11,8 +11,13 @@ if test -r "$HOME/.config/git-completion.bash"; then
   __git_complete g __git_main
 fi
 
+HOMEBREW_PREFIX="$(brew --prefix)"
+if test -r "$HOMEBREW_PREFIX/etc/profile.d/autojump.sh"; then
+  . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
+fi
+
 if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 fi
 
 # cf. https://unix.stackexchange.com/a/1292/360789
