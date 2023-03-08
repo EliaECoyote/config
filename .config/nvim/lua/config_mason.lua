@@ -6,6 +6,13 @@ mason.setup({
   ui = { border = "rounded" },
 })
 
-mason_lspconfig.setup({
-  ensure_installed = constants_lsp.LSP_SERVERS
-})
+local mason_packages = {}
+for _, v in constants_lsp.LSP_SERVERS do
+  table.insert(mason_packages, v)
+end
+table.insert(mason_packages, "prettier")
+table.insert(mason_packages, "black")
+table.insert(mason_packages, "isort")
+
+
+mason_lspconfig.setup({ ensure_installed = mason_packages })
