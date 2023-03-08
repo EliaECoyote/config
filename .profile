@@ -11,7 +11,7 @@ export GIT_EDITOR="$VISUAL"
 HOMEBREW_ROOT="$(brew --prefix)"
 export HOMEBREW_ROOT
 
-# Prefer GNU binaries to Macintosh binaries.
+# Prefer GNU binaries over default binaries.
 export PATH="$HOMEBREW_ROOT/opt/coreutils/libexec/gnubin:$PATH"
 export MANPATH="$HOMEBREW_ROOT/opt/coreutils/libexec/gnuman:$MANPATH"
 export PATH="$HOMEBREW_ROOT/opt/gnu-indent/libexec/gnubin:$PATH"
