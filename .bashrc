@@ -11,6 +11,10 @@ if test -r "$HOME/.config/git-completion.bash"; then
   __git_complete g __git_main
 fi
 
+if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 # cf. https://unix.stackexchange.com/a/1292/360789
 # Avoid bash history duplicates
 HISTCONTROL=ignoredups:erasedups
