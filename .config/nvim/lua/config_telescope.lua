@@ -27,7 +27,7 @@ local telescope_defaults = {
 
 local function bookmarks(opts)
   local files = {
-    "~/.profile", "~/.bash_profile",
+    "~/.profile", "~/.bash_profile", "~/Brewfile",
     "~/.tmux.conf", "~/.config/vifm/vifmrc", "~/.config/alacritty.yml",
     "~/.config/karabiner/karabiner.json", "~/.gitconfig", "~/.gitignore",
     "~/.shellrc", "~/.workrc", "~/.bashrc", "~/.zshrc",
