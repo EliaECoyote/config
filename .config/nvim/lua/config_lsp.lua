@@ -91,7 +91,12 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   end
 
   if lsp == "pyright" then
-    config = {}
+    config.settings = {
+      python = {
+        venvPath = "./venv3",
+        pythonPath = "./venv3/bin/python",
+      }
+    }
   end
 
   lspconfig[lsp].setup(config)
