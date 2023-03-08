@@ -41,3 +41,5 @@ brew "tmux"
 cask "karabiner-elements"
 # Window manager
 cask "tiles"
+# Ncurses-based file manager with vi-like keybindings
+cask "vifm"
