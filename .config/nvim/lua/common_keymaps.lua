@@ -173,7 +173,6 @@ vim.keymap.set(
   }
 )
 
--- vim.keymap.set("n", "<C-f>", utils_lsp.format_buffer)
 vim.keymap.set("n", "<C-f>", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action)
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
