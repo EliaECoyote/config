@@ -37,11 +37,11 @@ brew "pinentry-mac"
 brew "ripgrep"
 # Terminal multiplexer
 brew "tmux"
+# Ncurses-based file manager with vi-like keybindings
+brew "vifm"
+# Shell extension to jump to frequently used directories
+brew "autojump"
 # Keyboard customizer
 cask "karabiner-elements"
 # Window manager
 cask "tiles"
-# Ncurses-based file manager with vi-like keybindings
-cask "vifm"
-# Shell extension to jump to frequently used directories
-cask "autojump"
