@@ -156,11 +156,6 @@ require("lazy").setup({
       },
       config = function() require("config_cmp") end
     },
-    -- Navigate seamlessly between tmux and vim splits
-    {
-      "christoomey/vim-tmux-navigator",
-      config = function() require("config_vim_tmux_navigator") end
-    },
     -- Open current line on github
     "ruanyl/vim-gh-line",
     {
