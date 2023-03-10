@@ -78,6 +78,7 @@ vicd() {
 # Company-specific stuff {{{
 
 if test -r "$HOME/.workrc"; then
+  # shellcheck source=/Users/elia.camposilvan/.workrc
   source "$HOME/.workrc"
 fi
 
