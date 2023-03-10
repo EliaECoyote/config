@@ -1,13 +1,5 @@
 local utils_window = require("lib.utils_window")
 
--- Remap toggle fold
-vim.keymap.set(
-  "n",
-  "<s-tab>",
-  "zA",
-  { noremap = true, silent = true }
-)
-
 ---Renders like these:
 -- »» TSString = {··} ········································ «« [ 223]····
 -- »» Setup function ········································· «« [ 666]····
