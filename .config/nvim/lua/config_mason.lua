@@ -13,6 +13,7 @@ end
 table.insert(mason_packages, "prettier")
 table.insert(mason_packages, "black")
 table.insert(mason_packages, "isort")
+table.insert(mason_packages, "yamllint")
 
 
 mason_lspconfig.setup({ ensure_installed = mason_packages })
