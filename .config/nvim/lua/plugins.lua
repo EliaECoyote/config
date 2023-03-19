@@ -20,7 +20,7 @@ require("lazy").setup({
     -- Handy bracket mappings
     {
       "tpope/vim-unimpaired",
-      config = function()
+      init = function()
         vim.g.nremap = {
           ['yo<Esc>'] = '',
           ['>p'] = ''
@@ -30,7 +30,7 @@ require("lazy").setup({
     -- Git wrapper
     {
       "tpope/vim-fugitive",
-      config = function()
+      init = function()
         -- Map keys to move between Gstatus files
         vim.g.nremap = {
           [")"] = "<Tab>",
@@ -70,7 +70,7 @@ require("lazy").setup({
     -- Explorer
     {
       "vifm/vifm.vim",
-      config = function()
+      init = function()
         vim.keymap.set(
           "n",
           "<leader>fb",
