@@ -617,6 +617,9 @@ key_bindings:
   - key: Comma
     mods: Alt|Shift
     chars: "\x1b<"
+  - key: Comma
+    mods: Control
+    chars: "\x1b[44;5u"
   - key: Minus
     mods: Alt|Shift
     chars: "\x1b_"
