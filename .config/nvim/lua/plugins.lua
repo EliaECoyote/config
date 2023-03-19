@@ -18,22 +18,36 @@ require("lazy").setup({
     -- Heuristically set buffer options
     "tpope/vim-sleuth",
     -- Handy bracket mappings
-    "tpope/vim-unimpaired",
-    -- Loads editorconfig files
-    "editorconfig/editorconfig-vim",
-    -- Makes gx cmd work for urls and files
-    "stsewd/gx-extended.vim",
+    {
+      "tpope/vim-unimpaired",
+      config = function()
+        vim.g.nremap = {
+          ['yo<Esc>'] = '',
+          ['>p'] = ''
+        }
+      end
+    },
     -- Git wrapper
     {
       "tpope/vim-fugitive",
       config = function()
         -- Map keys to move between Gstatus files
         vim.g.nremap = {
-              [")"] = "<Tab>",
-              ["("] = "<S-Tab>",
+          [")"] = "<Tab>",
+          ["("] = "<S-Tab>",
         }
       end
     },
+    {
+      "mattn/emmet-vim",
+      init = function()
+        vim.g.user_emmet_leader_key = "<C-,>"
+      end
+    },
+    -- Loads editorconfig files
+    "editorconfig/editorconfig-vim",
+    -- Makes gx cmd work for urls and files
+    "stsewd/gx-extended.vim",
     -- LSP goodies
     {
       "neovim/nvim-lspconfig",
