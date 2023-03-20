@@ -47,6 +47,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 alias v='nvim'
 alias lazyconfig='lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+alias emacs="emacsclient --alternate-editor=''"
 
 # }}}
 
