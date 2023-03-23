@@ -48,13 +48,13 @@ end
 --     base0C = "#56b6c2", base0D = "#0184bc", base0E = "#c678dd", base0F = "#a06949",
 --   },
 --   {
---     info_fg = '#75beff',
---     success = '#d4f8db',
---     success_fg = '#22863a',
---     warn = '#fff5b1',
---     warn_fg = '#e36209',
---     error = '#fae5e7',
---     error_fg = '#d73a49',
+--     info_fg = "#75beff",
+--     success = "#d4f8db",
+--     success_fg = "#22863a",
+--     warn = "#fff5b1",
+--     warn_fg = "#e36209",
+--     error = "#fae5e7",
+--     error_fg = "#d73a49",
 --   }
 -- )
 -- ```
@@ -65,7 +65,7 @@ function M.setup_theme(colors, status_colors)
 
   local hi_config = {
     -- Vim editor highlights
-    Normal                           = { fg = colors.base05, bg = colors.base00 },
+    Normal                           = { fg = colors.base05, bg = colors.base00, ctermbg = false },
     Bold                             = { bold = true },
     Debug                            = { fg = colors.base08 },
     Directory                        = { fg = colors.base0D },
@@ -101,11 +101,11 @@ function M.setup_theme(colors, status_colors)
     StatusLineNC                     = { fg = colors.base03, bg = colors.base01 },
     WinBar                           = { fg = colors.base03 },
     WinBarNC                         = { fg = colors.base04 },
-    VertSplit                        = { fg = colors.base01, bg = colors.base00 },
+    WinSeparator                     = { fg = colors.base03 },
     ColorColumn                      = { bg = colors.base01 },
     CursorColumn                     = { bg = colors.base01 },
     CursorLine                       = { bg = colors.base01 },
-    CursorLineNr                     = { fg = colors.base04, bg = colors.base01, bold = true },
+    CursorLineNr                     = { fg = colors.base05, bg = colors.base01, bold = true },
     QuickFixLine                     = { bg = colors.base01 },
     PMenu                            = { fg = colors.base06, bg = colors.base01 },
     PMenuSel                         = { fg = colors.base06, bg = colors.base02 },
@@ -320,6 +320,8 @@ function M.setup_theme(colors, status_colors)
   }
 
   for name, value in pairs(hi_config) do
+    value.ctermfg = value.ctermfg or (value.ctermfg ~= false and value.fg) or nil
+    value.ctermbg = value.ctermbg or (value.ctermbg ~= false and value.bg) or nil
     vim.api.nvim_set_hl(0, name, value)
   end
 end

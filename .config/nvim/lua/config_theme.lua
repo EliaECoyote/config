@@ -1,16 +1,10 @@
-local utils_theme = require("lib.utils_theme")
-local constants_theme = require("lib.constants_theme")
-
-vim.api.nvim_command([[
-  if has("termguicolors")
-    set termguicolors
-  endif
-]])
-
 -- Temporarily highlights yanked region after each yank
 vim.api.nvim_command([[
  au TextYankPost * silent! lua vim.highlight.on_yank()
 ]])
+
+vim.go.background = "light"
+vim.cmd.colorscheme("coyote")
 
 -- Hides "-- INSERT --" from under to statusline
 vim.api.nvim_command("set noshowmode")
@@ -69,12 +63,6 @@ vim.g.markdown_fenced_languages = {
   "typescript",
   "javascript",
 }
-
-vim.api.nvim_set_option("background", "light")
-utils_theme.setup_theme(
-  constants_theme.THEMES.coyote,
-  constants_theme.STATUS_THEMES.light
-)
 
 -- For LSP-related UI customzations, see
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization

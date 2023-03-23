@@ -1,9 +1,6 @@
 ---
 # Latest default config can be found in
 # https://github.com/alacritty/alacritty/releases
-env:
-  TERM: xterm-256color
-
 shell:
   program: /bin/bash
   args:
@@ -36,9 +33,18 @@ colors:
     green: "#5f8700"
     yellow: "#c7a200"
     blue: "#005faf"
-    magenta: "#b294bb"
-    cyan: "#8abeb7"
-    white: "#c5c8c6"
+    magenta: "#8700af"
+    cyan: "#0087af"
+    white: "#ffffff"
+  bright:
+    black: "#666666"
+    red: "#d54e53"
+    green: "#00b800"
+    yellow: "#fff385"
+    blue: "#005faf"
+    magenta: "#d70087"
+    cyan: "#0087af"
+    white: "#ffffff"
 
 mouse:
   hide_when_typing: true
