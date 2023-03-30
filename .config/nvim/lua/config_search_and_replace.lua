@@ -3,24 +3,6 @@ vim.g.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 
 vim.keymap.set(
   "n",
-  "<leader>c",
-  ":let @/='\\<'.expand('<cword>').'\\>'<CR>cgn",
-  {
-    noremap = true,
-    desc = "Change word under cursor, and enable repeat on next match through `.` by using `gn`.",
-  })
-vim.keymap.set(
-  "v",
-  "<leader>c",
-  "\"sy:let @/=@s<CR>cgn",
-  {
-    noremap = true,
-    desc = "Change visual selection, and enable repeat on next match through `.` by using `gn`.",
-  }
-)
-
-vim.keymap.set(
-  "n",
   "<leader>s",
   ":%s///gc<Left><Left><Left>",
   {
