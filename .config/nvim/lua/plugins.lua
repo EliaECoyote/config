@@ -15,8 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     -- Adds comments with `gc`
     "tpope/vim-commentary",
-    -- Heuristically set buffer options
-    "tpope/vim-sleuth",
     -- Handy bracket mappings
     {
       "tpope/vim-unimpaired",
