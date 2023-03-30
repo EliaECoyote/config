@@ -7,13 +7,25 @@ end
 
 -- See *:h cterm-colors*
 utils_theme.setup_theme(
-   {
-     base00 = "White", base01 = "LightYellow", base02 = "LightYellow", base03 = "Grey",
-       base04 = "LightGrey", base05 = "Black", base06 = "DarkCyan", base07 = "LightGrey",
-     base08 = "Black", base09 = "DarkMagenta", base0A = "DarkCyan", base0B = "DarkGreen",
-     base0C = "Blue", base0D = "Blue", base0E = "Magenta", base0F = "Red",
-   },
-   {
+  {
+    base00 = "White",
+    base01 = "LightGrey",
+    base02 = "White",
+    base03 = "DarkGrey",
+    base04 = "Black",
+    base05 = "Black",
+    base06 = "Red",
+    base07 = "DarkYellow",
+    base08 = "Black",
+    base09 = "DarkMagenta",
+    base0A = "DarkCyan",
+    base0B = "DarkGreen",
+    base0C = "Blue",
+    base0D = "Blue",
+    base0E = "Magenta",
+    base0F = "Red",
+  },
+  {
     info_fg = "DarkCyan",
     success = "LightGreen",
     success_fg = "Green",
