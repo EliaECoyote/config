@@ -56,7 +56,7 @@ set norunexec
 
 " Selected color scheme
 
-colorscheme papercolor-light
+colorscheme coyote
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
@@ -403,7 +403,7 @@ set dotfiles
 
 " Display dirs in multiple cascading columns
 set millerview
-set milleroptions="lsize:1,csize:1,rsize:1,rpreview:all"
+set milleroptions="lsize:0,csize:1,rsize:1,rpreview:all"
 
 " Start vifm with only one pane
 " https://stackoverflow.com/a/40094128
