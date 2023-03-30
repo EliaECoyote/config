@@ -27,10 +27,10 @@ end
 -- base04 - Dark Foreground (Used for status bars)
 -- base05 - Default Foreground, Caret, Delimiters, Operators
 -- base06 - Light Foreground (Not often used)
--- base07 - Light Background (Not often used)
+-- base07 - Light Background (Used for search text)
 -- base08 - Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
 -- base09 - Integers, Boolean, Constants, XML Attributes, Markup Link Url
--- base0A - Classes, Markup Bold, Search Text Background
+-- base0A - Classes, Markup Bold
 -- base0B - Strings, Inherited Class, Markup Code, Diff Inserted
 -- base0C - Support, Regular Expressions, Escape Characters, Markup Quotes, Errors
 -- base0D - Functions, Methods, Attribute IDs, Headings
@@ -72,8 +72,8 @@ function M.setup_theme(colors, status_colors)
     Error                            = { fg = status_colors.error_fg },
     ErrorMsg                         = { fg = status_colors.error_fg },
     Exception                        = { fg = colors.base08 },
-    FoldColumn                       = { fg = colors.base03, bg = colors.base00, },
-    Folded                           = { fg = colors.base02, bg = colors.base00, },
+    FoldColumn                       = { fg = colors.base0C, bg = colors.base00, },
+    Folded                           = { fg = colors.base03, bg = colors.base01, },
     IncSearch                        = { fg = colors.base01, bg = colors.base09, },
     Italic                           = { italic = true },
     Macro                            = { fg = colors.base08 },
@@ -81,7 +81,7 @@ function M.setup_theme(colors, status_colors)
     ModeMsg                          = { fg = colors.base0B },
     MoreMsg                          = { fg = colors.base0B },
     Question                         = { fg = colors.base0D },
-    Search                           = { fg = colors.base00, bg = colors.base0A },
+    Search                           = { bold = true, fg = colors.base05, bg = colors.base07 },
     Substitute                       = { fg = colors.base00, bg = colors.base0A },
     SpecialKey                       = { fg = colors.base03 },
     TooLong                          = { fg = colors.base08 },
@@ -99,18 +99,20 @@ function M.setup_theme(colors, status_colors)
     SignColumn                       = { fg = colors.base03, bg = colors.base00 },
     StatusLine                       = { fg = colors.base04, bg = colors.base01 },
     StatusLineNC                     = { fg = colors.base03, bg = colors.base01 },
+    StatusLineLspError               = { fg = status_colors.error_fg, bg = status_colors.error },
+    StatusLineLspWarn                = { fg = status_colors.warn_fg, bg = status_colors.warn },
+    StatusLineLspInfo                = { fg = status_colors.info_fg, bg = status_colors.info },
+    StatusLineLspHint                = { fg = status_colors.info_fg, bg = status_colors.info },
     WinBar                           = { fg = colors.base03 },
     WinBarNC                         = { fg = colors.base04 },
     WinSeparator                     = { fg = colors.base03 },
     ColorColumn                      = { bg = colors.base01 },
     CursorColumn                     = { bg = colors.base01 },
-    CursorLine                       = { bg = colors.base01 },
-    CursorLineNr                     = { fg = colors.base05, bg = colors.base01, bold = true },
+    CursorLine                       = { bg = colors.base00 },
+    CursorLineNr                     = { fg = colors.base05, bg = colors.base00, bold = true },
     QuickFixLine                     = { bg = colors.base01 },
-    PMenu                            = { fg = colors.base06, bg = colors.base01 },
-    PMenuSel                         = { fg = colors.base06, bg = colors.base02 },
-    PMenuSbar                        = { bg = colors.base03 },
-    PMenuThumb                       = { bg = colors.base04 },
+    PMenu                            = { fg = colors.base05, bg = colors.base01 },
+    PMenuSel                         = { fg = colors.base01, bg = colors.base05 },
     TabLine                          = { fg = colors.base03, bg = colors.base01 },
     TabLineFill                      = { fg = colors.base03, bg = colors.base01 },
     TabLineSel                       = { fg = colors.base0B, bg = colors.base01 },
@@ -145,22 +147,22 @@ function M.setup_theme(colors, status_colors)
     -- Standard highlights to be used by plugins
     Deprecated                       = { strikethrough = true },
     SearchMatch                      = { fg = colors.base0C },
-    GitAddSign                       = { fg = colors.base0B },
+    GitAddSign                       = { fg = colors.base0B, bg = colors.base00 },
     GitChangeSign                    = { fg = colors.base04 },
     GitDeleteSign                    = { fg = colors.base08 },
     GitChangeDeleteSign              = { fg = colors.base04 },
     ErrorSign                        = { fg = status_colors.error_fg },
     WarningSign                      = { fg = status_colors.warn_fg },
     InfoSign                         = { fg = status_colors.info_fg },
-    HintSign                         = { fg = status_colors.warn_fg },
+    HintSign                         = { fg = status_colors.info_fg },
     ErrorFloat                       = { fg = status_colors.error_fg },
     WarningFloat                     = { fg = status_colors.warn_fg },
     InfoFloat                        = { fg = status_colors.info_fg },
-    HintFloat                        = { fg = status_colors.warn_fg },
+    HintFloat                        = { fg = status_colors.info_fg },
     ErrorHighlight                   = { underline = true, sp = status_colors.error_fg },
     WarningHighlight                 = { underline = true, sp = status_colors.warn_fg },
     InfoHighlight                    = { underline = true, sp = status_colors.info_fg },
-    HintHighlight                    = { underline = true, sp = status_colors.warn_fg },
+    HintHighlight                    = { underline = true, sp = status_colors.info_fg },
     SpellBad                         = { undercurl = true, sp = status_colors.error_fg },
     SpellLocal                       = { undercurl = true, sp = colors.base0C },
     SpellCap                         = { undercurl = true, sp = colors.base0D },
@@ -194,9 +196,9 @@ function M.setup_theme(colors, status_colors)
     DiffNewFile                      = { fg = status_colors.success_fg, bg = status_colors.success },
     DiffLine                         = { fg = status_colors.warn_fg, bg = status_colors.warn },
     DiffRemoved                      = { fg = status_colors.error_fg, bg = status_colors.error },
-    GitSignsAdd                      = { fg = status_colors.success_fg },
-    GitSignsChange                   = { fg = status_colors.warn_fg },
-    GitSignsDelete                   = { fg = status_colors.error_fg },
+    GitSignsAdd                      = { fg = status_colors.success_fg, bg = colors.base00 },
+    GitSignsChange                   = { fg = status_colors.warn_fg, bg = colors.base00 },
+    GitSignsDelete                   = { fg = status_colors.error_fg, bg = colors.base00 },
     -- Git highlights
     gitcommitOverflow                = { fg = colors.base08 },
     gitcommitSummary                 = { fg = colors.base0B },
