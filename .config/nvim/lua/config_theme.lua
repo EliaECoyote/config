@@ -6,8 +6,8 @@ vim.api.nvim_command([[
 vim.go.background = "light"
 vim.cmd.colorscheme("coyote")
 
--- Hides "-- INSERT --" from under to statusline
-vim.api.nvim_command("set noshowmode")
+-- Global statusline
+vim.opt.laststatus = 3
 
 -- Default indentation & font settings
 vim.opt.smartindent = true
@@ -75,3 +75,43 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts.border = opts.border or "rounded"
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
+
+function _G.custom_status_line()
+  local file_name = "%-.16t"
+  local modified = "%-m"
+  local file_type = "%y"
+  local space_middle = "%="
+  local line_no = "%10([%l/%L%)]"
+
+  local counts = { 0, 0, 0, 0 }
+  for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
+    counts[diagnostic.severity] = counts[diagnostic.severity] + 1
+  end
+
+  local lsp_segment = ''
+  local severity_labels = { 'Error', 'Warn', 'Info', 'Hint' }
+  for severity_index, count in ipairs(counts) do
+    if count > 0 then
+      local type = severity_labels[severity_index]
+      lsp_segment = string.format(
+        '%s%%#StatusLineLsp%s# %d%s ',
+        lsp_segment,
+        type,
+        count,
+        type:sub(0, 1)
+      )
+    end
+  end
+
+  return string.format(
+    "%s %s %s %%#StatusLine# %s %s %s",
+    file_name,
+    modified,
+    lsp_segment,
+    space_middle,
+    file_type,
+    line_no
+  )
+end
+
+vim.opt.statusline = "%!v:lua.custom_status_line()"

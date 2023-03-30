@@ -106,10 +106,6 @@ require("lazy").setup({
       config = function() require("config_treesitter") end
     },
     {
-      "nvim-lualine/lualine.nvim",
-      config = function() require("config_lualine") end,
-    },
-    {
       "j-hui/fidget.nvim",
       name = "fidget",
       opts = { text = { spinner = "dots" }, }
