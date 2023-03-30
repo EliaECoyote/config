@@ -34,18 +34,18 @@ colors:
     green: "#5f8700"
     yellow: "#c7a200"
     blue: "#005faf"
-    magenta: "#8700af"
+    magenta: "#b200b2"
     cyan: "#0087af"
-    white: "#ffffff"
+    white: "#bfbfbf"
   bright:
     black: "#666666"
     red: "#d54e53"
     green: "#00b800"
-    yellow: "#fff385"
+    yellow: "#e5e500"
     blue: "#005faf"
-    magenta: "#d70087"
+    magenta: "#e500e5"
     cyan: "#0087af"
-    white: "#ffffff"
+    white: "#e5e5e5"
 
 mouse:
   hide_when_typing: true
