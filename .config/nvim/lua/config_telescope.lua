@@ -86,7 +86,7 @@ telescope.setup({
     buffers = {
       theme = telescope_defaults.theme,
       attach_mappings = function(prompt_bufnr, map)
-        map("n", "<C-x>", function()
+        map({"n", "i"}, "<C-x>", function()
           local current_picker = action_state.get_current_picker(prompt_bufnr)
           current_picker:delete_selection(function(selection)
             utils_buffer.delete_buffer(selection.bufnr, { force = true, unload = true }, false)
