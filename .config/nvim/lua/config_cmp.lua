@@ -75,10 +75,10 @@ cmp.setup({
   },
   -- Note: The order matches the cmp menu's sort order.
   sources = cmp.config.sources({
-    { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "buffer" },
+    { name = "luasnip" },
     { name = "path" },
   }),
   experimental = {
@@ -86,11 +86,25 @@ cmp.setup({
   },
 })
 
--- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
   -- Note: The order matches the cmp menu's sort order.
   sources = cmp.config.sources({
     { name = "cmp_git" },
     { name = "buffer" },
+  })
+})
+
+cmp.setup.cmdline({ "/", "?" }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" }
+  }
+})
+
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+    { name = "cmdline" }
   })
 })
