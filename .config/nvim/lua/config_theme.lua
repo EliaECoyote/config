@@ -66,7 +66,10 @@ vim.g.markdown_fenced_languages = {
 
 -- For LSP-related UI customzations, see
 -- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization
-vim.diagnostic.config({ signs = false, float = { border = "rounded" } })
+vim.diagnostic.config({
+  float = { source = "always", border = "rounded" },
+  virtual_text = false,
+})
 
 -- Override all LSP floating windows borders
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -81,7 +84,7 @@ function _G.custom_status_line()
   local modified = "%-m"
   local file_type = "%y"
   local space_middle = "%="
-  local line_no = "%10([%l/%L%)]"
+  local col_row = "[%c:%l]"
 
   local counts = { 0, 0, 0, 0 }
   for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
@@ -110,7 +113,7 @@ function _G.custom_status_line()
     lsp_segment,
     space_middle,
     file_type,
-    line_no
+    col_row
   )
 end
 

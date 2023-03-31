@@ -4,10 +4,6 @@ local lspconfig = require("lspconfig")
 
 require('lspconfig.ui.windows').default_options.border = "rounded"
 
-vim.diagnostic.config({
-  float = { source = "always" },
-})
-
 for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   local config = utils_lsp.make_default_config()
 
