@@ -27,7 +27,7 @@ end
 -- base04 - Dark Foreground (Used for status bars)
 -- base05 - Default Foreground, Caret, Delimiters, Operators
 -- base06 - Light Foreground (Not often used)
--- base07 - Light Background (Used for search text)
+-- base07 - Light Background for search text
 -- base08 - Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
 -- base09 - Integers, Boolean, Constants, XML Attributes, Markup Link Url
 -- base0A - Classes, Markup Bold
@@ -97,7 +97,7 @@ function M.setup_theme(colors, status_colors)
     Whitespace                       = { fg = colors.base03 },
     LineNr                           = { fg = colors.base03, bg = colors.base00 },
     SignColumn                       = { fg = colors.base03, bg = colors.base00 },
-    StatusLine                       = { fg = colors.base04, bg = colors.base01 },
+    StatusLine                       = { fg = colors.base04, bg = colors.base02 },
     StatusLineNC                     = { fg = colors.base03, bg = colors.base01 },
     StatusLineLspError               = { fg = status_colors.error_fg, bg = status_colors.error },
     StatusLineLspWarn                = { fg = status_colors.warn_fg, bg = status_colors.warn },
@@ -269,10 +269,14 @@ function M.setup_theme(colors, status_colors)
     DiagnosticsVirtualTextWarning    = { link = "WarningSign" },
     DiagnosticsVirtualTextInfo       = { link = "InfoSign" },
     DiagnosticsVirtualTextHint       = { link = "HintSign" },
-    LspDiagnosticsSignError          = { link = "ErrorSign" },
-    LspDiagnosticsSignWarning        = { link = "WarningSign" },
-    LspDiagnosticsSignInfo           = { link = "InfoSign" },
-    LspDiagnosticsSignHint           = { link = "HintSign" },
+    DiagnosticsSignError             = { fg = status_colors.error_fg, bg = colors.base00 },
+    DiagnosticsSignWarning           = { fg = status_colors.warn_fg, bg = colors.base00 },
+    DiagnosticsSignInfo              = { fg = status_colors.info_fg, bg = colors.base00 },
+    DiagnosticsSignHint              = { fg = status_colors.info_fg, bg = colors.base00 },
+    LspDiagnosticsSignError          = { link = "DiagnosticsSignError" },
+    LspDiagnosticsSignWarning        = { link = "DiagnosticsSignWarning" },
+    LspDiagnosticsSignInfo           = { link = "DiagnosticsSignInfo" },
+    LspDiagnosticsSignHint           = { link = "DiagnosticsSignHint" },
     LspDiagnosticsVirtualTextError   = { link = "ErrorSign" },
     LspDiagnosticsVirtualTextWarning = { link = "WarningSign" },
     LspDiagnosticsVirtualTextInfo    = { link = "InfoSign" },
