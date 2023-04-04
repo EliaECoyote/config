@@ -37,7 +37,7 @@ colors:
     blue: "#005faf"
     magenta: "#b200b2"
     cyan: "#0087af"
-    white: "#bfbfbf"
+    white: "#e5e5e5"
   bright:
     black: "#666666"
     red: "#d54e53"
@@ -46,7 +46,7 @@ colors:
     blue: "#005faf"
     magenta: "#e500e5"
     cyan: "#0087af"
-    white: "#e5e5e5"
+    white: "#ffffff"
 
 mouse:
   hide_when_typing: true
