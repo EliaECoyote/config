@@ -1,6 +1,7 @@
 ---
 # Latest default config can be found in
 # https://github.com/alacritty/alacritty/releases
+
 shell:
   program: /bin/bash
   args:
@@ -32,7 +33,7 @@ colors:
     black: "#000000"
     red: "#d73a49"
     green: "#5f8700"
-    yellow: "#c7a200"
+    yellow: "#999900"
     blue: "#005faf"
     magenta: "#b200b2"
     cyan: "#0087af"
