@@ -39,6 +39,8 @@ brew "ripgrep"
 brew "tmux"
 # Ncurses-based file manager with vi-like keybindings
 brew "vifm"
+# Clone of cat with syntax highlighting and Git integration
+brew "bat"
 # Shell extension to jump to frequently used directories
 brew "autojump"
 # Keyboard customizer

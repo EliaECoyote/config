@@ -18,36 +18,37 @@ fi
 
 # ls aliases {{{
 
-alias ll='ls -alFG'
-alias ls='ls -G'
-alias la='ls -AG'
-alias l='ls -CFG'
+alias ll="ls -alFG"
+alias ls="ls -G"
+alias la="ls -AG"
+alias l="ls -CFG"
 
 # }}}
 
 # Folder navigation aliases {{{
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
 
 # }}}
 
 # Git utils {{{
 
-alias g='git'
+alias g="git"
 
 # Alias to handle `config` bare repo more easily
-alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+alias config="/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 
 # }}}
 
 # App aliases {{{
 
-alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-alias v='nvim'
-alias lazyconfig='lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias v="nvim"
+alias lazyconfig="lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 alias emacs="emacsclient --alternate-editor=''"
+alias cat="bat"
 
 # }}}
 
@@ -68,7 +69,7 @@ vicd() {
   local dst
   dst="$(command vifm --choose-dir - "$@")"
   if [ -z "$dst" ]; then
-    echo 'Directory picking cancelled/failed'
+    echo "Directory picking cancelled/failed"
     return 1
   fi
   cd "$dst" || exit
