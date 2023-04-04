@@ -1,21 +1,16 @@
 local utils_theme = require("lib.utils_theme")
 
--- Clear predefined colors or background
-if vim.fn.exists("syntax_on") ~= 0 then
-  vim.cmd("syntax reset")
-end
-
--- See *:h cterm-colors*
+-- See :h cterm-colors
 utils_theme.setup_theme(
   {
     base00 = "White",
     base01 = "LightGrey",
-    base02 = "White",
+    base02 = "LightGrey",
     base03 = "DarkGrey",
     base04 = "Black",
     base05 = "Black",
     base06 = "Red",
-    base07 = "DarkYellow",
+    base07 = "Yellow",
     base08 = "Black",
     base09 = "DarkMagenta",
     base0A = "DarkCyan",
@@ -35,3 +30,14 @@ utils_theme.setup_theme(
     error_fg = "Red",
   }
 )
+
+local hi_overrides = {
+  StatusLine = { fg = "White", bg = "Black" },
+  MatchParen = { bg = "Magenta" },
+}
+
+for name, value in pairs(hi_overrides) do
+  value.ctermfg = value.ctermfg or value.fg
+  value.ctermbg = value.ctermbg or value.bg
+  vim.api.nvim_set_hl(0, name, value)
+end

@@ -84,7 +84,9 @@ require("lazy").setup({
       "lewis6991/gitsigns.nvim",
       name = "gitsigns",
       opts = {
-        on_attach = function(bufnr)
+        signcolumn = false,
+        numhl      = true,
+        on_attach  = function(bufnr)
           local gs = package.loaded.gitsigns
           -- Navigation
           vim.keymap.set('n', ']c', function()
