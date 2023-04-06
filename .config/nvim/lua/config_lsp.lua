@@ -7,21 +7,7 @@ require('lspconfig.ui.windows').default_options.border = "rounded"
 for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
   local config = utils_lsp.make_default_config()
 
-  if lsp == 'denols' then
-    config.capabilities = nil
-    config.init_options = {
-      enable = true,
-      lint = false,
-      unstable = false,
-      importMap = "./import_map.json",
-      compilerOptions = {
-        target = "es6",
-        lib = { "dom", "dom.iterable", "dom.asynciterable", "deno.ns" }
-      }
-    }
-  end
-
-  if lsp == 'tsserver' then
+  if lsp == "tsserver" then
     function config.on_attach(client)
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
