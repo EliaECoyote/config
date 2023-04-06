@@ -1,6 +1,4 @@
--- Automatically save any changes made to the buffer before it is hidden
-vim.g.autowrite = true
-
+-- Save undo history to a file stored in `:h undodir`
 vim.g.undofile = true
 
 -- Refresh file every time you access the buffer.
@@ -15,13 +13,18 @@ vim.g.mouse = "a"
 -- Enables Vim per-project configuration files
 vim.g.exrc = true
 
--- Prevents :autocmd, shell and write commands from being run
+-- Prevent :autocmd, shell and write commands from being run
 -- inside project-specific .vimrc files unless they’re owned by you.
 vim.g.secure = true
 
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwSettings = 1
+vim.g.loaded_netrwFileHandlers = 1
+
 require("common_keymaps")
 require("config_theme")
-require("config_netrw")
 require("config_folds")
 require("config_copy")
 require("config_search_and_replace")
