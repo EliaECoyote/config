@@ -1,7 +1,6 @@
 local constants_lsp = {}
 
 constants_lsp.LSP_SERVERS = {
-  -- "denols",
   "tsserver",
   "html",
   "cssls",

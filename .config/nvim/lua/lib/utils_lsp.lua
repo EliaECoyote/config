@@ -12,25 +12,18 @@ utils_lsp.ESLINT_FILETYPES = {
 }
 
 function utils_lsp.make_default_config()
-  local default_capabilities = vim.lsp.protocol.make_client_capabilities()
-  local capabilities = {
-    textDocument = {
-      completion = { completionItem = { snippetSupport = true } },
-    },
-    codeAction = {
-      vim.list_extend(
-        default_capabilities.textDocument.codeAction.resolveSupport.properties,
-        { "documentation", "detail", "additionalTextEdits" }
-      ),
-    }
-  }
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.codeAction.resolveSupport.properties = vim.list_extend(
+    capabilities.textDocument.codeAction.resolveSupport.properties,
+    { "documentation", "detail", "additionalTextEdits" }
+  )
 
   return {
     capabilities = vim.tbl_deep_extend(
       "force",
-      vim.lsp.protocol.make_client_capabilities(),
-      cmp_nvim_lsp.default_capabilities(capabilities)
-    ),
+      capabilities,
+      cmp_nvim_lsp.default_capabilities({ snippetSupport = true })
+    )
   }
 end
 
