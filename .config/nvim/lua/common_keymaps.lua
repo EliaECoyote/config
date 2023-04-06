@@ -1,4 +1,3 @@
-local utils_table = require("lib.utils_table")
 local utils_buffer = require("lib.utils_buffer")
 
 vim.keymap.set(
