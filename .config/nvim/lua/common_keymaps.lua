@@ -1,17 +1,6 @@
 local utils_buffer = require("lib.utils_buffer")
 
 vim.keymap.set(
-  "n",
-  "0",
-  "getline('.')[0 : col('.') - 2] =~# '^\\s\\+$' ? '0' : '^'",
-  {
-    silent = true,
-    expr = true,
-    desc = "Toggle between col 0 and first char."
-  }
-)
-
-vim.keymap.set(
   "",
   "<ScrollWheelUp>",
   "<C-Y>",
