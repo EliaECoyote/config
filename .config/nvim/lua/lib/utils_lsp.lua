@@ -13,7 +13,7 @@ utils_lsp.ESLINT_FILETYPES = {
 
 function utils_lsp.make_default_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.codeAction.resolveSupport.properties = vim.list_extend(
+  vim.list_extend(
     capabilities.textDocument.codeAction.resolveSupport.properties,
     { "documentation", "detail", "additionalTextEdits" }
   )
