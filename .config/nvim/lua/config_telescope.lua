@@ -1,14 +1,14 @@
-local utils_file    = require("lib.utils_file")
-local utils_buffer  = require("lib.utils_buffer")
-local telescope     = require("telescope")
-local pickers       = require("telescope.pickers")
-local finders       = require("telescope.finders")
-local builtin       = require("telescope.builtin")
-local config        = require("telescope.config")
-local themes        = require("telescope.themes")
-local actions       = require("telescope.actions")
-local action_state  = require("telescope.actions.state")
-local make_entry    = require("telescope.make_entry")
+local utils_file         = require("lib.utils_file")
+local utils_buffer       = require("lib.utils_buffer")
+local telescope          = require("telescope")
+local pickers            = require("telescope.pickers")
+local finders            = require("telescope.finders")
+local builtin            = require("telescope.builtin")
+local config             = require("telescope.config")
+local themes             = require("telescope.themes")
+local actions            = require("telescope.actions")
+local action_state       = require("telescope.actions.state")
+local make_entry         = require("telescope.make_entry")
 
 local telescope_defaults = {
   theme = "ivy",
@@ -27,8 +27,9 @@ local telescope_defaults = {
 
 local function bookmarks(opts)
   local files = {
-    "~/.profile", "~/.bash_profile", "~/Brewfile",
-    "~/.tmux.conf", "~/.config/vifm/vifmrc", "~/.config/alacritty.yml",
+    "~/.profile", "~/.bash_profile", "~/Brewfile", "~/.tmux.conf",
+    "~/.config/vifm/vifmrc", "~/.config/alacritty.yml",
+    "~/.config/lazygit/config.yml", "~/.config/lazydocker/config.yml",
     "~/.config/karabiner/karabiner.json", "~/.gitconfig", "~/.gitignore",
     "~/.shellrc", "~/.workrc", "~/.bashrc", "~/.zshrc",
   }
@@ -86,7 +87,7 @@ telescope.setup({
     buffers = {
       theme = telescope_defaults.theme,
       attach_mappings = function(prompt_bufnr, map)
-        map({"n", "i"}, "<C-x>", function()
+        map({ "n", "i" }, "<C-x>", function()
           local current_picker = action_state.get_current_picker(prompt_bufnr)
           current_picker:delete_selection(function(selection)
             utils_buffer.delete_buffer(selection.bufnr, { force = true, unload = true }, false)
