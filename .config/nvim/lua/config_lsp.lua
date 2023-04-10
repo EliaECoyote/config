@@ -13,9 +13,8 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
       client.server_capabilities.documentRangeFormattingProvider = false
     end
 
-    config.init_options = config.init_options or {}
-    config.init_options.maxTsServerMemory = 8192
-    config.typescript = {
+    config.init_options = {
+      maxTsServerMemory = 1024 * 8,
       preferences = {
         importModuleSpecifierPreference = "non-relative"
       }
