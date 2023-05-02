@@ -170,8 +170,22 @@ require("lazy").setup({
     -- Open current line on github
     "ruanyl/vim-gh-line",
     {
-      "vim-test/vim-test",
-      config = function() require("config_vimtest") end
+      "nvim-neotest/neotest",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-neotest/neotest-python"
+      },
+      config = function()
+        require("neotest").setup({
+          adapters = {
+            require("neotest-python"),
+          },
+        })
+        vim.keymap.set("n", "tt", function() require("neotest").run.run() end)
+        vim.keymap.set("n", "tf", function() require("neotest").run.run(vim.fn.expand("%")) end)
+        vim.keymap.set("n", "tp", function() require("neotest").output_panel.toggle() end)
+      end
     },
     {
       "mfussenegger/nvim-dap",
