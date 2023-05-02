@@ -114,13 +114,6 @@ vim.keymap.set(
   }
 )
 
-vim.keymap.set(
-  "i",
-  "<C-r>",
-  "<C-r><C-o>",
-  { noremap = true, desc = "Insert contents of named register. Inserts text literally, not as if you typed it." }
-)
-
 -- Search for visually selected text using '*' and '#'
 -- https://vim.fandom.com/wiki/Search_for_visually_selected_text#Simple
 vim.cmd([[
