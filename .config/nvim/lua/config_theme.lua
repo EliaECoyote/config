@@ -56,7 +56,7 @@ vim.opt.shortmess:append("I")
 
 -- Highlights end-of-line
 vim.opt.list = true
-vim.opt.listchars = { space = " ", tab = "->", eol = "¬" }
+vim.opt.listchars = { space = " ", tab = "▶ ", eol = "¬" }
 
 vim.g.markdown_fenced_languages = {
   "html",
