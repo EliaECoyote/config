@@ -42,8 +42,6 @@ require("lazy").setup({
         vim.g.user_emmet_leader_key = "<C-,>"
       end
     },
-    -- Loads editorconfig files
-    "editorconfig/editorconfig-vim",
     -- Makes gx cmd work for urls and files
     "stsewd/gx-extended.vim",
     -- LSP goodies
