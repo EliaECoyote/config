@@ -49,6 +49,7 @@ alias v="nvim"
 alias lazyconfig="lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 alias emacs="emacsclient --alternate-editor=''"
 alias cat="bat"
+alias sf="~/dev/superflash/venv/bin/python3 ~/dev/superflash/src/main.py"
 
 # }}}
 
