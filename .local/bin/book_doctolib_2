@@ -1,0 +1,17 @@
+#!/bin/bash
+
+CHECK_RESULT=$(curl 'https://www.doctolib.fr/availabilities.json?start_date=2021-11-01&visit_motive_ids=2541699&agenda_ids=442222-404407-233765-242241-408406&insurance_sector=public&practice_ids=163800&limit=3'\
+  -H 'sec-ch-ua: "Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"' \
+  -H 'accept: application/json' \
+  -H 'Referer: https://www.doctolib.fr/vaccination-covid-19/paris/centre-de-vaccination-paris-19eme' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36' \
+  -H 'content-type: application/json; charset=utf-8' \
+  --compressed)
+
+if echo $CHECK_RESULT | grep -E --quiet "no_availabilities.*831"; then
+  echo "`date +%Y/%m/%d_%H:%M:%S`:: No availabilities"
+else
+  echo "`date +%Y/%m/%d_%H:%M:%S`:: CHANGE"
+  echo "Free vaccination slot in Paris 19eme" | mailx -s "Doctolib Paris change" elia.camposilvan@gmail.com
+fi
