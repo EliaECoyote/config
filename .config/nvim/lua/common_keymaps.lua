@@ -146,7 +146,7 @@ vim.keymap.set(
 vim.keymap.set(
   "n",
   "<leader>l",
-  ":lua vim.pretty_print()<left>",
+  ":lua vim.print()<left>",
   {
     noremap = true,
     silent = false,

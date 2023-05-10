@@ -45,7 +45,7 @@ function utils_buffer.delete_buffer(bufnr, opts, delete_unmodified)
 
         -- Try using the previous listed buffer
         local ok, result = pcall(vim.cmd, "bprevious")
-        vim.pretty_print(result)
+        vim.print(result)
 
         -- If there's no other listed buffer, we would get E85.
         -- In that case, we want to create a new buffer instead.
