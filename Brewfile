@@ -43,6 +43,10 @@ brew "vifm"
 brew "bat"
 # Kubernetes CLI To Manage Your Clusters In Style
 brew "k9s"
+# Python version management
+brew "pyenv"
+# Pyenv plugin to manage virtualenv
+brew "pyenv-virtualenv"
 # Shell extension to jump to frequently used directories
 brew "autojump"
 # Keyboard customizer
