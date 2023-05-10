@@ -25,7 +25,6 @@ vim.g.loaded_netrwFileHandlers = 1
 
 require("common_keymaps")
 require("config_theme")
-require("config_folds")
 require("config_copy")
 require("config_search_and_replace")
 require("plugins")
