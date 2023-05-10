@@ -57,6 +57,9 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
+# Python settings
+export PYENV_ROOT="$HOME/.pyenv"
+
 # Golang settings
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
