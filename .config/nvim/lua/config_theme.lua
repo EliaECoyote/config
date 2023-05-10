@@ -32,6 +32,9 @@ vim.opt.wrap = true
 -- Disables hard-wrap
 vim.opt.textwidth = 0
 
+-- Unfold by default
+vim.opt.foldenable = false
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "gitcommit",
   callback = function()
