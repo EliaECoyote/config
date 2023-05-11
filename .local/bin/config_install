@@ -26,4 +26,7 @@ config config status.showUntrackedFiles no
 # Install packages from brewfile:
 #
 # brew bundle install
+#
+# Setup terminfo
+# https://github.com/alacritty/alacritty/blob/master/INSTALL.md#terminfo
 
