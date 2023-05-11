@@ -1,6 +1,7 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
+tap "homebrew/cask-fonts"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
 # GNU File, Shell, and Text utilities
@@ -43,10 +44,8 @@ brew "vifm"
 brew "bat"
 # Kubernetes CLI To Manage Your Clusters In Style
 brew "k9s"
-# Python version management
-brew "pyenv"
-# Pyenv plugin to manage virtualenv
-brew "pyenv-virtualenv"
+# The best font.
+brew "font-cousine-nerd-font"
 # Shell extension to jump to frequently used directories
 brew "autojump"
 # Keyboard customizer
