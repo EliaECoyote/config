@@ -40,7 +40,7 @@ local function bookmarks(opts)
     "~/.config/vifm/",
     "~/.local/bin/",
     "~/.github/",
-    "~/Dropbox/",
+    "~/Library/CloudStorage/Dropbox/",
     "~/dev/playground",
     "~/dev/EPIJudge",
   }
