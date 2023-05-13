@@ -44,10 +44,10 @@ brew "vifm"
 brew "bat"
 # Kubernetes CLI To Manage Your Clusters In Style
 brew "k9s"
-# The best font.
-brew "font-cousine-nerd-font"
 # Shell extension to jump to frequently used directories
 brew "autojump"
+# The best font.
+cask "font-cousine-nerd-font"
 # Keyboard customizer
 cask "karabiner-elements"
 # Window manager
