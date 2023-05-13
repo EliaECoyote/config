@@ -48,7 +48,8 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias v="nvim"
 alias lazyconfig="lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 alias emacs="emacsclient --alternate-editor=''"
-alias cat="bat"
+alias cat="bat --paging=never"
+alias bathelp='bat --plain --language=help'
 alias sf="~/dev/superflash/venv/bin/python3 ~/dev/superflash/src/main.py"
 
 # }}}
@@ -63,6 +64,10 @@ processes_listening_in_port() {
 # Prints the size of an element. Can be used with `folder_name\/*` syntax
 foldersize() {
   du -hcs "$1"
+}
+
+help() {
+  "$@" --help 2>&1 | bathelp
 }
 
 # https://wiki.vifm.info/index.php/How_to_set_shell_working_directory_after_leaving_Vifm
