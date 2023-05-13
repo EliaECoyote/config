@@ -42,6 +42,8 @@ brew "tmux"
 brew "vifm"
 # Clone of cat with syntax highlighting and Git integration
 brew "bat"
+# Simplified and community-driven man pages
+brew "tldr"
 # Kubernetes CLI To Manage Your Clusters In Style
 brew "k9s"
 # Shell extension to jump to frequently used directories
