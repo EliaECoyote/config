@@ -2,8 +2,8 @@
   email = 25326494+EliaECoyote@users.noreply.github.com
   name = EliaECoyote
 [url "git@github.com:"]
-	insteadOf = https://github.com/
-	insteadOf = git://github.com/
+  insteadOf = https://github.com/
+  insteadOf = git://github.com/
 [pull]
   ff = only
 [core]
@@ -37,8 +37,8 @@
 [rebase]
   autoStash = true
 [commit]
-	gpgsign = true
+  gpgsign = true
 [tag]
   forceSignAnnotated = true
 [gpg]
-	format = ssh
+  format = ssh
