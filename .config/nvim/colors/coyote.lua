@@ -1,5 +1,7 @@
 local utils_theme = require("lib.utils_theme")
 
+vim.g.colors_name = "coyote"
+
 -- See :h cterm-colors
 utils_theme.setup_theme(
   {
