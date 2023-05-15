@@ -13,6 +13,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+    -- Heuristically set buffer options
+    "tpope/vim-sleuth",
     -- Adds comments with `gc`
     "tpope/vim-commentary",
     -- Handy bracket mappings
