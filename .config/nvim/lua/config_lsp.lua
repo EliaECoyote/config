@@ -21,6 +21,16 @@ for _, lsp in ipairs(constants_lsp.LSP_SERVERS) do
     }
   end
 
+  if lsp == "gopls" then
+    config.settings = {
+      gopls = {
+        completeUnimported = true,
+        usePlaceholders = true,
+        analyses = { unusedparams = true },
+      }
+    }
+  end
+
   if lsp == "html" then
     config.filetypes = {
       "html", "aspnetcorerazor", "blade", "django-html", "edge", "ejs", "eruby",
