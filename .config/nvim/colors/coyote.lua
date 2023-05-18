@@ -36,6 +36,7 @@ utils_theme.setup_theme(
 local hi_overrides = {
   StatusLine = { fg = "White", bg = "Black" },
   MatchParen = { bg = "Magenta" },
+  Whitespace = { fg = "LightGrey" },
 }
 
 for name, value in pairs(hi_overrides) do
