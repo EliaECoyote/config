@@ -9,6 +9,8 @@ constants_lsp.LSP_SERVERS = {
   "lua_ls",
   "bashls",
   "jsonls",
+  "gopls",
+  "cmake",
 }
 
 return constants_lsp
