@@ -9,5 +9,9 @@ set commentary
 map F2 <Action>(RenameElement)
 
 map ]g <Action>(GotoNextError)
-map [g <Action>(GotoPrevError)
+map [g <Action>(GotoPreviousError)
+map ]c <Action>(VcsShowNextChangeMarker)
+map [c <Action>(VcsShowPreviousChangeMarker)
 map <C-f> <Action>(ReformatCode)
+map <leader>tt <Action>(RunClass)
+map <leader>fb <Action>(ActivateProjectToolWindow)
