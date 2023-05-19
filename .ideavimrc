@@ -1,0 +1,13 @@
+""" Plugins  --------------------------------
+set surround
+set commentary
+
+""" Common settings -------------------------
+
+""" Mappings --------------------------------
+" Tip: Enable "Track Action Ids" to identify actions.
+map F2 <Action>(RenameElement)
+
+map ]g <Action>(GotoNextError)
+map [g <Action>(GotoPrevError)
+map <C-f> <Action>(ReformatCode)
