@@ -175,13 +175,15 @@ require("lazy").setup({
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
         "nvim-neotest/neotest-python",
-        "nvim-neotest/neotest-go"
+        "nvim-neotest/neotest-go",
+        "nvim-neotest/neotest-jest",
       },
       config = function()
         require("neotest").setup({
           adapters = {
             require("neotest-python"),
             require("neotest-go"),
+            require("neotest-jest"),
           },
         })
         vim.keymap.set("n", "tt", function() require("neotest").run.run() end)
