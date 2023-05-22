@@ -31,7 +31,7 @@ local function bookmarks(opts)
     "~/.config/vifm/vifmrc", "~/.config/alacritty.yml",
     "~/.config/lazygit/config.yml", "~/.config/lazydocker/config.yml",
     "~/.config/karabiner/karabiner.json", "~/.gitconfig", "~/.gitignore",
-    "~/.shellrc", "~/.workrc", "~/.bashrc", "~/.zshrc",
+    "~/.shellrc", "~/.workrc", "~/.bashrc", "~/.zshrc", "~/.ideavimrc",
   }
   local folders = {
     "~/.config/nvim/",
