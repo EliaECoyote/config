@@ -24,7 +24,7 @@ font:
 
 colors:
   primary:
-    background: "#ffffff"
+    background: "#fcfcf2"
     foreground: "#000000"
   cursor:
     text: "#ffffff"
