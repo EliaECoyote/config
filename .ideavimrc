@@ -7,6 +7,11 @@ set cursorline
 set relativenumber
 set number
 
+set ignorecase
+set smartcase
+set incsearch
+
+
 """ Mappings --------------------------------
 " Tip: Enable "Track Action Ids" to identify actions.
 map F2 <Action>(RenameElement)
