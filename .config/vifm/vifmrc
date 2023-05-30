@@ -195,6 +195,9 @@ fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
           \*.as[fx]
          \ ffprobe -pretty %c 2>&1
 
+fileviewer <text/*>,<application/json>
+    \ bat --wrap never --pager never %c -p
+
 " Web
 filetype *.html,*.htm
        \ {Open in Safari}
