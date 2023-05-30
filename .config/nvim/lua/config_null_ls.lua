@@ -1,18 +1,15 @@
 local command_resolver = require("null-ls.helpers.command_resolver")
 local null_ls = require("null-ls")
 
-local resolve_from_node_modules = command_resolver.from_node_modules()
-local resolve_from_yarn_pnp = command_resolver.from_yarn_pnp()
 
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.prettier.with({
       timeout = 8000,
       dynamic_command = function(params)
-        return resolve_from_yarn_pnp(params)
-            or resolve_from_node_modules(params)
-            or vim.fn.executable(params.command) == 1
-            and params.command
+        return command_resolver.from_node_modules()(params)
+            or command_resolver.from_yarn_pnp()(params)
+            or vim.fn.executable(params.command) == 1 and params.command
       end,
       filetypes = {
         "javascript",
