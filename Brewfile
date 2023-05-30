@@ -48,6 +48,8 @@ brew "tldr"
 brew "k9s"
 # Shell extension to jump to frequently used directories
 brew "autojump"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
 # The best font.
 cask "font-cousine-nerd-font"
 # Keyboard customizer
