@@ -14,7 +14,7 @@ vim.opt.smartindent = true
 vim.api.nvim_command("filetype plugin indent on")
 
 -- Always display signcolumn with width 1
-vim.opt.signcolumn="yes:1"
+vim.opt.signcolumn = "yes:1"
 
 -- Use spaces instead of tabs
 vim.opt.tabstop = 2
@@ -39,6 +39,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "gitcommit",
   callback = function()
     vim.opt_local.textwidth = 72
+    vim.opt_local.colorcolumn = "+1"
   end,
   group = vim.api.nvim_create_augroup("CommitMsg", { clear = true }),
 })
@@ -59,7 +60,7 @@ vim.opt.shortmess:append("I")
 
 -- Highlights end-of-line
 vim.opt.list = true
-vim.opt.listchars = { space = " ", tab = "▶ ", eol = "¬" }
+vim.opt.listchars = { tab = "▶ ", trail = "•" }
 
 vim.g.markdown_fenced_languages = {
   "html",
