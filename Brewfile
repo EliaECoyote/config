@@ -6,18 +6,30 @@ tap "homebrew/cask-fonts"
 brew "bash"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# C code prettifier
+brew "gnu-indent"
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
+# GNU version of the tar archiving utility
+brew "gnu-tar"
+# Command-line option parsing utility
+brew "gnu-getopt"
+# GNU Transport Layer Security (TLS) Library
+brew "gnutls"
+# GNU compiler collection
+brew "gcc"
+# GNU Pretty Good Privacy (PGP) package
+brew "gnupg"
+# Play, record, convert, and stream audio and video
+brew "ffmpeg"
+# GIF image/animation creator/editor
+brew "gifsicle"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
-# GNU compiler collection
-brew "gcc"
-# GitHub command-line tool
-brew "gh"
 # Distributed revision control system
 brew "git"
-# GNU Pretty Good Privacy (PGP) package
-brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Kubernetes package manager
