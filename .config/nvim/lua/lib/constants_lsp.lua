@@ -11,6 +11,7 @@ constants_lsp.LSP_SERVERS = {
   "jsonls",
   "gopls",
   "cmake",
+  "terraformls",
 }
 
 return constants_lsp
