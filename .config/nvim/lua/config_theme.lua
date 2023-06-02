@@ -27,7 +27,7 @@ vim.opt.smartcase = true
 
 -- Enables text wrap
 vim.opt.linebreak = true
-vim.opt.wrap = true
+vim.opt.wrap = false
 
 -- Disables hard-wrap
 vim.opt.textwidth = 0
@@ -60,7 +60,7 @@ vim.opt.shortmess:append("I")
 
 -- Highlights end-of-line
 vim.opt.list = true
-vim.opt.listchars = { tab = "▶ ", trail = "•" }
+vim.opt.listchars = { tab = "▶ ", trail = "•", precedes = "<", extends = ">" }
 
 vim.g.markdown_fenced_languages = {
   "html",
