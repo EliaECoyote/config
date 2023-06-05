@@ -65,7 +65,7 @@ foldersize() {
   du -hcs "$1"
 }
 
-help() {
+h() {
   "$@" --help 2>&1 | bathelp
 }
 
