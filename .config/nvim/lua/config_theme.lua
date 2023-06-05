@@ -27,7 +27,7 @@ vim.opt.smartcase = true
 
 -- Enables text wrap
 vim.opt.linebreak = true
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 -- Disables hard-wrap
 vim.opt.textwidth = 0
