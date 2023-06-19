@@ -113,7 +113,7 @@ telescope.setup({
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("live_grep_args")
 
-vim.keymap.set("n", "<C-p>", function() builtin.find_files(themes.get_dropdown({ previewer = false })) end)
+vim.keymap.set("n", "<leader>p", function() builtin.find_files(themes.get_dropdown({ previewer = false })) end)
 vim.keymap.set("n", "<leader>o", builtin.buffers)
 vim.keymap.set("n", "<leader>ff", telescope.extensions.live_grep_args.live_grep_args)
 vim.keymap.set("n", "<leader>fo", builtin.oldfiles)
