@@ -278,6 +278,7 @@ function M.setup_theme(colors, status_colors)
     LspReferenceRead              = { link = "ReferenceRead" },
     LspReferenceWrite             = { link = "ReferenceWrite" },
     -- Treesitter highlights
+    ["@error"]                    = { link = "Error" },
     ["@preproc"]                  = { link = "PreProc" },
     ["@define"]                   = { link = "Define" },
     ["@string.special"]           = { link = "SpecialChar" },
