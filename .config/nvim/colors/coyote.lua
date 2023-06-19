@@ -37,6 +37,7 @@ local hi_overrides = {
   StatusLine = { fg = "White", bg = "Black" },
   MatchParen = { bg = "Magenta" },
   Whitespace = { fg = "LightGrey" },
+  ["@text.reference"] = { fg = "Cyan" }
 }
 
 for name, value in pairs(hi_overrides) do
