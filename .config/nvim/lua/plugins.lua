@@ -109,6 +109,7 @@ require("lazy").setup({
     },
     {
       "j-hui/fidget.nvim",
+      tag = "legacy",
       name = "fidget",
       opts = { text = { spinner = "dots" }, }
     },
