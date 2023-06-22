@@ -25,6 +25,7 @@ require("lazy").setup({
       init = function()
         vim.g.nremap = {
           ['yo<Esc>'] = '',
+          ['yo'] = '',
           ['>p'] = ''
         }
       end
