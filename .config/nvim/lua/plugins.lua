@@ -17,6 +17,8 @@ require("lazy").setup({
     "tpope/vim-sleuth",
     -- Adds comments with `gc`
     "tpope/vim-commentary",
+    -- Git wrapper
+    "tpope/vim-fugitive",
     -- Handy bracket mappings
     {
       "tpope/vim-unimpaired",
@@ -24,17 +26,6 @@ require("lazy").setup({
         vim.g.nremap = {
           ['yo<Esc>'] = '',
           ['>p'] = ''
-        }
-      end
-    },
-    -- Git wrapper
-    {
-      "tpope/vim-fugitive",
-      init = function()
-        -- Map keys to move between Gstatus files
-        vim.g.nremap = {
-          [")"] = "<Tab>",
-          ["("] = "<S-Tab>",
         }
       end
     },
