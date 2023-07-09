@@ -1,0 +1,6 @@
+[submodule ".config/doom/doom"]
+	path = .config/doom/doom
+	url = git@github.com:EliaECoyote/doom.git
+[submodule ".config/doom"]
+	path = .config/doom
+	url = git@github.com:EliaECoyote/doom.git
