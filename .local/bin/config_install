@@ -5,7 +5,10 @@
 git clone --bare git@github.com:EliaECoyote/config.git "$HOME/.config.git"
 
 # Define the alias in the current shell scope:
-alias config='/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+alias config="/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
+
+# Pull submodules
+git submodule update --init
 
 mkdir -p .config-backup
 
