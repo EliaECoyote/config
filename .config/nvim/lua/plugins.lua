@@ -188,35 +188,6 @@ require("lazy").setup({
       "mfussenegger/nvim-dap",
       config = function() require("config_dap") end
     },
-    {
-      "nvim-neorg/neorg",
-      run = ":Neorg sync-parsers",
-      build = ":Neorg sync-parsers",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      config = function()
-        require("neorg").setup {
-          load = {
-            ["core.defaults"] = {},
-            ["core.concealer"] = {},
-            ["core.export"] = {},
-            ["core.export.markdown"] = {},
-            ["core.summary"] = {},
-            ["core.dirman"] = {
-              config = {
-                workspaces = {
-                  root = "~/Library/CloudStorage/Dropbox/org",
-                  work = "~/Library/CloudStorage/Dropbox/org/work",
-                  notes = "~/Library/CloudStorage/Dropbox/org/notes",
-                },
-                index = "index.norg",
-                default_workspace = "root",
-              },
-            },
-          },
-        }
-        vim.keymap.set("n", "<leader>n", ":Neorg<cr>")
-      end,
-    },
   },
   {
     defaults = { lazy = false },
