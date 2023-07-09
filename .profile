@@ -8,6 +8,8 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 
+PATH="$HOME/.emacs.d/bin:$PATH"
+
 HOMEBREW_PREFIX="/opt/homebrew"
 export HOMEBREW_PREFIX
 
