@@ -1,3 +1,6 @@
 [submodule ".config/doom"]
 	path = .config/doom
 	url = git@github.com:EliaECoyote/doom.git
+[submodule ".config/nvim"]
+	path = .config/nvim
+	url = git@github.com:EliaECoyote/nvim.git
