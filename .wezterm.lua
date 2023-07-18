@@ -34,10 +34,10 @@ config.colors = {
     "silver",
   },
   brights = {
-    "grey",
+    "#666666",
     "red",
     "#00b800",
-    "yellow",
+    "#e5e500",
     "blue",
     "fuchsia",
     "#0087af",
