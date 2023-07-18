@@ -36,11 +36,11 @@ config.colors = {
   brights = {
     "grey",
     "red",
-    "lime",
+    "#00b800",
     "yellow",
     "blue",
     "fuchsia",
-    "aqua",
+    "#0087af",
     "white",
   },
 }
