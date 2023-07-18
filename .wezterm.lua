@@ -11,9 +11,6 @@ config.enable_tab_bar = false
 
 config.font = wezterm.font_with_fallback({
   "Inconsolata Nerd Font Mono",
-  -- "Cousine Nerd Font Mono",
-  -- "Mononoki Nerd Font Mono",
-  -- "SauceCodePro Nerd Font Mono",
   "Monaco",
 })
 config.font_size = 22
