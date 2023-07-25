@@ -13,8 +13,10 @@ config.font = wezterm.font_with_fallback({
   "FiraMono Nerd Font Mono",
   "Cousine Nerd Font Mono",
   "GoMono Nerd Font Mono",
-  "JetBrainsMono Nerd Font Mono",
+  "3270 Nerd Font Mono",
   "Monaco",
+  "JetBrainsMono Nerd Font Mono",
+  "Agave Nerd Font Mono",
 })
 config.font_size = 22
 
