@@ -19,7 +19,8 @@ window:
 
 font:
   normal:
-    family: Cousine Nerd Font Mono
+    family: FiraMono Nerd Font Mono
+    # family: Cousine Nerd Font Mono
   size: 17.0
 
 colors:
