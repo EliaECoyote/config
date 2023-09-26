@@ -89,4 +89,8 @@ if test -r "$HOME/.workrc"; then
   source "$HOME/.workrc"
 fi
 
+if test -r "$HOME/.cargo/env"; then
+  source "$HOME/.cargo/env"
+fi
+
 # }}}
