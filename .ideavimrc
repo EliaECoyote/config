@@ -15,13 +15,14 @@ set incsearch
 """ Mappings --------------------------------
 " Tip: Enable "Track Action Ids" to identify actions.
 map F2 <Action>(RenameElement)
-
+map gd <Action>(GotoDeclaration)
+map gr <Action>(FindUsages)
 map ]g <Action>(GotoNextError)
 map [g <Action>(GotoPreviousError)
 map ]c <Action>(VcsShowNextChangeMarker)
 map [c <Action>(VcsShowPrevChangeMarker)
 map <C-f> <Action>(ReformatCode)
-map <C-p> <Action>(GotoFile)
+map <leader> <Action>(GotoFile)
 map <leader>tt <Action>(RunClass)
 map <leader>fb <Action>(ActivateProjectToolWindow)
 map <leader>ff <Action>(FindInPath)
