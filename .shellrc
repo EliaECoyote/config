@@ -46,6 +46,7 @@ alias config="/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias v="nvim"
+alias k="kubectl"
 alias lazyconfig="lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 alias cat="bat --paging=never"
 alias bathelp='bat --plain --language=help'
