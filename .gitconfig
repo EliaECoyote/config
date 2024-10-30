@@ -33,11 +33,11 @@
 [rerere]
   enabled = true
 [merge]
-  tool = vimdiff
+  tool = fugitive
 [mergetool]
   prompt = true
-[mergetool "vimdiff"]
-  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[mergetool "fugitive"]
+  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 [rebase]
   autoStash = true
 [commit]
