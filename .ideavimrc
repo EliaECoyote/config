@@ -6,6 +6,7 @@ set commentary
 set cursorline
 set relativenumber
 set number
+set nowrap
 
 set ignorecase
 set smartcase
@@ -22,7 +23,7 @@ map [g <Action>(GotoPreviousError)
 map ]c <Action>(VcsShowNextChangeMarker)
 map [c <Action>(VcsShowPrevChangeMarker)
 map <C-f> <Action>(ReformatCode)
-map <leader> <Action>(GotoFile)
+map <C-t> <Action>(GotoFile)
 map <leader>tt <Action>(RunClass)
 map <leader>fb <Action>(ActivateProjectToolWindow)
 map <leader>ff <Action>(FindInPath)

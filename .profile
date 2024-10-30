@@ -68,3 +68,5 @@ export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 # cf. https://go.dev/blog/go116-module-changes
 export GO111MODULE=auto
+
+export TLDR_AUTO_UPDATE_DISABLED=true
