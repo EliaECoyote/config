@@ -10,6 +10,9 @@
   editor = nvim
   hooksPath = /usr/local/dd/global_hooks
   excludesfile = /Users/elia.camposilvan/.gitignore
+  # To improve perf in monorepos
+  fsmonitor = 
+  untrackedcache = true
 [alias]
   s = status
   d = diff
@@ -17,7 +20,7 @@
   p = pull
   c = commit
   cm = commit -m
-  logme = log --author 'Elia Camposilvan'
+  logme = log --perl-regexp --author='(Elia Camposilvan|EliaECoyote)'
   l = log --pretty=short --abbrev-commit
   a = add -p
   e = commit --allow-empty -m
