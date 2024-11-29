@@ -592,22 +592,6 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "6",
-                  "modifiers": {
-                    "mandatory": [
-                      "control"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "f6"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
                   "key_code": "7",
                   "modifiers": {
                     "mandatory": [
