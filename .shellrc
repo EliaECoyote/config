@@ -16,6 +16,12 @@ fi
 
 # }}}
 
+# Load brew env {{{
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# }}}
+
 # ls aliases {{{
 
 alias ll="ls -alFG"

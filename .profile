@@ -10,8 +10,14 @@ export GIT_EDITOR="$VISUAL"
 
 PATH="$HOME/.emacs.d/bin:$PATH"
 
-HOMEBREW_PREFIX="/opt/homebrew"
-export HOMEBREW_PREFIX
+export HOMEBREW_PREFIX="/opt/homebrew";
+
+# Add homebrew binaries to the path.
+export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
+
+# Force certain more-secure behaviours from homebrew
+export HOMEBREW_NO_INSECURE_REDIRECT=1
+export HOMEBREW_CASK_OPTS=--require-sha
 
 # Prefer GNU binaries over default binaries.
 export PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
@@ -37,16 +43,9 @@ export PATH="/usr/local/bin:$PATH"
 # Export local binaries
 export PATH="$HOME/.local/bin:$PATH"
 
-# Add homebrew binaries to the path.
-export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
-
 # Define user-config directory
 # cf. https://specifications.freedesktop.org/basedir-spec/basedir-spec-0.6.html
 export XDG_CONFIG_HOME="$HOME/.config"
-
-# Force certain more-secure behaviours from homebrew
-export HOMEBREW_NO_INSECURE_REDIRECT=1
-export HOMEBREW_CASK_OPTS=--require-sha
 
 # FZF settings
 export FZF_DEFAULT_COMMAND="fd --type f"
