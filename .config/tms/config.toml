@@ -1,0 +1,13 @@
+recursive_submodules = false
+
+[[search_dirs]]
+path = "/Users/elia.camposilvan/.config"
+depth = 1
+
+[[search_dirs]]
+path = "/Users/elia.camposilvan/go/src/github.com/DataDog"
+depth = 1
+
+[[search_dirs]]
+path = "/Users/elia.camposilvan/dev"
+depth = 1

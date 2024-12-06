@@ -58,6 +58,9 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
+# Set tmux-sessionizer config file path
+export TMS_CONFIG_FILE="$XDG_CONFIG_HOME/tms/config.toml"
+
 # Python settings
 export PYENV_ROOT="$HOME/.pyenv"
 
