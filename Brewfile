@@ -50,6 +50,8 @@ brew "pinentry-mac"
 brew "ripgrep"
 # Terminal multiplexer
 brew "tmux"
+# Tool for opening git repositories as tmux sessions
+brew "tmux-sessionizer"
 # Ncurses-based file manager with vi-like keybindings
 brew "vifm"
 # Clone of cat with syntax highlighting and Git integration
