@@ -10,8 +10,6 @@
 
 if test -r "$HOME/.env"; then
   export $(cat "$HOME/.env" | xargs)
-else
-  echo "⚠️  No env found!"
 fi
 
 # }}}
