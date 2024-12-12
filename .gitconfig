@@ -25,6 +25,7 @@
   a = add -p
   e = commit --allow-empty -m
   ch = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
+  pull-submodules = !git submodule update --init --recursive --remote
   review = "!git pull origin \"$1:$1\" && git checkout \"$1\" #"
   pretty-log = log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s'
   co-main = "!sh -c 'git checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')'"
