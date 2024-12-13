@@ -1,3 +1,7 @@
 ```sh
-curl -Lks https://raw.githubusercontent.com/EliaECoyote/config/main/.local/bin/config_install | /bin/bash
+# Setup ssh key.
+bash <(curl -fsSL https://raw.githubusercontent.com/EliaECoyote/config/refs/heads/master/.local/bin/setup_ssh_key)
+
+# Install config
+bash <(curl -fsSL https://raw.githubusercontent.com/EliaECoyote/config/refs/heads/master/.local/bin/config_install)
 ```
