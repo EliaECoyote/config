@@ -4,4 +4,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/EliaECoyote/config/refs/head
 
 # Install config
 bash <(curl -fsSL https://raw.githubusercontent.com/EliaECoyote/config/refs/heads/master/.local/bin/config_install)
+
+# Install binaries
+bin_install
 ```
