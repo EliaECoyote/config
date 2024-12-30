@@ -10,7 +10,11 @@ export GIT_EDITOR="$VISUAL"
 
 PATH="$HOME/.emacs.d/bin:$PATH"
 
-export HOMEBREW_PREFIX="/opt/homebrew";
+# Set cmd history size
+export HISTSIZE=1500
+export HISTFILESIZE=3000
+
+export HOMEBREW_PREFIX="/opt/homebrew"
 
 # Add homebrew binaries to the path.
 export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
