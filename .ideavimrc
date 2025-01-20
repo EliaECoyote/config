@@ -18,6 +18,7 @@ set incsearch
 map F2 <Action>(RenameElement)
 map gd <Action>(GotoDeclaration)
 map gr <Action>(FindUsages)
+map gi <Action>(GotoImplementation)
 map ]g <Action>(GotoNextError)
 map [g <Action>(GotoPreviousError)
 map ]c <Action>(VcsShowNextChangeMarker)
