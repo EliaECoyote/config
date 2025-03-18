@@ -54,6 +54,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # FZF settings
 export FZF_DEFAULT_COMMAND="fd --type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d"
 
 # Silence macos default shell warnings
 export BASH_SILENCE_DEPRECATION_WARNING=1
