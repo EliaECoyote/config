@@ -11,6 +11,24 @@
                 },
                 "rules": [
                     {
+                        "description": "left_control + W => delete prev word",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Map left_control to fn when used as modifier, escape when used alone",
                         "manipulators": [
                             {
@@ -39,14 +57,19 @@
                         ]
                     },
                     {
-                        "description": "left_control + delete => delete_forward",
+                        "description": "left_control + delete => delete prev word",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "delete_or_backspace",
                                     "modifiers": { "mandatory": ["left_control"] }
                                 },
-                                "to": [{ "key_code": "delete_forward" }],
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
