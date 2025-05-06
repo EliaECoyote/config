@@ -11,7 +11,30 @@
                 },
                 "rules": [
                     {
+                        "description": "Space + W → Option + Delete (using simultaneous)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "modifiers": { "optional": ["any"] },
+                                    "simultaneous": [
+                                        { "key_code": "spacebar" },
+                                        { "key_code": "w" }
+                                    ]
+                                },
+                                "parameters": { "basic.simultaneous_threshold_milliseconds": 500 },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "left_control + W => delete prev word",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -467,12 +490,22 @@
                     "ignore": false
                 },
                 {
+                    "disable_built_in_keyboard_if_exists": true,
                     "identifiers": {
                         "is_keyboard": true,
                         "product_id": 3379,
                         "vendor_id": 13364
                     },
                     "ignore": true
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": true,
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 3379,
+                        "vendor_id": 13364
+                    }
                 }
             ],
             "fn_function_keys": [
