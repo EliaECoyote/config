@@ -11,6 +11,32 @@
                 },
                 "rules": [
                     {
+                        "description": "Control + ] to Escape",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "close_bracket",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [{ "key_code": "escape" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Caps Lock to Control",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_control" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Space + W → Option + Delete (using simultaneous)",
                         "manipulators": [
                             {
@@ -53,6 +79,7 @@
                     },
                     {
                         "description": "Map left_control to fn when used as modifier, escape when used alone",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -67,6 +94,7 @@
                     },
                     {
                         "description": "Map caps_lock to left_control when used as modifier, escape when used alone",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -80,12 +108,12 @@
                         ]
                     },
                     {
-                        "description": "left_control + delete => delete prev word",
+                        "description": "control + delete => delete prev word",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "delete_or_backspace",
-                                    "modifiers": { "mandatory": ["left_control"] }
+                                    "modifiers": { "mandatory": ["control"] }
                                 },
                                 "to": [
                                     {
@@ -98,13 +126,13 @@
                         ]
                     },
                     {
-                        "description": "Vim-style arrows left_ctrl + hjkl",
+                        "description": "Vim-style arrows ctrl + hjkl",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
-                                        "mandatory": ["left_control"],
+                                        "mandatory": ["control"],
                                         "optional": ["any"]
                                     }
                                 },
@@ -115,7 +143,7 @@
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": {
-                                        "mandatory": ["left_control"],
+                                        "mandatory": ["control"],
                                         "optional": ["any"]
                                     }
                                 },
@@ -126,7 +154,7 @@
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
-                                        "mandatory": ["left_control"],
+                                        "mandatory": ["control"],
                                         "optional": ["any"]
                                     }
                                 },
@@ -137,7 +165,7 @@
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
-                                        "mandatory": ["left_control"],
+                                        "mandatory": ["control"],
                                         "optional": ["any"]
                                     }
                                 },
