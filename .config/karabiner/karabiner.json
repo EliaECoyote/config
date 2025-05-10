@@ -18,7 +18,7 @@
                                     "key_code": "spacebar",
                                     "modifiers": {
                                         "mandatory": ["control"],
-                                        "optional": ["any"]
+                                        "optional": []
                                     }
                                 },
                                 "to": [
