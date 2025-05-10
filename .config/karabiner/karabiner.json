@@ -11,6 +11,27 @@
                 },
                 "rules": [
                     {
+                        "description": "Control + Space = Option + Delete (delete previous word)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Control + ] to Escape",
                         "manipulators": [
                             {
@@ -38,6 +59,7 @@
                     },
                     {
                         "description": "Space + W → Option + Delete (using simultaneous)",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -48,25 +70,6 @@
                                     ]
                                 },
                                 "parameters": { "basic.simultaneous_threshold_milliseconds": 500 },
-                                "to": [
-                                    {
-                                        "key_code": "delete_or_backspace",
-                                        "modifiers": ["option"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "left_control + W => delete prev word",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "w",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
                                 "to": [
                                     {
                                         "key_code": "delete_or_backspace",
