@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+read -rp "Submodule name: " name
+read -rp "Submodule path: " path
+
+git config -f .gitmodules --remove-section "submodule.$name" 2>/dev/null || true
+git config --remove-section "submodule.$name" 2>/dev/null || true
+git rm --cached "$path"
+rm -rf "$path" ".git/modules/$path"
+
+echo "Removed submodule '$name'."

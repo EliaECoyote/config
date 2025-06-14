@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Check if the user provided an argument
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <path-to-tar.gz>"
+    exit 1
+fi
+
+# Get the file path from the argument
+TAR_FILE="$1"
+
+# Check if the file exists
+if [ ! -f "$TAR_FILE" ]; then
+    echo "Error: File '$TAR_FILE' not found!"
+    exit 1
+fi
+
+# Extract the archive using tar with --no-xattrs to ignore extended attributes
+/usr/bin/tar --no-xattrs -xvzf "$TAR_FILE"
+
+echo "Extraction complete."

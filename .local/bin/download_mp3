@@ -1,0 +1,8 @@
+#!/bin/bash
+
+read -rp "Folder -> " folder
+
+while true; do
+  read -rp "Song Link -> " song_url
+  yt-dlp -P "$HOME/Music/$folder" --extract-audio --audio-format mp3 --audio-quality 0 "$song_url"
+done

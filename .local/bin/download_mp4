@@ -1,0 +1,12 @@
+#!/bin/bash
+
+read -rp "Folder -> " folder
+
+while true; do
+  read -rp "Video Link -> " video_url
+  # The --format arg is used to download the best video available but no
+  # better than 480p, or the worst video if there is no video under 480p.
+  yt-dlp -P "$HOME/Movies/$folder" \
+    --format "bv*[height<=480]+ba/b[height<=480] / wv*+ba/w" \
+    "$video_url"
+done

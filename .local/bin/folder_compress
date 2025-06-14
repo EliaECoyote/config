@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Check if both arguments are provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <destination-tar.gz> <folder-to-compress>"
+    exit 1
+fi
+
+# Assign arguments to variables
+DEST_TAR_GZ="$1"
+SOURCE_FOLDER="$2"
+
+# Check if the source folder exists
+if [ ! -d "$SOURCE_FOLDER" ]; then
+    echo "Error: Folder '$SOURCE_FOLDER' not found!"
+    exit 1
+fi
+
+# Create parent directories for the destination file if needed
+DEST_DIR=$(dirname "$DEST_TAR_GZ")
+mkdir -p "$DEST_DIR"
+
+# Compress the folder into a tar.gz archive
+/usr/bin/tar -czf "$DEST_TAR_GZ" "$SOURCE_FOLDER"
+
+# Check if the compression was successful
+if [ $? -eq 0 ]; then
+    echo "Successfully compressed '$SOURCE_FOLDER' into '$DEST_TAR_GZ'"
+else
+    echo "Error: Failed to compress '$SOURCE_FOLDER'"
+    exit 1
+fi
