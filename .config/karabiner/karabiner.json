@@ -32,11 +32,11 @@
                         ]
                     },
                     {
-                        "description": "Control + ] to Escape",
+                        "description": "Control + [ to Escape",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "close_bracket",
+                                    "key_code": "open_bracket",
                                     "modifiers": { "mandatory": ["control"] }
                                 },
                                 "to": [{ "key_code": "escape" }],
