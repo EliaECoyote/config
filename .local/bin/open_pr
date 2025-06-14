@@ -1,7 +1,6 @@
 #!/bin/bash
 
-read -rp "Target branch (default: master) -> " target_branch
-target_branch="${target_branch:-master}"
+target_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
 
 # try the upstream branch if possible, otherwise origin will do
 upstream=$(git config --get remote.upstream.url)
