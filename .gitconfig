@@ -30,7 +30,6 @@
   pretty-log = log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s'
   co-main = "!sh -c 'git checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')'"
   main = "!sh -c 'git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/origin/@@\"'"
-  rm-submodule = config -f .gitmodules --remove-section submodule.
 [push]
   default = current
 [log]
