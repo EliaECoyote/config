@@ -1,4 +1,5 @@
 recursive_submodules = false
+bookmarks = ["/Users/elia.camposilvan/.config"]
 
 [[search_dirs]]
 path = "/Users/elia.camposilvan/.config"
