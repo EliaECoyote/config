@@ -1,7 +1,6 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
-tap "homebrew/cask-fonts"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
 # GNU File, Shell, and Text utilities
