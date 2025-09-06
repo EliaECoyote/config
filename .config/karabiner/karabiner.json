@@ -492,28 +492,12 @@
                     "manipulate_caps_lock_led": false,
                     "simple_modifications": [
                         {
-                            "from": { "key_code": "application" },
-                            "to": [{ "key_code": "down_arrow" }]
-                        },
-                        {
                             "from": { "key_code": "left_command" },
                             "to": [{ "key_code": "left_option" }]
                         },
                         {
                             "from": { "key_code": "left_option" },
                             "to": [{ "key_code": "left_command" }]
-                        },
-                        {
-                            "from": { "key_code": "right_control" },
-                            "to": [{ "key_code": "right_arrow" }]
-                        },
-                        {
-                            "from": { "key_code": "right_option" },
-                            "to": [{ "key_code": "left_arrow" }]
-                        },
-                        {
-                            "from": { "key_code": "right_shift" },
-                            "to": [{ "key_code": "up_arrow" }]
                         }
                     ]
                 },
