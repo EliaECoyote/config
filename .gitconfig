@@ -19,7 +19,7 @@
   o = push -u origin HEAD
   p = pull
   c = commit
-  cm = commit -m
+  ca = commit --amend
   logme = log --perl-regexp --author='(Elia Camposilvan|EliaECoyote)'
   l = log --pretty=short --abbrev-commit
   a = add -p
