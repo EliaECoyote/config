@@ -1,0 +1,43 @@
+#!/bin/bash
+
+read -rp "Enter the script to profile: " script_input
+
+# expand path including tilde
+script=$(eval echo "$script_input")
+script=$(realpath "$script" 2>/dev/null) || script="$script"
+
+[[ -f $script && -r $script ]] || { printf 'Error: not found or unreadable: %s\n' "$script" >&2; exit 1; }
+
+# run the target in a fresh bash and time each command
+exec bash --noprofile --norc -c '
+set -o pipefail
+set -o functrace
+shopt -s extdebug
+
+now_ns() { date +%s%N; }
+__ts=
+__cmd=
+
+print_prev() {
+  [[ -n $__cmd && -n $__ts ]] || return
+  local end=$(now_ns)
+  local ms=$(( (end - __ts) / 1000000 ))
+  if (( ms > 80 )); then
+    printf "\033[31m%d ms [%s:%d] -> %s\033[0m\n" "$ms" "${BASH_SOURCE[1]##*/}" "$BASH_LINENO" "$__cmd"
+  else
+    printf "%d ms [%s:%d] -> %s\n" "$ms" "${BASH_SOURCE[1]##*/}" "$BASH_LINENO" "$__cmd"
+  fi
+}
+
+debug_handler() {
+  print_prev
+  __ts=$(now_ns)
+  __cmd=$BASH_COMMAND
+}
+
+trap print_prev EXIT
+trap debug_handler DEBUG
+
+# source the target so control structures work, extdebug makes DEBUG trap fire for each command
+source "$1" || { printf "Error: failed to execute %s\\n" "$1" >&2; exit 1; }
+' _ "$script"
