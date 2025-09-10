@@ -22,6 +22,7 @@ else
 fi
 
 config config status.showUntrackedFiles no
+config config core.fsmonitor false
 
 # Setup terminfo
 # https://github.com/alacritty/alacritty/blob/master/INSTALL.md#terminfo
