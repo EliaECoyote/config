@@ -55,6 +55,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export FZF_DEFAULT_COMMAND="fd --type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d"
+export FZF_DEFAULT_OPTS='--bind=ctrl-p:up,ctrl-n:down,ctrl-y:accept,alt-p:previous-history,alt-n:next-history'
 
 # Silence macos default shell warnings
 export BASH_SILENCE_DEPRECATION_WARNING=1
