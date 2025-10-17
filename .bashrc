@@ -25,7 +25,6 @@ RED="0;31"
 BLUE="0;34"
 
 CWD="\w"
-GIT_BRANCH="\$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')"
 
-PS1="$(prompt_color $RED) $CWD $(prompt_color $BLACK)$GIT_BRANCH \$ \n $(prompt_color $BLUE)⇢ $(prompt_color $BLACK)"
+PS1="$(prompt_color $RED) $CWD $(prompt_color $BLACK)\$ \n $(prompt_color $BLUE)⇢ $(prompt_color $BLACK)"
 export PS1
