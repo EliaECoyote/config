@@ -8,6 +8,9 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GIT_EDITOR="$VISUAL"
 
+# Use vim for man
+export MANPAGER="nvim +Man!"
+
 PATH="$HOME/.emacs.d/bin:$PATH"
 
 # Set cmd history size
