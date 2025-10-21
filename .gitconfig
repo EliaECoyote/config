@@ -27,8 +27,8 @@
   pull-submodules = !git submodule update --init --recursive --remote
   review = "!git pull origin \"$1:$1\" && git checkout \"$1\" #"
   pretty-log = log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s'
-  co-main = "!sh -c 'git checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')'"
-  main = "!sh -c 'git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/origin/@@\"'"
+  co-master = "!sh -c 'git checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')'"
+  master = "!sh -c 'git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/origin/@@\"'"
 [push]
   default = current
 [log]
