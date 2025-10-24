@@ -26,3 +26,7 @@ config config core.fsmonitor false
 
 # Setup terminfo
 # https://github.com/alacritty/alacritty/blob/master/INSTALL.md#terminfo
+#
+# Disable cmd+^+D (dictionary keymap in macos)
+# https://apple.stackexchange.com/questions/22785/how-do-i-disable-the-command-control-d-word-definition-keyboard-shortcut-in-os-x
+# defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 70 '<dict><key>enabled</key><false/></dict>'
