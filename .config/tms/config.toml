@@ -1,6 +1,9 @@
 recursive_submodules = false
 bookmarks = ["/Users/elia.camposilvan/.config"]
 
+[shortcuts]
+"ctrl-y" = "confirm"
+
 [[search_dirs]]
 path = "/Users/elia.camposilvan/.config"
 depth = 1
