@@ -32,3 +32,4 @@ map gra <Action>(ShowIntentionActions)
 map <leader>tn <Action>(RunClass)
 map <leader>td <Action>(DebugClass)
 map <leader>tf <Action>(Run)
+imap <C-y> :action EditorChooseLookupItem<cr>
