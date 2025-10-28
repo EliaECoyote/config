@@ -32,6 +32,7 @@ end
 hs.hotkey.bind({ "ctrl", "cmd" }, "A", app("Alacritty"))
 hs.hotkey.bind({ "ctrl", "cmd" }, "D", app("Google Chrome"))
 hs.hotkey.bind({ "ctrl", "cmd" }, "I", app("IntelliJ IDEA Community Edition"))
+hs.hotkey.bind({ "ctrl", "cmd" }, "M", app("Anki"))
 hs.hotkey.bind(
   { "ctrl", "cmd" },
   "C",
