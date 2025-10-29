@@ -1,7 +1,6 @@
 #!/bin/bash
 
 BINARIES_STANDARD=(
-  "bash"
   "coreutils"
   "gnu-indent"
   "gnu-sed"
@@ -15,7 +14,6 @@ BINARIES_STANDARD=(
   "git"
   "helm"
   "jq"
-  "lazygit"
   "make"
   "neovim"
   "ripgrep"
