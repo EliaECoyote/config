@@ -1,55 +1,55 @@
 [user]
-  email = 25326494+EliaECoyote@users.noreply.github.com
-  name = EliaECoyote
+	email = 25326494+EliaECoyote@users.noreply.github.com
+	name = EliaECoyote
 [url "git@github.com:"]
-  insteadOf = https://github.com/
-  insteadOf = git://github.com/
+	insteadOf = https://github.com/
+	insteadOf = git://github.com/
 [pull]
-  ff = only
+	ff = only
 [core]
-  editor = nvim
-  hooksPath = /usr/local/dd/global_hooks
-  excludesfile = /Users/elia.camposilvan/.gitignore
-  # Enables the monitor daemon, which can speed up git commands that refresh the index such as git status 
-  fsmonitor = true
+	editor = nvim
+	excludesfile = /Users/elia.camposilvan/.gitignore
+	# Enables the monitor daemon, which can speed up git commands that refresh the index such as git status
+	fsmonitor = false
 [alias]
-  s = status
-  d = diff
-  o = push -u origin HEAD
-  p = pull
-  c = commit
-  ca = commit --amend
-  logme = log --perl-regexp --author='(Elia Camposilvan|EliaECoyote)'
-  l = log --pretty=short --abbrev-commit
-  a = add -p
-  e = commit --allow-empty -m
-  ch = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
-  pull-submodules = !git submodule update --init --recursive --remote
-  review = "!git pull origin \"$1:$1\" && git checkout \"$1\" #"
-  pretty-log = log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s'
-  co-master = "!sh -c 'git checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')'"
-  master = "!sh -c 'git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/origin/@@\"'"
+	s = status
+	d = diff
+	o = push -u origin HEAD
+	p = pull
+	c = commit
+	ca = commit --amend
+	logme = log --perl-regexp --author='(Elia Camposilvan|EliaECoyote)'
+	l = log --pretty=short --abbrev-commit
+	a = add -p
+	e = commit --allow-empty -m
+	ch = !git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout
+	pull-submodules = !git submodule update --init --recursive --remote
+	review = "!git pull origin \"$1:$1\" && git checkout \"$1\" #"
+	pretty-log = log --pretty='%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s'
+	co-master = "!sh -c 'git checkout $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')'"
+	master = "!sh -c 'git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/origin/@@\"'"
 [push]
-  default = current
+	default = current
 [log]
-  follow = true
+	follow = true
 [rerere]
-  enabled = true
+	enabled = true
 [mergetool]
-  prompt = true
+	prompt = true
 [rebase]
-  autoStash = true
+	autoStash = true
 [commit]
-  gpgsign = true
+	gpgsign = true
 [tag]
-  forceSignAnnotated = true
+	forceSignAnnotated = true
 [gpg]
-  format = ssh
+	format = ssh
 [feature]
-  # Enables several features that speed up git status and git checkout.
-  # https://git-scm.com/docs/git-config#Documentation/git-config.txt-featuremanyFiles
-  manyFiles = true
+	# Enables several features that speed up git status and git checkout.
+	# https://git-scm.com/docs/git-config#Documentation/git-config.txt-featuremanyFiles
+	manyFiles = true
 [merge]
-  tool = fugitive
+	tool = fugitive
+	conflictStyle = zdiff3
 [mergetool "fugitive"]
-  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+	cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
