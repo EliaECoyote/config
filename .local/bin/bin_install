@@ -1,144 +1,154 @@
 #!/bin/bash
 
 BINARIES_STANDARD=(
-    "bash"
-    "coreutils"
-    "gnu-indent"
-    "gnu-sed"
-    "gnu-tar"
-    "gnu-getopt"
-    "gcc"
-    "gnupg"
-    "ffmpeg"
-    "gifsicle"
-    "fzf"
-    "git"
-    "helm"
-    "jq"
-    "lazygit"
-    "make"
-    "neovim"
-    "ripgrep"
-    "tmux"
-    "tmux-sessionizer"
-    "vifm"
-    "bat"
-    "tldr"
-    "k9s"
-    "autojump"
-    "poppler"
+  "bash"
+  "coreutils"
+  "gnu-indent"
+  "gnu-sed"
+  "gnu-tar"
+  "gnu-getopt"
+  "gcc"
+  "gnupg"
+  "ffmpeg"
+  "gifsicle"
+  "fzf"
+  "git"
+  "helm"
+  "jq"
+  "lazygit"
+  "make"
+  "neovim"
+  "ripgrep"
+  "tmux"
+  "tmux-sessionizer"
+  "vifm"
+  "bat"
+  "tldr"
+  "k9s"
+  "autojump"
+  "poppler"
 )
 
 # Binaries with package manager-specific names
 # Format: "binary_name:brew:brew_name apt-get:apt_get_name pkg:pkg_name"
 BINARIES_PER_PACKAGE_MANAGER=(
-    "fd:brew:fd apt-get:fd-find pkg:fd-find"
-    "gnutls:brew:gnutls apt-get:gnutls-bin pkg:gnutls-bin"
-    "go:brew:go apt-get:golang pkg:golang"
-    "pinentry-mac:brew:pinentry-mac"
+  "fd:brew:fd apt-get:fd-find pkg:fd-find"
+  "gnutls:brew:gnutls apt-get:gnutls-bin pkg:gnutls-bin"
+  "go:brew:go apt-get:golang pkg:golang"
+  "pinentry-mac:brew:pinentry-mac"
 )
 
-BREW_CASKS=("karabiner-elements" "tiles")
+BREW_CASKS=(
+  "karabiner-elements"
+  "tiles"
+  "monitorcontrol"
+  "anki"
+  "finicky"
+  "font-fira-mono-nerd-font"
+  "hammerspoon"
+  "karabiner-elements"
+  "raycast"
+  "vlc"
+)
 
 detect_package_manager() {
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        echo "brew"
-    elif [[ -f "/data/data/com.termux/files/usr/bin/pkg" ]]; then
-        echo "pkg"
-    elif [[ -f "/etc/lsb-release" || -f "/etc/debian_version" ]]; then
-        echo "apt-get"
-    else
-        echo "Unsupported OS"
-        exit 1
-    fi
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "brew"
+  elif [[ -f "/data/data/com.termux/files/usr/bin/pkg" ]]; then
+    echo "pkg"
+  elif [[ -f "/etc/lsb-release" || -f "/etc/debian_version" ]]; then
+    echo "apt-get"
+  else
+    echo "Unsupported OS"
+    exit 1
+  fi
 }
 
 get_binary_name_from_overrides() {
-    local binary="$1"
-    local package_manager="$2"
+  local binary="$1"
+  local package_manager="$2"
 
-    for override in "${BINARIES_PER_PACKAGE_MANAGER[@]}"; do
-        key="${override%%:*}"          # Extract binary name (key)
-        pm_and_values="${override#*:}" # Extract package manager and values
+  for override in "${BINARIES_PER_PACKAGE_MANAGER[@]}"; do
+    key="${override%%:*}"          # Extract binary name (key)
+    pm_and_values="${override#*:}" # Extract package manager and values
 
-        if [[ "$binary" == "$key" ]]; then
-            # Search for a match with the package manager
-            if [[ "$pm_and_values" =~ $package_manager:([^[:space:]]+) ]]; then
-                echo "${BASH_REMATCH[1]}" # Return overridden value
-                return
-            fi
-        fi
-    done
+    if [[ "$binary" == "$key" ]]; then
+      # Search for a match with the package manager
+      if [[ "$pm_and_values" =~ $package_manager:([^[:space:]]+) ]]; then
+        echo "${BASH_REMATCH[1]}" # Return overridden value
+        return
+      fi
+    fi
+  done
 
-    echo ""
+  echo ""
 }
 
 install_binaries() {
-    local package_manager="$1"
-    echo "Using package manager: $package_manager"
+  local package_manager="$1"
+  echo "Using package manager: $package_manager"
 
-    for binary in "${BINARIES_STANDARD[@]}"; do
-        echo "Installing $binary..."
-        case $package_manager in
-            brew)
-                brew install "$binary"
-                ;;
-            apt-get)
-                sudo apt-get install -y "$binary"
-                ;;
-            pkg)
-                pkg install -y "$binary"
-                ;;
-        esac
-    done
+  for binary in "${BINARIES_STANDARD[@]}"; do
+    echo "Installing $binary..."
+    case $package_manager in
+    brew)
+      brew install "$binary"
+      ;;
+    apt-get)
+      sudo apt-get install -y "$binary"
+      ;;
+    pkg)
+      pkg install -y "$binary"
+      ;;
+    esac
+  done
 
-    for override in "${BINARIES_PER_PACKAGE_MANAGER[@]}"; do
-        binary="${override%%:*}"
-        binary_name=$(get_binary_name_from_overrides "$binary" "$package_manager")
-        if [[ -n "$binary_name" ]]; then
-            echo "Installing $binary_name ($binary)..."
-            case $package_manager in
-                brew)
-                    brew install "$binary_name"
-                    ;;
-                apt-get)
-                    sudo apt-get install -y "$binary_name"
-                    ;;
-                pkg)
-                    pkg install -y "$binary_name"
-                    ;;
-            esac
-        fi
-    done
+  for override in "${BINARIES_PER_PACKAGE_MANAGER[@]}"; do
+    binary="${override%%:*}"
+    binary_name=$(get_binary_name_from_overrides "$binary" "$package_manager")
+    if [[ -n "$binary_name" ]]; then
+      echo "Installing $binary_name ($binary)..."
+      case $package_manager in
+      brew)
+        brew install "$binary_name"
+        ;;
+      apt-get)
+        sudo apt-get install -y "$binary_name"
+        ;;
+      pkg)
+        pkg install -y "$binary_name"
+        ;;
+      esac
+    fi
+  done
 }
 
 install_brew_casks() {
-    for cask in "${BREW_CASKS[@]}"; do
-        echo "Installing cask $cask..."
-        brew install --cask "$cask"
-    done
+  for cask in "${BREW_CASKS[@]}"; do
+    echo "Installing cask $cask..."
+    brew install --cask "$cask"
+  done
 }
 
 # Main logic
 package_manager=$(detect_package_manager)
 
 case $package_manager in
-    apt-get)
-        echo "Updating package lists for apt-get..."
-        sudo apt-get update
-        ;;
-    pkg)
-        echo "Updating package lists for pkg..."
-        pkg update -y
-        ;;
-    brew)
-        echo "Updating package lists for brew..."
-        brew update
-        ;;
+apt-get)
+  echo "Updating package lists for apt-get..."
+  sudo apt-get update
+  ;;
+pkg)
+  echo "Updating package lists for pkg..."
+  pkg update -y
+  ;;
+brew)
+  echo "Updating package lists for brew..."
+  brew update
+  ;;
 esac
 
 install_binaries "$package_manager"
 if [[ "$package_manager" == "brew" ]]; then
-    install_brew_casks
+  install_brew_casks
 fi
-
