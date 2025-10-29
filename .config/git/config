@@ -8,6 +8,7 @@
 	ff = only
 [core]
 	editor = nvim
+	hooksPath = /usr/local/dd/global_hooks
 	excludesfile = /Users/elia.camposilvan/.gitignore
 	# Enables the monitor daemon, which can speed up git commands that refresh the index such as git status
 	fsmonitor = false
