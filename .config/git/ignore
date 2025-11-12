@@ -1,3 +1,4 @@
-.config.git
-.claude
+.config.git/
+.claude/
 .env
+.DS_Store
