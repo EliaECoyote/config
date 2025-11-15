@@ -11,16 +11,70 @@
                 },
                 "rules": [
                     {
-                        "description": "Spacebar to Option if held, space if tapped",
-                        "enabled": false,
+                        "description": "Ctrl+Arrow → Option+Arrow for word navigation",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "spacebar",
-                                    "modifiers": { "optional": ["any"] }
+                                    "key_code": "left_arrow",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
                                 },
-                                "to": [{ "key_code": "left_option" }],
-                                "to_if_alone": [{ "key_code": "spacebar" }],
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "right_arrow",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "left_arrow",
+                                    "modifiers": {
+                                        "mandatory": ["control", "shift"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["option", "shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "right_arrow",
+                                    "modifiers": {
+                                        "mandatory": ["control", "shift"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["option", "shift"]
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -68,59 +122,6 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [{ "key_code": "left_control" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Space + W → Option + Delete (using simultaneous)",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "modifiers": { "optional": ["any"] },
-                                    "simultaneous": [
-                                        { "key_code": "spacebar" },
-                                        { "key_code": "w" }
-                                    ]
-                                },
-                                "parameters": { "basic.simultaneous_threshold_milliseconds": 500 },
-                                "to": [
-                                    {
-                                        "key_code": "delete_or_backspace",
-                                        "modifiers": ["option"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Map left_control to fn when used as modifier, escape when used alone",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "left_control",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "fn" }],
-                                "to_if_alone": [{ "key_code": "escape" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Map caps_lock to left_control when used as modifier, escape when used alone",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "caps_lock",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "left_control" }],
-                                "to_if_alone": [{ "key_code": "escape" }],
                                 "type": "basic"
                             }
                         ]
@@ -483,7 +484,6 @@
                     ]
                 },
                 {
-                    "disable_built_in_keyboard_if_exists": true,
                     "identifiers": {
                         "is_keyboard": true,
                         "product_id": 2311,
@@ -500,15 +500,6 @@
                             "to": [{ "key_code": "left_command" }]
                         }
                     ]
-                },
-                {
-                    "disable_built_in_keyboard_if_exists": true,
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "is_pointing_device": true,
-                        "product_id": 2311,
-                        "vendor_id": 7847
-                    }
                 },
                 {
                     "identifiers": {
