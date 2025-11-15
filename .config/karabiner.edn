@@ -1,0 +1,85 @@
+; Refer to https://github.com/yqrashawn/GokuRakuJoudo/blob/master/tutorial.md
+; See example at https://gist.github.com/gsinclair/f4ab34da53034374eb6164698a0a8ace
+; Run `gokuw` to regenerate karabiner.json config automatically.
+{
+  :devices {
+     :builtin-keyboard [{:product_id 834 :vendor_id 1452}]
+  }
+
+  :simlayers {
+    :f-layer {:key :f :condi [:builtin-keyboard]}
+  }
+
+  :main [
+     {:des "[global] defaults"
+      :rules [
+         [:##caps_lock       :left_control]
+         [:##escape          :grave_accent_and_tilde]
+         [:##left_control    :fn]
+         [:!STleft_arrow     :!SOleft_arrow]
+         [:!STright_arrow    :!SOright_arrow]
+         [:!STup_arrow       :!SOup_arrow]
+         [:!STdown_arrow     :!SOdown_arrow]
+         [:!Topen_bracket    :escape]
+      ]}
+
+     {:des "[builtin-keyboard] fn+number → f keys"
+      :rules [:builtin-keyboard
+         [:!F1           :display_brightness_decrement]
+         [:!F2           :display_brightness_increment]
+         [:!F3           :mission_control]
+         [:!F4           :launchpad]
+         [:!F7           :rewind]
+         [:!F8           :play_or_pause]
+         [:!F9           :fast_forward]
+         [:!F0           :mute]
+         [:!Fhyphen      :volume_decrement]
+         [:!Fequal_sign  :volume_increment]
+      ]}
+
+     {:des "[builtin-keyboard] f keys → system functions"
+      :rules [:builtin-keyboard
+         [:f1                :display_brightness_decrement]
+         [:f2                :display_brightness_increment]
+         [:f3                :mission_control]
+         [:f4                :launchpad]
+         [:f7                :rewind]
+         [:f8                :play_or_pause]
+         [:f9                :fast_forward]
+         [:f10               :mute]
+         [:f11               :volume_decrement]
+         [:f12               :volume_increment]
+      ]}
+
+
+     {:des "[builtin-keyboard] f-layer"
+      :rules [:f-layer
+        [:h                      :left_arrow]
+        [:j                      :down_arrow]
+        [:k                      :up_arrow]
+        [:l                      :right_arrow]
+        [:!Th                    :!Oleft_arrow]
+        [:!Tj                    :!Odown_arrow]
+        [:!Tk                    :!Oup_arrow]
+        [:!Tl                    :!Oright_arrow]
+        [:!STh                   :!SOleft_arrow]
+        [:!STj                   :!SOdown_arrow]
+        [:!STk                   :!SOup_arrow]
+        [:!STl                   :!SOright_arrow]
+        [:##spacebar             :!Odelete_or_backspace]
+        [:grave_accent_and_tilde :escape]
+        [:1                      :f1]
+        [:2                      :f2]
+        [:3                      :f3]
+        [:4                      :f4]
+        [:5                      :f5]
+        [:6                      :f6]
+        [:7                      :f7]
+        [:8                      :f8]
+        [:9                      :f9]
+        [:0                      :f10]
+        [:hyphen                 :f11]
+        [:equal_sign             :f12]
+      ]}
+  ]
+}
