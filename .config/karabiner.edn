@@ -2,8 +2,29 @@
 ; See example at https://gist.github.com/gsinclair/f4ab34da53034374eb6164698a0a8ace
 ; Run `gokuw` to regenerate karabiner.json config automatically.
 {
+  ; :profiles {:Default {:default true
+  ;     ;; simultaneous key press threshold
+  ;     ;; simlayer is implemented with to_if_alone and simultaneous key press feature
+  ;     :sim     250
+  ;     ;; to_delayed_action_delay_milliseconds
+  ;     ;; checkout karabiner's documentation
+  ;     ;; https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/to-delayed-action/
+  ;     ;; basically it means time after which the key press is count delayed
+  ;     :delay   500
+  ;     ;; https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/to-if-alone/
+  ;     ;; to_if_alone_timeout_milliseconds
+  ;     ;; affects to_if_alone behavior
+  ;     ;; simlayer is implemented with to_if_alone and simultaneous key press feature
+  ;     :alone   1000
+  ;     ;; to_if_held_down_threshold_milliseconds
+  ;     ;; check the doc, I don't know what does this mean.
+  ;     ;; maybe press this many milliseconds counts a "held" ?
+  ;     :sim    2000
+  ; }}
+
   :devices {
-     :builtin-keyboard [{:product_id 834 :vendor_id 1452}]
+    :builtin-keyboard [{:product_id 834 :vendor_id 1452}]
+    :keychron [{:product_id 13364 :vendor_id 3379}]
   }
 
   :simlayers {
@@ -13,15 +34,29 @@
   :main [
      {:des "[global] defaults"
       :rules [
-         [:##caps_lock       :left_control]
-         [:##escape          :grave_accent_and_tilde]
-         [:##left_control    :fn]
          [:!STleft_arrow     :!SOleft_arrow]
          [:!STright_arrow    :!SOright_arrow]
          [:!STup_arrow       :!SOup_arrow]
          [:!STdown_arrow     :!SOdown_arrow]
+         [:!Tleft_arrow      :!Oleft_arrow]
+         [:!Tright_arrow     :!Oright_arrow]
+         [:!Tup_arrow        :!Oup_arrow]
+         [:!Tdown_arrow      :!Odown_arrow]
          [:!Topen_bracket    :escape]
       ]}
+
+     {:des "[builtin-keyboard] defaults"
+      :rules [:builtin-keyboard
+         [:##caps_lock       :left_control]
+         [:##escape          :grave_accent_and_tilde]
+         [:##left_control    :fn]
+      ]}
+
+     ; This sucks
+     ; {:des "[builtin-keyboard] S as shift when held"
+     ;  :rules [:builtin-keyboard
+     ;     [:s :left_shift nil {:alone :s}]
+     ;  ]}
 
      {:des "[builtin-keyboard] fn+number → f keys"
       :rules [:builtin-keyboard
