@@ -52,12 +52,6 @@
          [:##left_control    :fn]
       ]}
 
-     ; This sucks
-     ; {:des "[builtin-keyboard] S as shift when held"
-     ;  :rules [:builtin-keyboard
-     ;     [:s :left_shift nil {:alone :s}]
-     ;  ]}
-
      {:des "[builtin-keyboard] fn+number → f keys"
       :rules [:builtin-keyboard
          [:!F1           :display_brightness_decrement]
@@ -89,6 +83,7 @@
 
      {:des "[builtin-keyboard] f-layer"
       :rules [:f-layer
+        [:s                      :left_shift]
         [:h                      :left_arrow]
         [:j                      :down_arrow]
         [:k                      :up_arrow]
