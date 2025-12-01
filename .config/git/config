@@ -51,5 +51,7 @@
 [merge]
 	tool = fugitive
 	conflictStyle = zdiff3
+[diff]
+	algorithm = histogram
 [mergetool "fugitive"]
 	cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
