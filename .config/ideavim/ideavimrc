@@ -20,6 +20,8 @@ map grr <Action>(GotoDeclaration)
 map gri <Action>(GotoImplementation)
 map ]g <Action>(GotoNextError)
 map [g <Action>(GotoPreviousError)
+map ]b :bnext<cr>
+map [b :bprev<cr>
 map ]c <Action>(VcsShowNextChangeMarker)
 map [c <Action>(VcsShowPrevChangeMarker)
 map <C-f> <Action>(ReformatCode)
