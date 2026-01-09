@@ -124,7 +124,7 @@
         [:##semicolon   :!Sright_arrow]
       ]}
 
-     {:des "[builtin-keyboard] colemak"
+     {:des "[builtin-keyboard] colemak DH"
       :rules [[:condi :builtin-keyboard :epomaker-SK61]
         [:##e           :f]
         [:##r           :p]

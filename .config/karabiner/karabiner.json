@@ -1865,7 +1865,7 @@
           }
         } ]
       }, {
-        "description" : "[builtin-keyboard] colemak",
+        "description" : "[builtin-keyboard] colemak DH",
         "manipulators" : [ {
           "from" : {
             "key_code" : "e",
