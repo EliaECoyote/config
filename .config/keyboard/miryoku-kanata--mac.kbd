@@ -1,0 +1,102 @@
+;; Miryoku Kanata Configuration
+;;
+;; Alpha Layout: Colemak Mod-DH
+;; Navigation: Standard navigation (arrows on NEIO)
+;; Layers: Standard
+;; Platform: macOS
+;;
+;; Generated from Miryoku specification
+;; https://github.com/manna-harbour/miryoku
+
+(defcfg
+  process-unmapped-keys yes
+  block-unmapped-keys yes
+)
+
+;; Source: 36-key layout (ergonomic split, bottom row as thumbs)
+(defsrc
+  1 2 3 4 5   8 9 0 - =
+  q w e r t   i o p [ ]
+  caps a s d f   k l ; ' ent
+      c v b   m , .
+)
+
+;; Base Layer - Colemak Mod-DH with home row mods
+(deflayer U_BASE
+q	w	f	p	b	j	l	u	y	'
+(tap-hold-release 200 200 a met)	(tap-hold-release 200 200 r alt)	(tap-hold-release 200 200 s ctl)	(tap-hold-release 200 200 t sft)	g	m	(tap-hold-release 200 200 n sft)	(tap-hold-release 200 200 e ctl)	(tap-hold-release 200 200 i alt)	(tap-hold-release 200 200 o met)
+(tap-hold-release 200 200 z (layer-toggle U_BUTTON))	(tap-hold-release 200 200 x ralt)	c	d	v	k	h	,	(tap-hold-release 200 200 . ralt)	(tap-hold-release 200 200 / (layer-toggle U_BUTTON))
+		(tap-hold-release 200 200 esc (layer-toggle U_MEDIA))	(tap-hold-release 200 200 spc (layer-toggle U_NAV))	(tap-hold-release 200 200 tab (layer-toggle U_MOUSE))	(tap-hold-release 200 200 ent (layer-toggle U_SYM))	(tap-hold-release 200 200 bspc (layer-toggle U_NUM))	(tap-hold-release 200 200 del (layer-toggle U_FUN))
+)
+
+;; Extra Layer - QWERTY alternative (switchable via tap-dance)
+(deflayer U_EXTRA
+q	w	e	r	t	y	u	i	o	p
+(tap-hold-release 200 200 a met)	(tap-hold-release 200 200 s alt)	(tap-hold-release 200 200 d ctl)	(tap-hold-release 200 200 f sft)	g	h	(tap-hold-release 200 200 j sft)	(tap-hold-release 200 200 k ctl)	(tap-hold-release 200 200 l alt)	(tap-hold-release 200 200 ' met)
+(tap-hold-release 200 200 z (layer-toggle U_BUTTON))	(tap-hold-release 200 200 x ralt)	c	v	b	n	m	,	(tap-hold-release 200 200 . ralt)	(tap-hold-release 200 200 / (layer-toggle U_BUTTON))
+		(tap-hold-release 200 200 esc (layer-toggle U_MEDIA))	(tap-hold-release 200 200 spc (layer-toggle U_NAV))	(tap-hold-release 200 200 tab (layer-toggle U_MOUSE))	(tap-hold-release 200 200 ent (layer-toggle U_SYM))	(tap-hold-release 200 200 bspc (layer-toggle U_NUM))	(tap-hold-release 200 200 del (layer-toggle U_FUN))
+)
+
+;; Tap Layer - No dual-function keys
+(deflayer U_TAP
+q	w	f	p	b	j	l	u	y	'
+a	r	s	t	g	m	n	e	i	o
+z	x	c	d	v	k	h	,	.	/
+		esc	spc	tab	ent	bspc	del
+)
+
+;; Navigation Layer
+(deflayer U_NAV
+XX	(tap-dance 200 (XX (layer-switch U_TAP)))	(tap-dance 200 (XX (layer-switch U_EXTRA)))	(tap-dance 200 (XX (layer-switch U_BASE)))	XX	M-S-z	M-v	M-c	M-x	M-z
+met	alt	ctl	sft	XX	caps	left	down	up	right
+XX	ralt	(tap-dance 200 (XX (layer-switch U_NUM)))	(tap-dance 200 (XX (layer-switch U_NAV)))	XX	ins	home	pgdn	pgup	end
+		XX	XX	XX	ent	bspc	del
+)
+
+;; Mouse Layer
+(deflayer U_MOUSE
+XX	(tap-dance 200 (XX (layer-switch U_TAP)))	(tap-dance 200 (XX (layer-switch U_EXTRA)))	(tap-dance 200 (XX (layer-switch U_BASE)))	XX	M-S-z	M-v	M-c	M-x	M-z
+met	alt	ctl	sft	XX	XX	(movemouse-left 5 1)	(movemouse-down 5 1)	(movemouse-up 5 1)	(movemouse-right 5 1)
+XX	ralt	(tap-dance 200 (XX (layer-switch U_SYM)))	(tap-dance 200 (XX (layer-switch U_MOUSE)))	XX	XX	XX	XX	XX	XX
+		XX	XX	XX	mrgt	mlft	mmid
+)
+
+;; Button Layer
+(deflayer U_BUTTON
+M-z	M-x	M-c	M-v	M-S-z	M-S-z	M-v	M-c	M-x	M-z
+met	alt	ctl	sft	XX	XX	sft	ctl	alt	met
+M-z	M-x	M-c	M-v	M-z	M-z	M-v	M-c	M-x	M-z
+		mmid	mlft	mrgt	mrgt	mlft	mmid
+)
+
+;; Media Layer
+(deflayer U_MEDIA
+XX	(tap-dance 200 (XX (layer-switch U_TAP)))	(tap-dance 200 (XX (layer-switch U_EXTRA)))	(tap-dance 200 (XX (layer-switch U_BASE)))	XX	XX	XX	XX	XX	XX
+met	alt	ctl	sft	XX	XX	prev	vold	volu	next
+XX	ralt	(tap-dance 200 (XX (layer-switch U_FUN)))	(tap-dance 200 (XX (layer-switch U_MEDIA)))	XX	XX	XX	XX	XX	XX
+		XX	XX	XX	XX	pp	mute
+)
+
+;; Number Layer
+(deflayer U_NUM
+[	7	8	9	]	XX	(tap-dance 200 (XX (layer-switch U_BASE)))	(tap-dance 200 (XX (layer-switch U_EXTRA)))	(tap-dance 200 (XX (layer-switch U_TAP)))	XX
+;	4	5	6	=	XX	sft	ctl	alt	met
+`	1	2	3	\	XX	(tap-dance 200 (XX (layer-switch U_NUM)))	(tap-dance 200 (XX (layer-switch U_NAV)))	ralt	XX
+		.	0	-	XX	XX	XX
+)
+
+;; Symbol Layer
+(deflayer U_SYM
+S-{	S-7	S-8	S-9	S-}	XX	(tap-dance 200 (XX (layer-switch U_BASE)))	(tap-dance 200 (XX (layer-switch U_EXTRA)))	(tap-dance 200 (XX (layer-switch U_TAP)))	XX
+S-scln	S-4	S-5	S-6	S-eql	XX	sft	ctl	alt	met
+S-grv	S-1	S-2	S-3	S-\	XX	(tap-dance 200 (XX (layer-switch U_SYM)))	(tap-dance 200 (XX (layer-switch U_MOUSE)))	ralt	XX
+		S-9	S-0	S-min	XX	XX	XX
+)
+
+;; Function Layer
+(deflayer U_FUN
+f12	f7	f8	f9	102d	XX	(tap-dance 200 (XX (layer-switch U_BASE)))	(tap-dance 200 (XX (layer-switch U_EXTRA)))	(tap-dance 200 (XX (layer-switch U_TAP)))	XX
+f11	f4	f5	f6	slck	XX	sft	ctl	alt	met
+f10	f1	f2	f3	pause	XX	(tap-dance 200 (XX (layer-switch U_FUN)))	(tap-dance 200 (XX (layer-switch U_MEDIA)))	ralt	XX
+		comp	spc	tab	XX	XX	XX
+)
