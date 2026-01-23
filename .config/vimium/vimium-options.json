@@ -1,0 +1,72 @@
+{
+  "keyMappings": "# Insert your preferred key mappings here.\nunmap j\nunmap k\nunmap h\nunmap l\nunmap t\nunmap p\nunmap m\nunmap o\nunmap P\nunmap y\nunmap /\nunmap v\nunmap n\nunmap N\nunmap H\nunmap L\nunmap O\nmap <c-d> scrollPageDown\nmap <c-u> scrollPageUp\nmap N goBack\nmap O goForward\nunmap d\nunmap u\nunmap r\nunmap R\nunmap x\nunmap gf\nunmap gs",
+  "scrollStepSize": 120,
+  "searchEngines": "gh: https://github.com/search?q=%s GitHub\n\n# More examples.\n#\n# (Vimium supports search completion Wikipedia, as\n# above, and for these.)\n#\n# g: https://www.google.com/search?q=%s Google\n# l: https://www.google.com/search?q=%s&btnI I'm feeling lucky...\n# y: https://www.youtube.com/results?search_query=%s Youtube\n# gm: https://www.google.com/maps?q=%s Google maps\n# b: https://www.bing.com/search?q=%s Bing\n# d: https://duckduckgo.com/?q=%s DuckDuckGo\n# az: https://www.amazon.com/s/?field-keywords=%s Amazon\n# qw: https://www.qwant.com/?q=%s Qwant",
+  "settingsVersion": "2.3.1",
+  "exclusionRules": [
+    {
+      "passKeys": "",
+      "pattern": "https://excalidraw.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://coderbyte.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://app.codesignal.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://interview.google.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://jamboard.google.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://www.hackerrank.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://learn.datadoghq.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://lab-host-15778-ekwxxyw4gqwl.env.play.instruqt.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://lab-host-15778-juek70gkihq8.env.play.instruqt.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://app.coderpad.io/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://www.lintcode.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://www.duolingo.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://vim-adventures.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://leetcode.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://app.coderpad.io/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://bashu.github.io/*"
+    }
+  ]
+}
