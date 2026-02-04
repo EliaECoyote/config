@@ -20,10 +20,7 @@ if command -v brew >/dev/null 2>&1; then
   # Load brew env
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
-  if test -r "$HOMEBREW_PREFIX/etc/profile.d/autojump.sh"; then
-    # shellcheck source=/opt/homebrew/etc/profile.d/autojump.sh
-    source "$HOMEBREW_PREFIX/etc/profile.d/autojump.sh"
-  fi
+  eval "$(zoxide init bash)"
 
 fi
 
