@@ -15,10 +15,10 @@
 
 ;; Source: 36-key layout
 (defsrc
-  1    2 3 4 5   7 8 9 0 -
-  q    w e r t   u i o p [
-  caps a s d f   j k l ; '
-         c v b   n m .
+  1 2 3 4 5   7 8 9 0 -
+  q w e r t   u i o p [
+  a s d f g   j k l ; '
+      c v b   n m .
 )
 
 ;; Base Layer - Colemak Mod-DH with home row mods
@@ -56,8 +56,8 @@ XX	ralt	(tap-dance 200 (XX (layer-switch U_NUM)))	(tap-dance 200 (XX (layer-swit
 ;; Mouse Layer
 (deflayer U_MOUSE
 XX	(tap-dance 200 (XX (layer-switch U_TAP)))	(tap-dance 200 (XX (layer-switch U_EXTRA)))	(tap-dance 200 (XX (layer-switch U_BASE)))	XX	M-S-z	M-v	M-c	M-x	M-z
-met	alt	ctl	sft	XX	XX	(movemouse-left 5 1)	(movemouse-down 5 1)	(movemouse-up 5 1)	(movemouse-right 5 1)
-XX	ralt	(tap-dance 200 (XX (layer-switch U_SYM)))	(tap-dance 200 (XX (layer-switch U_MOUSE)))	XX	XX	XX	XX	XX	XX
+met	alt	ctl	sft	XX	XX	(movemouse-left 1 3)	(movemouse-down 1 3)	(movemouse-up 1 3)	(movemouse-right 1 3)
+XX	ralt	(tap-dance 200 (XX (layer-switch U_SYM)))	(tap-dance 200 (XX (layer-switch U_MOUSE)))	XX	XX	(mwheel-left 60 1)	(mwheel-up 60 1)	(mwheel-down 60 1)	(mwheel-right 60 1)
 		XX	XX	XX	mrgt	mlft	mmid
 )
 
