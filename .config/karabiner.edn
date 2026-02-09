@@ -2,35 +2,18 @@
 ; See example at https://gist.github.com/gsinclair/f4ab34da53034374eb6164698a0a8ace
 ; Run `gokuw` to regenerate karabiner.json config automatically.
 {
-  ; :profiles {:Default {:default true
-  ;     ;; simultaneous key press threshold
-  ;     ;; simlayer is implemented with to_if_alone and simultaneous key press feature
-  ;     :sim     250
-  ;     ;; to_delayed_action_delay_milliseconds
-  ;     ;; checkout karabiner's documentation
-  ;     ;; https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/to-delayed-action/
-  ;     ;; basically it means time after which the key press is count delayed
-  ;     :delay   500
-  ;     ;; https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/to-if-alone/
-  ;     ;; to_if_alone_timeout_milliseconds
-  ;     ;; affects to_if_alone behavior
-  ;     ;; simlayer is implemented with to_if_alone and simultaneous key press feature
-  ;     :alone   1000
-  ;     ;; to_if_held_down_threshold_milliseconds
-  ;     ;; check the doc, I don't know what does this mean.
-  ;     ;; maybe press this many milliseconds counts a "held" ?
-  ;     :sim    2000
-  ; }}
+  :profiles {:Default {
+     :default true
+     :sim 50    ;; Simultaneous threshold (ms)
+     :delay 210 ;; Delayed action delay (match with :held)
+     :held 210  ;; Hold-down threshold
+     :alone 209 ;; Must be exactly 1ms less than :held to avoid stuck layers 
+  }}
 
   :devices {
     :builtin-keyboard [{:product_id 834 :vendor_id 1452}]
     :epomaker-SK61 [{:product_id 2311 :vendor_id 7847}]
     :keychron [{:product_id 13364 :vendor_id 3379}]
-  }
-
-  :simlayers {
-    :f-layer {:key :f :builtin-keyboard :epomaker-SK61}
-    :s-layer {:key :s :builtin-keyboard :epomaker-SK61}
   }
 
   :main [
@@ -44,7 +27,6 @@
          [:!Tright_arrow     :!Oright_arrow]
          [:!Tup_arrow        :!Oup_arrow]
          [:!Tdown_arrow      :!Odown_arrow]
-         [:!Topen_bracket    :escape]
       ]}
 
      {:des "Swap Alt and Command"
@@ -58,8 +40,6 @@
      {:des "[builtin-keyboard] defaults"
       :rules [[:condi :builtin-keyboard :epomaker-SK61]
          [:##caps_lock       :left_control]
-         [:##escape          :grave_accent_and_tilde]
-         [:##left_control    :fn]
       ]}
 
      {:des "[builtin-keyboard] fn+number → f keys"
@@ -90,40 +70,6 @@
          [:f12        :volume_increment]
       ]}
 
-     {:des "[builtin-keyboard] f-layer"
-      :rules [:f-layer
-        [:j                        :left_arrow]
-        [:k                        :down_arrow]
-        [:l                        :up_arrow]
-        [:semicolon                :right_arrow]
-        [:##i                      :!Oleft_arrow]
-        [:##o                      :!Oright_arrow]
-        [:##spacebar               :!Odelete_or_backspace]
-        [:grave_accent_and_tilde   :escape]
-        [:1                        :f1]
-        [:2                        :f2]
-        [:3                        :f3]
-        [:4                        :f4]
-        [:5                        :f5]
-        [:6                        :f6]
-        [:7                        :f7]
-        [:8                        :f8]
-        [:9                        :f9]
-        [:0                        :f10]
-        [:hyphen                   :f11]
-        [:equal_sign               :f12]
-      ]}
-
-     {:des "[builtin-keyboard] s-layer"
-      :rules [:s-layer
-        [:##i           :!SOleft_arrow]
-        [:##o           :!SOright_arrow]
-        [:##j           :!Sleft_arrow]
-        [:##k           :!Sdown_arrow]
-        [:##l           :!Sup_arrow]
-        [:##semicolon   :!Sright_arrow]
-      ]}
-
      {:des "[builtin-keyboard] colemak DH"
       :rules [[:condi :builtin-keyboard :epomaker-SK61]
         [:##e           :f]
@@ -133,7 +79,8 @@
         [:##u           :l]
         [:##i           :u]
         [:##o           :y]
-        [:##p           :semicolon]
+        [:##quote       :semicolon]
+        [:##p           :quote]
         [:##semicolon   :o]
         [:##s           :r]
         [:##d           :s]
