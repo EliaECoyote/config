@@ -23,7 +23,7 @@ BINARIES_STANDARD=(
   "bat"
   "tldr"
   "k9s"
-  "autojump"
+  "zoxide"
   "poppler"
 )
 
