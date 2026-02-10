@@ -11,7 +11,7 @@
   }}
 
   :devices {
-    :builtin-keyboard [{:product_id 834 :vendor_id 1452}]
+    :builtin-keyboard [{:is_built_in_keyboard true}]
     :epomaker-SK61 [{:product_id 2311 :vendor_id 7847}]
     :keychron [{:product_id 13364 :vendor_id 3379}]
   }

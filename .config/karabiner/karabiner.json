@@ -187,8 +187,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -211,8 +210,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -232,8 +230,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -253,8 +250,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -274,8 +270,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -295,8 +290,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -316,8 +310,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -337,8 +330,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -358,8 +350,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -379,8 +370,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -400,8 +390,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -421,8 +410,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -439,8 +427,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -457,8 +444,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -475,8 +461,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -493,8 +478,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -511,8 +495,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -529,8 +512,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -547,8 +529,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -565,8 +546,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -583,8 +563,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -607,8 +586,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -628,8 +606,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -649,8 +626,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -670,8 +646,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -691,8 +666,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -712,8 +686,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -733,8 +706,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -754,8 +726,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -775,8 +746,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -796,8 +766,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -817,8 +786,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -838,8 +806,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -859,8 +826,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -880,8 +846,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -901,8 +866,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -922,8 +886,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -943,8 +906,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -964,8 +926,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -985,8 +946,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -1006,8 +966,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -1027,8 +986,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -1048,8 +1006,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
@@ -1069,8 +1026,7 @@
               "product_id" : 2311,
               "vendor_id" : 7847
             }, {
-              "product_id" : 834,
-              "vendor_id" : 1452
+              "is_built_in_keyboard" : true
             } ],
             "type" : "device_if"
           } ],
