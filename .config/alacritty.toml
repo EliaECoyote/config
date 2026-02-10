@@ -82,7 +82,7 @@ size = 17.0
 family = "FiraMono Nerd Font Mono"
 
 [font.italic]
-family = "Iosevka NFM"
+family = "IosevkaTerm Nerd Font Mono"
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -1014,9 +1014,9 @@ mods = "Alt|Shift"
 [mouse]
 hide_when_typing = true
 
-[shell]
+[terminal.shell]
 args = ["--login"]
-program = "/bin/bash"
+program = "/opt/homebrew/opt/bash/bin/bash"
 
 [window]
 dynamic_title = false
@@ -1027,3 +1027,5 @@ title = ""
 [window.padding]
 x = 5
 y = 5
+
+[terminal]
