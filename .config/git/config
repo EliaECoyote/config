@@ -1,6 +1,7 @@
 [user]
 	email = 25326494+EliaECoyote@users.noreply.github.com
 	name = EliaECoyote
+	signingkey = /Users/elia.camposilvan/.ssh/id_rsa.pub
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 	insteadOf = git://github.com/
