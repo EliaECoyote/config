@@ -48,6 +48,7 @@ BREW_CASKS=(
   "raycast"
   "vlc"
   "librewolf"
+  "syncthing"
 )
 
 detect_package_manager() {
