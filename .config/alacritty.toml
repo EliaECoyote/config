@@ -82,7 +82,7 @@ size = 17.0
 family = "FiraMono Nerd Font Mono"
 
 [font.italic]
-family = "IosevkaTerm Nerd Font Mono"
+family = "IosevkaTerm NFM"
 
 [[keyboard.bindings]]
 action = "Paste"
