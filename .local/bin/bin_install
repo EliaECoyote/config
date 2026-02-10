@@ -47,6 +47,7 @@ BREW_CASKS=(
   "karabiner-elements"
   "raycast"
   "vlc"
+  "librewolf"
 )
 
 detect_package_manager() {
