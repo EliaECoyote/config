@@ -51,6 +51,7 @@
 [merge]
 	tool = fugitive
 	conflictStyle = zdiff3
+	gpgsign = true
 [diff]
 	algorithm = histogram
 [mergetool "fugitive"]
