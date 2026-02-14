@@ -25,6 +25,7 @@ BINARIES_STANDARD=(
   "k9s"
   "zoxide"
   "poppler"
+  "bash-completion@2"
 )
 
 # Binaries with package manager-specific names
