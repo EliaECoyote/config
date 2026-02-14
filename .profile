@@ -18,9 +18,14 @@ export HISTSIZE=1500
 export HISTFILESIZE=3000
 
 export HOMEBREW_PREFIX="/opt/homebrew"
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+export HOMEBREW_REPOSITORY="/opt/homebrew"
 
 # Add homebrew binaries to the path.
-export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$PATH"
+export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin${PATH+:$PATH}"
+
+export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}:"
+export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
 
 # Force certain more-secure behaviours from homebrew
 export HOMEBREW_NO_INSECURE_REDIRECT=1

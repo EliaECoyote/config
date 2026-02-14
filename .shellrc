@@ -9,26 +9,17 @@
 # Load env variables {{{
 
 if test -r "$HOME/.env"; then
-  export $(cat "$HOME/.env" | xargs)
+  set -a
+  source "$HOME/.env"
+  set +a
 fi
 
 # }}}
 
-# Brew {{{
+# Binaries setup {{{
 
-if command -v brew >/dev/null 2>&1; then
-  # Load brew env
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-
-  eval "$(zoxide init bash)"
-
-fi
-
-# }}}
-
-# Setup fzf {{{
-
-eval "$(fzf --bash)"
+eval "$(zoxide init bash)"
+source "$HOME/.config/fzf.bash"
 
 # }}}
 
@@ -50,8 +41,6 @@ alias ....="cd ../../.."
 # }}}
 
 # Git utils {{{
-
-alias g="git"
 
 # Alias to handle `config` bare repo more easily
 alias config="/usr/bin/git --git-dir=$HOME/.config.git/ --work-tree=$HOME"
