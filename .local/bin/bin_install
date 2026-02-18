@@ -26,6 +26,7 @@ BINARIES_STANDARD=(
   "zoxide"
   "poppler"
   "bash-completion@2"
+  "lua-language-server"
 )
 
 # Binaries with package manager-specific names
