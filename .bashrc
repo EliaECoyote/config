@@ -12,14 +12,12 @@ shopt -s histappend
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 prompt_color() {
-  echo "\[\033[${1}m\]"
+  printf '\[\e[%sm\]' "$1"
 }
 
-BLACK="0;30"
 RED="0;31"
 BLUE="0;34"
+RESET="0"
 
-CWD="\w"
-
-PS1="$(prompt_color $RED) $CWD $(prompt_color $BLACK)\$ \n $(prompt_color $BLUE)⇢ $(prompt_color $BLACK)"
+PS1="$(prompt_color $RED) \w\n $(prompt_color $BLUE)⇢ \$ $(prompt_color $RESET)"
 export PS1
