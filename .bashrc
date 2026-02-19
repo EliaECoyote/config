@@ -1,7 +1,11 @@
 # shellcheck source=/Users/elia.camposilvan/.shellrc
 source "$HOME/.shellrc"
 
-source /opt/homebrew/etc/profile.d/bash_completion.sh
+eval "$(fzf --bash)"
+eval "$(zoxide init bash)"
+
+source "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
+source "$HOMEBREW_PREFIX/etc/bash_completion.d/git-completion.bash"
 
 # cf. https://unix.stackexchange.com/a/1292/360789
 # Avoid bash history duplicates

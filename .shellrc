@@ -16,13 +16,6 @@ fi
 
 # }}}
 
-# Binaries setup {{{
-
-eval "$(zoxide init bash)"
-source "$HOME/.config/fzf.bash"
-
-# }}}
-
 # ls aliases {{{
 
 alias ll="ls -alFG"
