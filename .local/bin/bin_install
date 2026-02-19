@@ -23,7 +23,6 @@ BINARIES_STANDARD=(
   "bat"
   "tldr"
   "k9s"
-  "zoxide"
   "poppler"
   "bash-completion@2"
   "lua-language-server"

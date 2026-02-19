@@ -2,8 +2,6 @@
 source "$HOME/.shellrc"
 
 eval "$(fzf --bash)"
-eval "$(zoxide init bash)"
-
 source "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 source "$HOMEBREW_PREFIX/etc/bash_completion.d/git-completion.bash"
 
