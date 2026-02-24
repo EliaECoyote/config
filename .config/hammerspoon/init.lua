@@ -1,5 +1,7 @@
 local hs = hs
+local spoon = spoon
 
+-- App switchers
 local function app(name)
   return function() hs.application.launchOrFocus(name) end
 end
@@ -29,20 +31,32 @@ local function jump(browserName, url)
 end
 
 
-hs.hotkey.bind({ "ctrl", "cmd" }, "A", app("Alacritty"))
-hs.hotkey.bind({ "ctrl", "cmd" }, "D", app("Google Chrome"))
-hs.hotkey.bind({ "ctrl", "cmd" }, "I", app("IntelliJ IDEA Community Edition"))
-hs.hotkey.bind({ "ctrl", "cmd" }, "M", app("Anki"))
+hs.hotkey.bind({"ctrl", "cmd"}, "A", app("Alacritty"))
+hs.hotkey.bind({"ctrl", "cmd"}, "D", app("Google Chrome"))
+hs.hotkey.bind({"ctrl", "cmd"}, "I", app("IntelliJ IDEA Community Edition"))
+hs.hotkey.bind({"ctrl", "cmd"}, "M", app("Anki"))
 hs.hotkey.bind(
-  { "ctrl", "cmd" },
+  {"ctrl", "cmd"},
   "C",
   jump("Google Chrome", "https://chatgpt.com/")
 )
 hs.hotkey.bind(
-  { "ctrl", "cmd" },
+  {"ctrl", "cmd"},
   "S",
   jump("Google Chrome", "https://app.slack.com/")
 )
+
+
+-- Window management (MiroWindowsManager)
+hs.window.animationDuration = 0
+hs.loadSpoon("MiroWindowsManager")
+spoon.MiroWindowsManager.sizes = { 2, 3, 3 / 2 }
+spoon.MiroWindowsManager.fullScreenSizes = { 1, 4 / 3, 2 }
+spoon.MiroWindowsManager:bindHotkeys({
+  fullscreen = { { "ctrl", "alt", "cmd" }, "up" },
+  right = { { "ctrl", "alt", "cmd" }, "right" },
+  left = { { "ctrl", "alt", "cmd" }, "left" },
+})
 
 
 hs.alert.show("Hammerspoon config loaded")
