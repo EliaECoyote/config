@@ -9,8 +9,12 @@
 	ff = only
 [core]
 	editor = nvim
-	# Enables the monitor daemon, which can speed up git commands that refresh the index such as git status
-	fsmonitor = false
+	# Enables the monitor daemon, which can speed up git commands that refresh the index such as git status.
+	fsmonitor = true
+[index]
+	# This defaults to true, but needs to be explicitly set to true to enable index.recordEndOfIndexEntries
+	# and index.recordOffsetTable, which improves index reading performance.
+	threads = true
 [alias]
 	s = status
 	d = diff
