@@ -1,5 +1,4 @@
 local hs = hs
-local spoon = spoon
 
 -- App switchers
 local function app(name)
@@ -50,12 +49,13 @@ hs.hotkey.bind(
 -- Window management (MiroWindowsManager)
 hs.window.animationDuration = 0
 hs.loadSpoon("MiroWindowsManager")
+local spoon = spoon
 spoon.MiroWindowsManager.sizes = { 2, 3, 3 / 2 }
 spoon.MiroWindowsManager.fullScreenSizes = { 1, 4 / 3, 2 }
 spoon.MiroWindowsManager:bindHotkeys({
-  fullscreen = { { "ctrl", "alt", "cmd" }, "up" },
-  right = { { "ctrl", "alt", "cmd" }, "right" },
-  left = { { "ctrl", "alt", "cmd" }, "left" },
+  fullscreen = {{"ctrl", "cmd"}, "up"},
+  right = {{"ctrl", "cmd"}, "right"},
+  left = {{"ctrl", "cmd"}, "left"},
 })
 
 
