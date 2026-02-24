@@ -2,10 +2,6 @@
 
 # vim: set fdm=marker:
 
-# ----------------------------
-# Shared shells configuration
-# ----------------------------
-
 # Load env variables {{{
 
 if test -r "$HOME/.env"; then
@@ -35,13 +31,10 @@ alias ....="cd ../../.."
 
 # App aliases {{{
 
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias v="nvim"
 alias k="kubectl"
-alias lazyconfig="lazygit --git-dir=$HOME/.config.git/ --work-tree=$HOME"
 alias cat="bat --paging=never"
 alias bathelp='bat --plain --language=help'
-alias sf="~/dev/superflash/venv/bin/python3 ~/dev/superflash/src/main.py"
 alias ka="sudo kanata -c ~/.config/kanata/kanata.kbd"
 alias g="git"
 # Alias to handle `config` bare repo more easily
