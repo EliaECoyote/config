@@ -1087,7 +1087,6 @@
                         "is_keyboard": true,
                         "vendor_id": 65251
                     },
-                    "ignore": true,
                     "manipulate_caps_lock_led": false
                 },
                 {
