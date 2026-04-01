@@ -37,7 +37,7 @@ hs.hotkey.bind({"ctrl", "cmd"}, "M", app("Anki"))
 hs.hotkey.bind(
   {"ctrl", "cmd"},
   "C",
-  jump("Google Chrome", "https://chatgpt.com/")
+  jump("Google Chrome", "https://claude.ai")
 )
 hs.hotkey.bind(
   {"ctrl", "cmd"},
