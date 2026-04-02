@@ -1011,6 +1011,11 @@ chars = "\u001B|"
 key = "Backslash"
 mods = "Alt|Shift"
 
+[[keyboard.bindings]]
+chars = "\u0015"
+key = "Back"
+mods = "Command"
+
 [mouse]
 hide_when_typing = true
 
