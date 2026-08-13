@@ -2,3 +2,4 @@
 .claude/
 .env
 .DS_Store
+.pi-subagents/
