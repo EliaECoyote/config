@@ -13,6 +13,7 @@
   :devices {
     :builtin-keyboard [{:is_built_in_keyboard true}]
     :epomaker-SK61 [{:product_id 2311 :vendor_id 7847}]
+    :cheapino   [{:product_id 0 :vendor_id 65251}]
     :keychron [{:product_id 13364 :vendor_id 3379}]
   }
 
@@ -35,6 +36,11 @@
          [:left_command    :left_option]
          [:right_option    :right_command]
          [:right_command   :right_option]
+      ]}
+
+     {:des "[cheapino] swallow cmd+y"
+      :rules [:cheapino
+         [:!Cy :vk_none]
       ]}
 
      {:des "[builtin-keyboard] defaults"
