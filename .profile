@@ -17,6 +17,7 @@ PATH="$HOME/.emacs.d/bin:$PATH"
 export HISTSIZE=1500
 export HISTFILESIZE=3000
 
+if [ -d /opt/homebrew ]; then
 export HOMEBREW_PREFIX="/opt/homebrew"
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
 export HOMEBREW_REPOSITORY="/opt/homebrew"
@@ -48,6 +49,7 @@ export PATH="$HOMEBREW_PREFIX/opt/gnu-getopt/bin:$PATH"
 export MANPATH="$HOMEBREW_PREFIX/opt/gnu-getopt/share/man:$MANPATH"
 export PATH="$HOMEBREW_PREFIX/opt/gnutls/bin:$PATH"
 export MANPATH="$HOMEBREW_PREFIX/opt/gnutls/share/man:$MANPATH"
+fi
 
 # Export non-system libraries and executables
 export PATH="/usr/local/bin:$PATH"

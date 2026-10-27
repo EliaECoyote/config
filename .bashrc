@@ -2,8 +2,10 @@
 source "$HOME/.shellrc"
 
 eval "$(fzf --bash)"
-source "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
-source "$HOMEBREW_PREFIX/etc/bash_completion.d/git-completion.bash"
+# HOMEBREW_PREFIX is unset on Linux, so this loads /etc/profile.d/bash_completion.sh there.
+if [ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]; then
+  source "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
+fi
 
 # cf. https://unix.stackexchange.com/a/1292/360789
 # Avoid bash history duplicates

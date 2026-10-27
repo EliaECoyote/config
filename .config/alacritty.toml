@@ -595,8 +595,8 @@ mods = "Control"
 
 [[keyboard.bindings]]
 action = "ToggleFullscreen"
-key = "Return"
-mods = "Alt"
+key = "F"
+mods = "Command|Control"
 
 [[keyboard.bindings]]
 chars = "\f"
@@ -685,11 +685,6 @@ mods = "Command"
 action = "SpawnNewInstance"
 key = "N"
 mods = "Command"
-
-[[keyboard.bindings]]
-action = "ToggleFullscreen"
-key = "F"
-mods = "Command|Control"
 
 [[keyboard.bindings]]
 action = "SearchForward"
