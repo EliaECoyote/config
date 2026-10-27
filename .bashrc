@@ -12,10 +12,10 @@ fi
 
 # ls aliases {{{
 
-alias ll="ls -alFG"
-alias ls="ls -G"
-alias la="ls -AG"
-alias l="ls -CFG"
+alias ll="ls -alF"
+alias ls="ls --color=auto"
+alias la="ls -A"
+alias l="ls -CF"
 
 # }}}
 
