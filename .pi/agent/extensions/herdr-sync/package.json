@@ -1,0 +1,33 @@
+{
+  "name": "pi-herdr-sync",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Rename the Herdr agent to keep it in sync with the Pi session name. The Pi session name is authoritative.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "keywords": [
+    "pi-package",
+    "datadog-pi-package",
+    "pi-extension",
+    "herdr-sync"
+  ],
+  "scripts": {
+    "test": "tsx test.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "check": "npm run typecheck && npm test"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0"
+  }
+}
